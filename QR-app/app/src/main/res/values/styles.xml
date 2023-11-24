@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionBarStyle">@style/NoActionBar</item>
+    </style>
+
+
+    <style name="EditScreenTextInputLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/textInputLayout</item>
+        <item name="colorControlActivated">@color/textInputLayout</item>
+        <item name="colorControlHighlight">@color/textInputLayout</item>
+        <item name="colorAccent">@color/textInputLayout</item>
+        <item name="android:textColorHint">@color/textInputLayout</item>
+    </style>
+
+
+    <style name="NoActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:displayOptions">showHome</item>
+        <item name="android:titleTextStyle">@style/NoTitleText</item>
+    </style>
+
+    <style name="NoTitleText">
+        <item name="android:textSize">0sp</item> <!-- 设置文字大小为0sp，相当于隐藏文字 -->
+    </style>
+</resources>
