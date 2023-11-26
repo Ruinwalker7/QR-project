@@ -1,14 +1,17 @@
 package com.example.myapplication
 
+import android.R.attr.value
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import android.view.View.OnFocusChangeListener
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.utils.Login
 
 
 class LoginActivity : AppCompatActivity() {
@@ -17,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     var count = 0
     var phont_et:EditText? = null
     var password_et:EditText? =null
+
+
     @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
+        supportActionBar!!.hide()
 
         setContentView(R.layout.login_main)
         imageView = findViewById(R.id.imageView)
@@ -81,54 +86,22 @@ class LoginActivity : AppCompatActivity() {
                 password_et?.hint="密码"
             }
         }
-//
-//    var onFocusChangeListener:OnFocusChangeListener? = OnFocusChangeListener(){
-//
-//    }
-//
-//    private fun OnFocusChangeListener(function: () -> Unit): View.OnFocusChangeListener {
-//
-//    }
-//
-//
-//    /**
-//     * 下面的OnFocusChangeListener的作用主要是
-//     * 点击EditText时获取焦点并隐藏hint值
-//     * */
-//    fun onFocusChangeListener()
-//    onFocusChangeListener
-//    private OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
-//
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            // TODO Auto-generated method stub
-//
-//            switch (v.getId()) {
-//                case R.id.phonenum_et:
-//                setHintEt(phonenum_et,hasFocus);
-//
-//                break;
-//                case R.id.putems_et:
-//                setHintEt(putems_et,hasFocus);
-//                break;
-//                case R.id.pwd_et:
-//                setHintEt(pwd_et, hasFocus);
-//                break;
-//                default:
-//                break;
-//            }
-//        }
-//    };
-//    private void setHintEt(EditText et,boolean hasFocus){
-//        String hint;
-//        if(hasFocus){
-//            hint = et.getHint().toString();
-//            et.setTag(hint);
-//            et.setHint("");
-//        }else{
-//            hint = et.getTag().toString();
-//            et.setHint(hint);
-//        }
-//    }
-//}
-}}
+
+        var login_bte = findViewById<Button>(R.id.login_btn)
+        login_bte.setOnClickListener{
+            if(Login().login()){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+
+        findViewById<Button>(R.id.signup_btn).setOnClickListener{
+            if(Login().login()){
+                val intent = Intent(this, SignupActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+}

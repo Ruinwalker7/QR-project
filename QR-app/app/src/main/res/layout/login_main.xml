@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                 android:fontFamily="@font/gotham"
                 android:text="Good "
                 android:textColor="#ffffff"
-                android:textSize="32sp" />
+                android:textSize="34sp" />
 
         </LinearLayout>
 
@@ -56,7 +56,7 @@
                 android:fontFamily="@font/gotham"
                 android:text="Morning"
                 android:textColor="#ffffff"
-                android:textSize="32sp" />
+                android:textSize="34sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
         android:gravity="center"
         android:text="We pursue a relaxed gaming experience"
         android:textColor="#9affffff"
-        android:textSize="10sp"
+        android:textSize="14sp"
         tools:ignore="SmallSp" />
 
 
@@ -97,7 +97,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#96ffffff"
+            android:textColorHint="#B6ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
 
             <EditText
@@ -111,7 +111,7 @@
                 android:inputType="textPhonetic"
                 android:maxLines="1"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
             />
@@ -120,20 +120,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#96ffffff"
+            android:textColorHint="#B6ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
 
             <EditText
                 android:id="@+id/pwd_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawablePadding="16dp"
+                android:drawablePadding="20dp"
                 android:drawableEnd="@drawable/ic_lock_white_24dp"
                 android:fontFamily="@font/calibri"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="22sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -145,26 +145,28 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/signup_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/buttonshapewhitebg"
                 android:fontFamily="@font/calibri"
-                android:text="Sign up"
+                android:text="注册"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textColor="#96ffffff"
+                android:textColor="#B6ffffff"
                 android:textSize="16sp" />
 
             <Button
+                android:id="@+id/login_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/buttonshapewhitebg"
                 android:fontFamily="@font/calibri"
-                android:text="Sign in"
+                android:text="登录"
                 android:textAllCaps="false"
-                android:textColor="#96ffffff"
+                android:textColor="#B6ffffff"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -177,10 +179,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/calibri"
-            android:text="Forgot Password?"
+            android:text="忘记密码？"
             android:textAlignment="center"
-            android:textColor="#96ffffff"
-            android:textSize="16sp" />
+            android:textColor="#f0ffffff"
+            android:textSize="18sp" />
 
 
     </LinearLayout>

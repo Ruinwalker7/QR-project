@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.CaptureActivity
+import com.example.myapplication.SignupActivity
 import com.example.myapplication.databinding.FragmentDashboardBinding
+import com.google.zxing.integration.android.IntentIntegrator
+
+
+
 
 class DashboardFragment : Fragment() {
 
@@ -34,6 +41,7 @@ class DashboardFragment : Fragment() {
         }
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

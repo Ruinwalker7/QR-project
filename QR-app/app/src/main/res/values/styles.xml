@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/NoActionBar</item>
     </style>
 
@@ -22,4 +22,6 @@
     <style name="NoTitleText">
         <item name="android:textSize">0sp</item> <!-- 设置文字大小为0sp，相当于隐藏文字 -->
     </style>
+
+
 </resources>
