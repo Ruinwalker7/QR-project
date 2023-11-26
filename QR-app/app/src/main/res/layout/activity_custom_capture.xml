@@ -8,13 +8,25 @@
     android:orientation="vertical"
     android:id="@+id/capture">
 
+
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/dbv_custom"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        app:zxing_preview_scaling_strategy="fitXY" />
+        android:layout_height="match_parent"
+        app:zxing_preview_scaling_strategy="fitXY" >
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-650dp"
+        android:fontFamily="@font/calibri"
+        android:gravity="center"
+        android:text="扫一扫"
+        android:textColor="#faffffff"
+        android:textSize="28sp"/>
+
 
 </LinearLayout>

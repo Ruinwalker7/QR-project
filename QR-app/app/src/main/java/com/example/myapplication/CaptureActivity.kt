@@ -4,21 +4,25 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
+
 
 
 class CaptureActivity: AppCompatActivity() {
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var capture: CaptureManager
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_capture)
         barcodeScannerView = findViewById<View>(R.id.dbv_custom) as DecoratedBarcodeView
+        barcodeScannerView.setStatusText("请对准需要识别的二维码！")
         capture = CaptureManager(this, barcodeScannerView)
         capture.initializeFromIntent(intent, savedInstanceState)
         capture.decode()
+        supportActionBar!!.hide()
     }
 
     override fun onResume() {
