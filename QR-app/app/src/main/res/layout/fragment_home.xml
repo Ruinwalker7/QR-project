@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <android.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="318dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:iconifiedByDefault="false"
+        android:background="@drawable/bg_searchview"
+        android:queryBackground="@null"
+        android:queryHint="请输入搜索内容"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"

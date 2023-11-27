@@ -11,4 +11,6 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="textInputLayout">#96ffffff</color>
+    <color name="background_menu">#E1E1E1</color>
+
 </resources>
