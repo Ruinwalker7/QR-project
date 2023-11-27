@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:id="@+id/capture">
+    android:id="@+id/QR_scan_capture">
 
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView

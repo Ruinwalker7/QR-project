@@ -11,17 +11,11 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-    <activity
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.myapplication.CaptureActivity"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/activity_custom_capture"/>
-
-<!--    <fragment-->
+<!--    <activity-->
 <!--        android:id="@+id/navigation_dashboard"-->
-<!--        android:name="com.example.myapplication.ui.dashboard.DashboardFragment"-->
 <!--        android:label="@string/title_dashboard"-->
-<!--        tools:layout="@layout/fragment_dashboard" />-->
+<!--        tools:layout="@layout/activity_custom_capture"/>-->
+<!--&lt;!&ndash;    android:name="com.example.myapplication.CaptureActivity"&ndash;&gt;-->
 
     <fragment
         android:id="@+id/navigation_notifications"

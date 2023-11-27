@@ -3,22 +3,27 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.ui.home.HomeFragment
+import com.example.myapplication.ui.notifications.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.zxing.integration.android.IntentIntegrator
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var doubleBackToExitPressedOnce = false
-    private lateinit  var navController: NavController
+    private val homeFragment = HomeFragment()
+    private val authFragment = NotificationsFragment()
+    private val FragmentList = arrayListOf(homeFragment, authFragment)
+    private lateinit var viewPager:ViewPager2
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,27 +35,33 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         navView.selectedItemId = R.id.navigation_home
 
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        viewPager=findViewById(R.id.view_pager)
+        viewPager.adapter = object : FragmentStateAdapter(this){
+            override fun getItemCount() =  FragmentList.size
+            override fun createFragment(position: Int)= FragmentList[position]
+        }
 
-//        navView.setOnNavigationItemSelectedListener { navView.OnN }
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.capture, R.id.navigation_notifications
-            )
-        )
-//
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        // 唤起扫一扫页面
+        navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.QR_scan_capture -> IntentIntegrator(this)
+                    .setCaptureActivity(CaptureActivity::class.java)// 自定义Activity
+                    .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)// 扫码的类型,可选：一维码，二维码，一/二维码
+                    .setPrompt("请对准需要扫描的二维码")// 设置提示语
+                    .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                    .setBeepEnabled(true)// 是否开启声音,扫完码之后会"哔"的一声
+                    .initiateScan();// 初始化扫码
+                R.id.navigation_home -> viewPager.setCurrentItem(0, true)
+                R.id.navigation_notifications -> viewPager.setCurrentItem(1, true)
+            }
+            true
+        }
 
 
     }
 
 
     override fun onBackPressed() {
-        if( navController.backQueue.size>2 ){
-            super.onBackPressed()
-            return
-        }
         if (doubleBackToExitPressedOnce ) {
             super.onBackPressed()
             return
@@ -59,7 +70,20 @@ class MainActivity : AppCompatActivity() {
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show()
 
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000) // 2秒内再次按返回键生效
+        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000) // 2秒内再次按返回键生效
     }
 
+    // 处理扫描二维码的回调函数
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 }
