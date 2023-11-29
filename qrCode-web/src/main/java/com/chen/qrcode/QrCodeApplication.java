@@ -1,5 +1,6 @@
 package com.chen.qrcode;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,14 +11,9 @@ import java.util.Stack;
 
 
 //@SpringBootApplication
-@RestController
-@EnableAutoConfiguration //开启自动配置
+@SpringBootApplication //开启自动配置
+@MapperScan(basePackages = "com.chen.qrcode.dao")
 public class QrCodeApplication {
-
-    @RequestMapping("/")
-    String home(){
-        return "Hello World";
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(QrCodeApplication.class, args);
