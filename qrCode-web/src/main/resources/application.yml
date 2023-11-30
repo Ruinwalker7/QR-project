@@ -1,5 +1,10 @@
 #设置数据源
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
   # 编译时更新
   devtools:
     restart:
