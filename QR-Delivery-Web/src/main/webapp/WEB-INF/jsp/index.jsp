@@ -26,7 +26,7 @@
                 <button style="color: white; ">
                     <!-- 颜色反转，从白色变成灰色 -->
                     <img src="/static/images/首页.png"  style="filter: invert(0);">
-
+                    内容管理
                 </button>
             </div>
 

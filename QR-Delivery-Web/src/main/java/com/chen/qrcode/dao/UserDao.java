@@ -6,4 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserDao extends BaseMapper<UserEntity> {
+//    UserEntity selectByUsername(String username);
+    UserEntity findByUsername(String username);
 }

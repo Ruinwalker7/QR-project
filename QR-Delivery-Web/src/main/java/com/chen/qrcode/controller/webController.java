@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class webController {
+
     @RequestMapping("/")
-    String home(){
-        return "Hello World";
+    public String home(){
+        return "login";
     }
+
 
     @GetMapping("/index")
     public String index(Model model) {
