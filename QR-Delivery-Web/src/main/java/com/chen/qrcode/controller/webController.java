@@ -24,7 +24,7 @@ public class webController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("msg","跟一一哥学习SpringBoot中使用JSP功能!");
+        model.addAttribute("msg","早上好！");
         //要跳转到的页面视图名称
         return "index";
     }

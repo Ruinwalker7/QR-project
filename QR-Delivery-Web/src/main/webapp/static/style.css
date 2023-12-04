@@ -30,7 +30,7 @@ body {
     flex: 1;
     height: 100%;
     overflow-y: auto;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     /* overflow-x: hidden; */
     width: calc(100% - 230);
     box-shadow: inset rgba(003, 122, 255, 0.15) 7px 0 10px -3px;
@@ -58,7 +58,7 @@ body {
     align-items: center;
     justify-content: space-around;
     min-width: 900px;
-    box-shadow: inset rgba(003, 122, 255, 0.15) 7px 0 10px -3px;
+    box-shadow: rgba(10, 10, 10, 0.3) 7px 0 10px 3px;
 }
 
 .leftbar {
