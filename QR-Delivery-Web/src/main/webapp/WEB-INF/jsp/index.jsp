@@ -147,32 +147,32 @@
                 // 创建渲染实例
                 table.render({
                     elem: '#test',
-                    url: '/static/json/2/table/demo1.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+                    url: '/api/man/all', // 此处为静态模拟数据，实际使用时需换成真实接口
                     toolbar: '#toolbarDemo',
                     defaultToolbar: ['filter', 'exports', 'print', {
                         title: '提示',
                         layEvent: 'LAYTABLE_TIPS',
                         icon: 'layui-icon-tips'
                     }],
-                    height: 'full-35', // 最大高度减去其他容器已占有的高度差
+                    height: 'full-170', // 最大高度减去其他容器已占有的高度差
                     css: [ // 重设当前表格样式
-                        '.layui-table-tool-temp{padding-right: 145px;}'
+                        '.layui-table-tool-temp{padding-right: 1000px;}'
                     ].join(''),
                     cellMinWidth: 80,
-                    totalRow: true, // 开启合计行
+                    totalRow: false, // 开启合计行
                     page: true,
                     cols: [[
                         {type: 'checkbox', fixed: 'left'},
-                        {field:'id', fixed: 'left', width:80, title: 'ID', sort: true, totalRowText: '合计：'},
-                        {field:'username', width:80, title: '用户'},
-                        {field:'email', title:'邮箱 <i class="layui-icon layui-icon-tips layui-font-14" lay-event="email-tips" title="该字段开启了编辑功能" style="margin-left: 5px;"></i>', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'text'},
-                        {field:'sex', width:80, title: '性别', sort: true},
-                        {field:'sign', title: '签名', edit: 'textarea', minWidth: 260, expandedWidth: 260, totalRow: '人物：<span class="layui-badge-rim">唐代：{{= d.TOTAL_ROW.era.tang }} </span> <span class="layui-badge-rim">宋代：{{= d.TOTAL_ROW.era.song }}</span> <span class="layui-badge-rim">现代：{{= d.TOTAL_ROW.era.xian }}</span>'},
-                        {field:'experience', width: 100, title: '积分', sort: true, totalRow: '{{= d.TOTAL_NUMS }} 😊'},
-                        {field:'checkin', title:'打卡', width: 100, sort: true, totalRow: '{{= parseInt(d.TOTAL_NUMS) }} 次'},
-                        {field:'ip', title:'IP', width: 120},
-                        {field:'joinTime', title:'加入时间', width: 120},
-                        {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
+                        {field:'id', fixed: 'left', width:120, title: '工号'},
+                        {field:'username', width:120, title: '用户'},
+                        {field:'phone', title:'邮箱 <i class="layui-icon layui-icon-tips layui-font-14" lay-event="email-tips" title="该字段开启了编辑功能" style="margin-left: 5px;"></i>', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'text'},
+                        {field:'createTime', width:300, title: '加入时间', sort: true},
+                        {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 260, expandedWidth: 260, totalRow: '人物：<span class="layui-badge-rim">唐代：{{= d.TOTAL_ROW.era.tang }} </span> <span class="layui-badge-rim">宋代：{{= d.TOTAL_ROW.era.song }}</span> <span class="layui-badge-rim">现代：{{= d.TOTAL_ROW.era.xian }}</span>'},
+                        {field:'workAddress', width: 300, title: '工作地址'},
+                        // {field:'checkin', title:'打卡', width: 100, sort: true, totalRow: '{{= parseInt(d.TOTAL_NUMS) }} 次'},
+                        // {field:'ip', title:'IP', width: 120},
+                        // {field:'joinTime', title:'加入时间', width: 120},
+                        // {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
                     ]],
                     done: function(){
                         var id = this.id;

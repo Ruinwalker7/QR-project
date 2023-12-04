@@ -16,6 +16,11 @@ public class webController {
         return "login";
     }
 
+    @RequestMapping("/login")
+    public String loginWeb(){
+        return "login";
+    }
+
     @RequestMapping("/exit")
     public String exit(HttpSession session){
         session.setAttribute("loggedIn",false);

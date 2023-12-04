@@ -19,10 +19,6 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping("/")
-    String home(){
-        return "Hello user!";
-    }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(HttpSession session, @RequestBody UserEntity requestBody) {
