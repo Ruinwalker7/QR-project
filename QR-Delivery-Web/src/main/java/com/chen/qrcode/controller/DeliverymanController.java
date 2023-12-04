@@ -1,5 +1,6 @@
 package com.chen.qrcode.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dao.DeliverymanDao;
@@ -9,10 +10,9 @@ import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,13 +25,46 @@ public class DeliverymanController {
     @Autowired
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
 
+    @PostMapping("/update")
+    public ResponseEntity<String> update(@RequestBody DeliverymanEntity deliverymanEntity){
+        int rowsAffected = deliverymanDao.updateById(deliverymanEntity);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("更新成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestParam Long id){
+        System.out.println(id);
+        int rowsAffected = deliverymanDao.deleteById(id);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("删除成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("删除失败");
+        }
+    }
+
     @GetMapping("/all")
     public String getAllUsers( @RequestParam(name="page", defaultValue = "1") Integer pagenums,
-                               @RequestParam(defaultValue = "10") Integer limit) {
-        System.out.println(pagenums);
-        System.out.println(limit);
+                               @RequestParam(defaultValue = "10") Integer limit,
+                               @RequestParam(name="ID",required = false) String id,
+                               @RequestParam(name="username",required = false) String username,
+                               @RequestParam(name="ID_card",required = false) String idcard ) {
+        QueryWrapper<DeliverymanEntity> queryWrapper = new QueryWrapper<>();
+        if(id != null){
+            queryWrapper.like("id", id); // 使用like方法进行模糊查询
+        }
+        if(username!=null){
+            queryWrapper.like("username", username); // 使用like方法进行模糊查询
+        }
+        if(idcard!=null){
+            queryWrapper.like("id_card", idcard); // 使用like方法进行模糊查询
+        }
+
         Page<DeliverymanEntity> page = new Page<>(pagenums, limit);
-        IPage<DeliverymanEntity> iPage =  deliverymanDao.selectPage(page, null);
+        IPage<DeliverymanEntity> iPage =  deliverymanDao.selectPage(page, queryWrapper);
         List<DeliverymanEntity> deliverymanEntities = iPage.getRecords();
 
         System.out.println(deliverymanEntities);

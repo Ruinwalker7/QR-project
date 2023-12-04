@@ -55,23 +55,6 @@
             </div>
 
 
-
-
-<%--            <div class="baritem">--%>
-<%--                <button>--%>
-<%--                    <img src="/static/images/留言.png">--%>
-<%--                    留言管理 </button>--%>
-<%--            </div>--%>
-
-<%--            <div class="baritem">--%>
-<%--                <button>--%>
-<%--                    <img src="/static/images/设置.png">--%>
-
-<%--                    设置--%>
-<%--                </button>--%>
-<%--            </div>--%>
-
-
         </div>
     </div>
 
@@ -105,12 +88,44 @@
             </div>
         </div>
 
+        <div class="layui-padding-3">
+            <form class="layui-form layui-row layui-col-space16">
+                <div class="layui-col-md4">
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-username"></i>
+                        </div>
+                        <input type="text" name="ID" value="" placeholder="工号" class="layui-input" lay-affix="clear">
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-username"></i>
+                        </div>
+                        <input type="text" name="username" placeholder="姓名" lay-affix="clear" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-date"></i>
+                        </div>
+                        <input type="text" name="ID_card" placeholder="身份证号" class="layui-input demo-table-search-date">
+                    </div>
+                </div>
+                <div class="layui-btn-container layui-col-xs12">
+                    <button class="layui-btn" lay-submit lay-filter="demo-table-search">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">清除</button>
+                </div>
+            </form>
+
+            <table class="layui-table" lay-skin="line" id="test" lay-filter="test"></table>
+        </div>
         <!--
         本「综合演示」包含：自定义头部工具栏、获取表格数据、表格重载、自定义模板、单双行显示、单元格编辑、自定义底部分页栏、表格相关事件与操作、与其他组件的结合等相对常用的功能，以便快速掌握 table 组件的使用。
         -->
-        <div style="padding: 16px;">
-            <table class="layui-hide" id="test" lay-filter="test"></table>
-        </div>
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
@@ -123,19 +138,16 @@
                     重载测试
                     <i class="layui-icon layui-icon-down layui-font-12"></i>
                 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-primary" id="rowMode">
-                    <span>{{= d.lineStyle ? '多行' : '单行' }}模式</span>
-                    <i class="layui-icon layui-icon-down layui-font-12"></i>
-                </button>
+<%--                <button class="layui-btn layui-btn-sm layui-btn-primary" id="rowMode">--%>
+<%--                    <span>{{= d.lineStyle ? '多行' : '单行' }}模式</span>--%>
+<%--                    <i class="layui-icon layui-icon-down layui-font-12"></i>--%>
+<%--                </button>--%>
             </div>
         </script>
         <script type="text/html" id="barDemo">
             <div class="layui-clear-space">
                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                <a class="layui-btn layui-btn-xs" lay-event="more">
-                    更多
-                    <i class="layui-icon layui-icon-down"></i>
-                </a>
+                <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
             </div>
         </script>
         <script src="//cdn.staticfile.org/layui/2.9.0/layui.js"></script>
@@ -143,18 +155,19 @@
             layui.use(['table', 'dropdown'], function(){
                 var table = layui.table;
                 var dropdown = layui.dropdown;
+                var form = layui.form;
 
                 // 创建渲染实例
                 table.render({
                     elem: '#test',
                     url: '/api/man/all', // 此处为静态模拟数据，实际使用时需换成真实接口
                     toolbar: '#toolbarDemo',
-                    defaultToolbar: ['filter', 'exports', 'print', {
-                        title: '提示',
-                        layEvent: 'LAYTABLE_TIPS',
-                        icon: 'layui-icon-tips'
-                    }],
-                    height: 'full-170', // 最大高度减去其他容器已占有的高度差
+                    // defaultToolbar: ['filter', 'exports', 'print', {
+                    //     title: '提示',
+                    //     // layEvent: 'LAYTABLE_TIPS',
+                    //     icon: 'layui-icon-tips'
+                    // }],
+                    height: '550', // 最大高度减去其他容器已占有的高度差
                     css: [ // 重设当前表格样式
                         '.layui-table-tool-temp{padding-right: 1000px;}'
                     ].join(''),
@@ -165,15 +178,16 @@
                         {type: 'checkbox', fixed: 'left'},
                         {field:'id', fixed: 'left', width:120, title: '工号'},
                         {field:'username', width:120, title: '用户'},
-                        {field:'phone', title:'邮箱 <i class="layui-icon layui-icon-tips layui-font-14" lay-event="email-tips" title="该字段开启了编辑功能" style="margin-left: 5px;"></i>', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'text'},
+                        {field:'phone', title:'电话', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'phone'},
                         {field:'createTime', width:300, title: '加入时间', sort: true},
-                        {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 260, expandedWidth: 260, totalRow: '人物：<span class="layui-badge-rim">唐代：{{= d.TOTAL_ROW.era.tang }} </span> <span class="layui-badge-rim">宋代：{{= d.TOTAL_ROW.era.song }}</span> <span class="layui-badge-rim">现代：{{= d.TOTAL_ROW.era.xian }}</span>'},
-                        {field:'workAddress', width: 300, title: '工作地址'},
+                        {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 260, expandedWidth: 260},
+                        {field:'workAddress', width: 300, title: '工作地址',edit: 'textarea'},
                         // {field:'checkin', title:'打卡', width: 100, sort: true, totalRow: '{{= parseInt(d.TOTAL_NUMS) }} 次'},
                         // {field:'ip', title:'IP', width: 120},
                         // {field:'joinTime', title:'加入时间', width: 120},
-                        // {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
+                        {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
                     ]],
+
                     done: function(){
                         var id = this.id;
                         // 下拉按钮测试
@@ -300,41 +314,42 @@
                         });
 
                         // 行模式
-                        dropdown.render({
-                            elem: '#rowMode',
-                            data: [{
-                                id: 'default-row',
-                                title: '单行模式（默认）'
-                            },{
-                                id: 'multi-row',
-                                title: '多行模式'
-                            }],
-                            // 菜单被点击的事件
-                            click: function(obj){
-                                var checkStatus = table.checkStatus(id)
-                                var data = checkStatus.data; // 获取选中的数据
-                                switch(obj.id){
-                                    case 'default-row':
-                                        table.reload('test', {
-                                            lineStyle: null // 恢复单行
-                                        });
-                                        layer.msg('已设为单行');
-                                        break;
-                                    case 'multi-row':
-                                        table.reload('test', {
-                                            // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
-                                            lineStyle: 'height: 95px;'
-                                        });
-                                        layer.msg('即通过设置 lineStyle 参数可开启多行');
-                                        break;
-                                }
-                            }
-                        });
+                        // dropdown.render({
+                        //     elem: '#rowMode',
+                        //     data: [{
+                        //         id: 'default-row',
+                        //         title: '单行模式（默认）'
+                        //     },{
+                        //         id: 'multi-row',
+                        //         title: '多行模式'
+                        //     }],
+                        //     // 菜单被点击的事件
+                        //     click: function(obj){
+                        //         var checkStatus = table.checkStatus(id)
+                        //         var data = checkStatus.data; // 获取选中的数据
+                        //         switch(obj.id){
+                        //             case 'default-row':
+                        //                 table.reload('test', {
+                        //                     lineStyle: null // 恢复单行
+                        //                 });
+                        //                 layer.msg('已设为单行');
+                        //                 break;
+                        //             case 'multi-row':
+                        //                 table.reload('test', {
+                        //                     // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
+                        //                     lineStyle: 'height: 95px;'
+                        //                 });
+                        //                 layer.msg('即通过设置 lineStyle 参数可开启多行');
+                        //                 break;
+                        //         }
+                        //     }
+                        // });
                     },
                     error: function(res, msg){
                         console.log(res, msg)
                     }
                 });
+
 
                 // 工具栏事件
                 table.on('toolbar(test)', function(obj){
@@ -344,16 +359,20 @@
                     switch(obj.event){
                         case 'getCheckData':
                             var data = checkStatus.data;
-                            layer.alert(layui.util.escape(JSON.stringify(data)));
+                            console.log(data)
+                            if(data.length!=0)
+                                layer.alert(layui.util.escape(JSON.stringify(data)));
+                            else
+                                layer.msg('请选择行', {icon: 0});
                             break;
                         case 'getData':
                             var getData = table.getData(id);
                             console.log(getData);
                             layer.alert(layui.util.escape(JSON.stringify(getData)));
                             break;
-                        case 'LAYTABLE_TIPS':
-                            layer.alert('自定义工具栏图标按钮');
-                            break;
+                        // case 'LAYTABLE_TIPS':
+                        //     layer.alert('自定义工具栏图标按钮');
+                        //     break;
                     };
                 });
                 // 表头自定义元素工具事件 --- 2.8.8+
@@ -378,31 +397,30 @@
                             area: ['80%','80%'],
                             content: '<div style="padding: 16px;">自定义表单元素</div>'
                         });
-                    } else if(obj.event === 'more'){
-                        // 更多 - 下拉菜单
-                        dropdown.render({
-                            elem: this, // 触发事件的 DOM 对象
-                            show: true, // 外部事件触发即显示
-                            data: [{
-                                title: '查看',
-                                id: 'detail'
-                            },{
-                                title: '删除',
-                                id: 'del'
-                            }],
-                            click: function(menudata){
-                                if(menudata.id === 'detail'){
-                                    layer.msg('查看操作，当前行 ID:'+ data.id);
-                                } else if(menudata.id === 'del'){
-                                    layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                                        obj.del(); // 删除对应行（tr）的DOM结构
-                                        layer.close(index);
-                                        // 向服务端发送删除指令
-                                    });
-                                }
-                            },
-                            align: 'right', // 右对齐弹出
-                            style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);' // 设置额外样式
+                    }else if(obj.event === 'delete'){
+                        layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
+                            const url1 = "/api/man/delete?id=" + data.id;
+                            // 使用 Fetch API 发起 DELETE 请求
+                            fetch(url1, {
+                                method: 'DELETE',
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return;
+                                })
+                                .then(data => {
+                                    obj.del(); // 删除对应行（tr）的DOM结构
+                                })
+                                .catch(error => {
+                                    // 请求失败时的处理
+                                    console.error('There has been a problem with your fetch operation:', error);
+                                });
+
+
+                            layer.close(index);
+                            // 向服务端发送删除指令
                         })
                     }
                 });
@@ -419,8 +437,10 @@
 
                 // 行单击事件
                 table.on('row(test)', function(obj){
-                    //console.log(obj);
-                    //layer.closeAll('tips');
+                    obj.setRowChecked({
+                        type: 'checkbox' // radio 单选模式；checkbox 复选模式
+                    });
+
                 });
                 // 行双击事件
                 table.on('rowDouble(test)', function(obj){
@@ -432,6 +452,8 @@
                     var field = obj.field; // 得到字段
                     var value = obj.value; // 得到修改后的值
                     var data = obj.data; // 得到所在行所有键值
+
+
                     // 值的校验
                     if(field === 'email'){
                         if(!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(obj.value)){
@@ -439,19 +461,53 @@
                             return obj.reedit(); // 重新编辑 -- v2.8.0 新增
                         }
                     }
-                    // 编辑后续操作，如提交更新请求，以完成真实的数据更新
-                    // …
-                    layer.msg('编辑成功', {icon: 1});
 
-                    // 其他更新操作
-                    var update = {};
-                    update[field] = value;
-                    obj.update(update);
+                    // 使用 Fetch API 发起 POST 请求
+                    fetch('/api/man/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json', // 设置请求头，告知后端发送的是 JSON 数据
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                layer.msg('编辑失败', {icon: 3});
+                                throw new Error('Network response was not ok');
+                            }
+                            return;
+                        })
+                        .then(data => {
+                            // 请求成功后的操作，根据后端返回的数据进行处理
+                            console.log('Response:', data);
+                            layer.msg('编辑成功', {icon: 1});
+                            // 其他更新操作
+                            var update = {};
+                            update[field] = value;
+                            obj.update(update);
+                        })
+                        .catch(error => {
+                            console.error('There has been a problem with your fetch operation:', error);
+                        });
+                });
+
+                // 搜索提交
+                form.on('submit(demo-table-search)', function(data){
+                    var field = data.field; // 获得表单字段
+                    // 执行搜索重载
+                    table.reload('test', {
+                        page: {
+                            curr: 1 // 重新从第 1 页开始
+                        },
+                        where: field // 搜索的字段
+                    });
+                    // layer.msg('搜索成功<br>此处为静态模拟数据，实际使用时换成真实接口即可');
+                    return false; // 阻止默认 form 跳转
                 });
             });
         </script>
 
-    <%--        <!-- 下面作为一个整体 -->--%>
+        <%--        <!-- 下面作为一个整体 -->--%>
 <%--        <div class="content">--%>
 <%--            <!-- 第二个bar -->--%>
 <%--            <div class="topbar-2nd">--%>

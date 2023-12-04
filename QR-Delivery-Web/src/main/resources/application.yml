@@ -13,7 +13,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qr_code_database
-    password: "20021023"
+    password: "123456"
     username: root
     hikari:
       #设置事务自动提交
