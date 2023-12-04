@@ -3,6 +3,7 @@ package com.chen.qrcode.controller;
 import com.chen.qrcode.entity.UserEntity;
 import com.chen.qrcode.service.UserService;
 import com.chen.qrcode.service.impl.UserServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserEntity requestBody) {
+    public ResponseEntity<String> login(HttpSession session, @RequestBody UserEntity requestBody) {
         boolean isAuthenticated = userService.authenticateUser(requestBody.getUsername(), requestBody.getPassword());
         if (isAuthenticated) {
+            session.setAttribute("loggedIn", true);
             return ResponseEntity.ok("Login successful");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

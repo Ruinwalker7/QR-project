@@ -4,6 +4,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<%@ page import="java.io.*,java.util.*" %>
+<%
+    HttpSession session1 = (HttpSession) request.getSession(false); // 获取当前会话，如果不存在则不创建新会话
+
+    // 检查会话是否存在以及其中的字段值
+    if (session1 != null && session1.getAttribute("loggedIn") != null && (boolean)session1.getAttribute("loggedIn")) {
+        // loggedIn 字段为 true，用户已登录，继续显示当前页面
+%>
+<%
+    } else {
+        // loggedIn 字段不为 true，用户未登录，进行重定向到登录页面或其他页面
+        response.sendRedirect("/"); // 重定向到登录页面
+    }
+%>
+
 <head>
     <title>后台管理</title>
     <script ref="reference" src="/static/script.js"></script>
@@ -26,14 +41,14 @@
                 <button style="color: white; ">
                     <!-- 颜色反转，从白色变成灰色 -->
                     <img src="/static/images/首页.png"  style="filter: invert(0);">
-                    内容管理
+                    人员管理
                 </button>
             </div>
 
             <div class="baritem">
                 <button >
                     <img src="/static/images/医院查询.png" >
-                    内容管理
+                    快递管理
                 </button>
             </div>
 
@@ -77,21 +92,12 @@
                     <input placeholder="搜索" class="search" style="position: relative;left: 15px;">
                     <button>
                         <img src="/static/images/搜索.png" style="position: relative;right: 5px; top:2px">
-
                     </button>
                 </div>
-
             </div>
 
             <div class="headitem">
-                <button>
-                    <img src="/static/images/帮助.png" style="position: relative;top: 2px;" >  帮助
-                </button>
-
-            </div>
-
-            <div class="headitem">
-                <button style="padding-right: 20px;">
+                <button id="exitbut" onclick="exit()" style="padding-right: 20px;">
                     退出
                 </button>
 

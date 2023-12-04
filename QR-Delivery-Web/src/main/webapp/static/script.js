@@ -5,6 +5,9 @@ var year = today.getFullYear();
 var month = today.getMonth();
 var data = today.getDate();
 
+function exit(){
+    window.location.href = "exit"
+}
 
 function doChange() {
     // 把$('date')中的option长度变为0

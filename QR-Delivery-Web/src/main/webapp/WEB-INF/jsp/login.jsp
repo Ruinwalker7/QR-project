@@ -2,13 +2,14 @@
 <!DOCTYPE HTML>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
+
+
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>My Login Page</title>
-<%--	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
 	<link rel="stylesheet" href="/static/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/static/my-login.css">
 </head>
@@ -38,21 +39,11 @@
 							    	</div>
 								</div>
 
-<%--								<div class="form-group">--%>
-<%--									<div class="custom-checkbox custom-control">--%>
-<%--										<input type="checkbox" name="remember" id="remember" class="custom-control-input">--%>
-<%--&lt;%&ndash;										<label for="remember" class="custom-control-label">Remember Me</label>&ndash;%&gt;--%>
-<%--									</div>--%>
-<%--								</div>--%>
-
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">
 										Login
 									</button>
 								</div>
-<%--								<div class="mt-4 text-center">--%>
-<%--									Don't have an account? <a href="register.html">Create One</a>--%>
-<%--								</div>--%>
 							</form>
 						</div>
 					</div>
