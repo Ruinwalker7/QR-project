@@ -9,6 +9,21 @@ function exit(){
     window.location.href = "exit"
 }
 
+function changeframe(){
+    // 使用 querySelectorAll 选择所有类名为 "highlight" 的元素
+    var elements = document.querySelectorAll('.main_left');
+    var frame = document.getElementById("mainframe")
+    console.log(frame)
+    // 遍历元素列表并对每个元素进行操作
+    elements.forEach(function(element) {
+        element.addEventListener('click', function() {
+            frame.setAttribute("src",this.getAttribute("data-src"))
+            console.log(frame)
+            })
+    })
+    var content = document.getElementById("content")
+    frame.style.height = (content.clientHeight-80)+"px";
+}
 function doChange() {
     // 把$('date')中的option长度变为0
     $('dates').options.length = 0;
@@ -64,35 +79,5 @@ window.onload = function() {
         }
     }
 
-    var lastline = document.getElementsByClassName("headitem2")[3].getElementsByTagName("button")[0]
-    lastline.getElementsByTagName("div")[0].style.borderBottom = "2px solid #208bfe"
-    lastline.style.color = "#6daefa"
-
-    var lines = document.getElementsByClassName("headitem2")
-    for (i = 0; i < lines.length; i++) {
-        lines.item(i).getElementsByTagName("button")[0].onclick = function() {
-            lastline.style.color = "#333333"
-            lastline.getElementsByTagName("div")[0].style.borderBottom = "2px solid #f4f4f4"
-
-            this.getElementsByTagName("div")[0].style.borderBottom = "2px solid #208bfe"
-            this.style.color = "#6daefa"
-            console.log(this)
-            lastline = this
-        }
-    }
-    // console.log(lastline);
-
-
-    for (var i = year; i >= year - 40; i--) {
-        var option = new Option(i, i);
-        $('years').add(option);
-        console.log($('years').value)
-    }
-    // 循环月份
-    for (var j = 1; j <= 12; j++) {
-        var option = new Option(j, j);
-        $('months').add(option);
-    }
-    // 页面加载调用doChange事件
-    doChange();
+    changeframe();
 }

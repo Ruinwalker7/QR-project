@@ -27,6 +27,15 @@ public class webController {
         return "redirect:/";
     }
 
+    @RequestMapping("/man")
+    public String man(){
+        return "man";
+    }
+
+    @RequestMapping("/delivery")
+    public String delivery(){
+        return "delivery";
+    }
     @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("msg","早上好！");
