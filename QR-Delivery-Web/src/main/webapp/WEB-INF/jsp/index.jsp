@@ -10,8 +10,6 @@
     // 检查会话是否存在以及其中的字段值
     if (session1 != null && session1.getAttribute("loggedIn") != null && (boolean)session1.getAttribute("loggedIn")) {
         // loggedIn 字段为 true，用户已登录，继续显示当前页面
-%>
-<%
     } else {
         // loggedIn 字段不为 true，用户未登录，进行重定向到登录页面或其他页面
         response.sendRedirect("/"); // 重定向到登录页面
@@ -30,19 +28,13 @@
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">医院分诊后台管理系统</div>
+        <div class="layui-logo" style="font-size: large">Security Code</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="">控制台<span class="layui-badge">9</span></a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="">个人中心<span class="layui-badge-dot"></span></a>
-            </li>
+
+>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                 <dl class="layui-nav-child">
