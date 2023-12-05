@@ -21,6 +21,7 @@
     <link href="//cdn.staticfile.org/layui/2.9.0/css/layui.css" rel="stylesheet">
     <script ref="reference" src="/static/script.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" type="/static/" href="favicon.ico">
 </head>
 <body>
 

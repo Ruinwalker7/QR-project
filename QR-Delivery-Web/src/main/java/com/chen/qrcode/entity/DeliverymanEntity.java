@@ -25,6 +25,12 @@ public class DeliverymanEntity {
 
     private String idCard;
 
+    private Boolean visitSrc;
+
+    private Boolean visitDst;
+
+    private Boolean visitDelivery;
+
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

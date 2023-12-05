@@ -25,15 +25,15 @@
 					</div>
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">Login</h4>
+							<h4 class="card-title">登录</h4>
 							<form method="POST" id="loginForm" class="my-login-validation" novalidate="">
 								<div class="form-group">
-									<label for="email">Username</label>
+									<label for="email">用户名</label>
 									<input id="email" type="text" class="form-control" name="email" value="" required autofocus>
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password</label>
+									<label for="password">密码</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
 								    <div class="invalid-feedback">
 								    	Password is required

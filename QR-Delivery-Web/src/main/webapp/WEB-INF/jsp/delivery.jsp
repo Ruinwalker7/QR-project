@@ -68,10 +68,10 @@
             下拉按钮
             <i class="layui-icon layui-icon-down layui-font-12"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-blue" id="reloadTest">
-            重载测试
-            <i class="layui-icon layui-icon-down layui-font-12"></i>
-        </button>
+<%--        <button class="layui-btn layui-btn-sm layui-bg-blue" id="reloadTest">--%>
+<%--            重载测试--%>
+<%--            <i class="layui-icon layui-icon-down layui-font-12"></i>--%>
+<%--        </button>--%>
     </div>
 </script>
 
@@ -79,6 +79,7 @@
     <div class="layui-clear-space">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="qrcode">二维码</a>
     </div>
 </script>
 
@@ -112,10 +113,10 @@
                 {field:'dstName',  title: '收件人姓名',edit: 'textarea',width:120},
                 {field:'dstPhone', width:130, title: '收件人电话'},
                 {field:'dstAddress', title:'收件人地址', fieldTitle: '收件人地址', hide: 0, minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
-                {field:'createTime', width:180, title: '创建时间', sort: true},
-                {field:'updateTime', width:180, title: '更新时间', sort: true},
-                {fixed: 'right', title:'操作', width: 110, minWidth: 100, toolbar: '#barDemo'},
-
+                {field:'createTime', width:160, title: '创建时间', sort: true},
+                {field:'updateTime', width:160, title: '更新时间', sort: true},
+                {field:'status', width:100, title: '状态', sort: true},
+                {fixed: 'right', title:'操作', width: 160, toolbar: '#barDemo'},
             ]],
 
             done: function(){
@@ -313,11 +314,17 @@
                             // 请求失败时的处理
                             console.error('There has been a problem with your fetch operation:', error);
                         });
-
                     layer.close(index);
                     // 向服务端发送删除指令
                 })
-            }
+            }else if(obj.event === 'qrcode'){
+                    const url1 = "/api/delivery/code?id=" + data.id;
+                layer.open({
+                    type: 2,
+                    title: '二维码',
+                    content: [url1,'no'],
+                    area: ['350px', '400px']});
+                }
         });
 
         // 触发表格复选框选择

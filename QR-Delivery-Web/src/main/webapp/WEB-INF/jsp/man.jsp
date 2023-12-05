@@ -62,6 +62,19 @@
 </div>
 
 
+<script type="text/html" id="ID-table-demo-templet-switch1">
+    <input type="checkbox" name="status"  title="开启|关闭" lay-skin="switch"
+           lay-filter="demo-templet-status" {{= d.visitSrc == 1 ? "checked": ""}}>
+</script>
+
+<script type="text/html" id="ID-table-demo-templet-switch2">
+    <input type="checkbox" name="status" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
+           lay-filter="demo-templet-status"  {{= d.visitDst == 1 ? "checked": ""}}>
+</script>
+<script type="text/html" id="ID-table-demo-templet-switch3">
+    <input type="checkbox" name="status" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
+           lay-filter="demo-templet-status" {{= d.visitDelivery == 1 ? "checked": ""}}>
+</script>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
@@ -69,10 +82,6 @@
         <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
         <button class="layui-btn layui-btn-sm" id="dropdownButton">
             下拉按钮
-            <i class="layui-icon layui-icon-down layui-font-12"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm layui-bg-blue" id="reloadTest">
-            重载测试
             <i class="layui-icon layui-icon-down layui-font-12"></i>
         </button>
     </div>
@@ -114,9 +123,13 @@
                 {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 200, expandedWidth: 260},
                 {field:'workAddress',  title: '工作地址',edit: 'textarea',minWidth: 150, expandedWidth: 300},
                 {field:'createTime', width:300, title: '加入时间', sort: true},
+                {title: '收件人权限', width:95, templet: '#ID-table-demo-templet-switch1'},
+                {title: '寄件人权限', width:95, templet: '#ID-table-demo-templet-switch2'},
+                {title: '物品权限', width:95, templet: '#ID-table-demo-templet-switch3'},
                 {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'},
 
             ]],
+
 
             done: function(){
                 var id = this.id;
@@ -164,90 +177,19 @@
                         }
                     }
                 });
-
-                // 重载测试
-                dropdown.render({
-                    elem: '#reloadTest', // 可绑定在任意元素中，此处以上述按钮为例
-                    data: [{
-                        id: 'reload',
-                        title: '重载'
-                    },{
-                        id: 'reload-deep',
-                        title: '重载 - 参数叠加'
-                    },{
-                        id: 'reloadData',
-                        title: '仅重载数据'
-                    },{
-                        id: 'reloadData-deep',
-                        title: '仅重载数据 - 参数叠加'
-                    }],
-                    // 菜单被点击的事件
-                    click: function(obj){
-                        switch(obj.id){
-                            case 'reload':
-                                // 重载 - 默认（参数重置）
-                                table.reload('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
-                                    },
-                                    /*
-                                    cols: [[ // 重置表头
-                                      {type: 'checkbox', fixed: 'left'},
-                                      {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计：'},
-                                      {field:'sex', title:'性别', width:80, edit: 'text', sort: true},
-                                      {field:'experience', title:'积分', width:80, sort: true, totalRow: true, templet: '<div>{{= d.experience }} 分</div>'},
-                                      {field:'logins', title:'登入次数', width:100, sort: true, totalRow: true},
-                                      {field:'joinTime', title:'加入时间', width:120}
-                                    ]]
-                                    */
-                                });
-                                break;
-                            case 'reload-deep':
-                                // 重载 - 深度（参数叠加）
-                                table.reload('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    },
-                                    //defaultToolbar: ['print'], // 重载头部工具栏右侧图标
-                                    //cols: ins1.config.cols
-                                }, true);
-                                break;
-                            case 'reloadData':
-                                // 数据重载 - 参数重置
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
-                                    },
-                                    scrollPos: 'fixed',  // 保持滚动条位置不变 - v2.7.3 新增
-                                    height: 2000, // 测试无效参数（即与数据无关的参数设置无效，此处以 height 设置无效为例）
-                                    //url: '404',
-                                    //page: {curr: 1, limit: 30} // 重新指向分页
-                                });
-                                break;
-                            case 'reloadData-deep':
-                                // 数据重载 - 参数叠加
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    }
-                                }, true);
-                                break;
-                        }
-                        layer.msg('可观察 Network 请求参数的变化');
-                    }
-                });
             },
             error: function(res, msg){
                 console.log(res, msg)
             }
         });
 
+        // 状态 - 开关操作
+        form.on('switch(demo-templet-status)', function(obj){
+            var id = this.value;
+            var name = this.name;
+            // layer.tips(id + ' ' + name + ': '+ obj.elem.checked, obj.othis);
+
+        });
 
         // 工具栏事件
         table.on('toolbar(test)', function(obj){

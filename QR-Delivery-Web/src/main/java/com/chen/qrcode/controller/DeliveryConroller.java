@@ -7,10 +7,14 @@ import com.chen.qrcode.dao.DeliveryDao;
 import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
+import com.chen.qrcode.utils.QRCodeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/delivery")
+@Slf4j
 public class DeliveryConroller {
     @Autowired
     private DeliveryDao deliveryDao;
@@ -84,4 +89,21 @@ public class DeliveryConroller {
             return "Error converting to JSON";
         }
     }
+
+//    public static String url = "https://www.baidu.com/";
+    @GetMapping("/code")
+    public ResponseEntity<byte[]> methodOne(@RequestParam String id) {
+        byte[] qrCode = null;
+        try {
+            qrCode = QRCodeUtil.generateQrCodeByte(id, 350, 350);
+        } catch (Exception e) {
+            log.info("Exception:{}", e.getMessage());
+        }
+        // Header设置文件类型（对于ResponseEntity响应的方式，必须设置文件类型）
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        return new ResponseEntity<>(qrCode, headers, HttpStatus.CREATED);
+    }
+
 }
