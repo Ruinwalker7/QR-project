@@ -6,9 +6,6 @@
 
     // 检查会话是否存在以及其中的字段值
     if (session1 != null && session1.getAttribute("loggedIn") != null && (boolean)session1.getAttribute("loggedIn")) {
-        // loggedIn 字段为 true，用户已登录，继续显示当前页面
-%>
-<%
     } else {
         // loggedIn 字段不为 true，用户未登录，进行重定向到登录页面或其他页面
         response.sendRedirect("/"); // 重定向到登录页面
@@ -34,7 +31,7 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="ID" value="" placeholder="工号" class="layui-input" lay-affix="clear">
+                <input type="text" name="ID" value="" placeholder="快递号" class="layui-input" lay-affix="clear">
             </div>
         </div>
         <div class="layui-col-md4">
@@ -42,15 +39,15 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="username" placeholder="姓名" lay-affix="clear" class="layui-input">
+                <input type="text" name="srcName" placeholder="发件人" lay-affix="clear" class="layui-input">
             </div>
         </div>
         <div class="layui-col-md4">
             <div class="layui-input-wrap">
                 <div class="layui-input-prefix">
-                    <i class="layui-icon layui-icon-date"></i>
+                    <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="ID_card" placeholder="身份证号" class="layui-input demo-table-search-date">
+                <input type="text" name="dstName" placeholder="收件人" class="layui-input demo-table-search-date">
             </div>
         </div>
         <div class="layui-btn-container layui-col-xs12">
@@ -97,7 +94,7 @@
         // 创建渲染实例
         table.render({
             elem: '#test',
-            url: '/api/man/all', // 此处为静态模拟数据，实际使用时需换成真实接口
+            url: '/api/delivery/all', // 此处为静态模拟数据，实际使用时需换成真实接口
             toolbar: '#toolbarDemo',
             height: '550', // 最大高度减去其他容器已占有的高度差
             css: [ // 重设当前表格样式
@@ -108,13 +105,16 @@
             page: true,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', fixed: 'left', width:120, title: '工号'},
-                {field:'username', width:120, title: '用户'},
-                {field:'phone', title:'电话', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'phone'},
-                {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 200, expandedWidth: 260},
-                {field:'workAddress',  title: '工作地址',edit: 'textarea',minWidth: 150, expandedWidth: 300},
-                {field:'createTime', width:300, title: '加入时间', sort: true},
-                {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'},
+                {field:'id', fixed: 'left', width:100, title: '工号'},
+                {field:'srcName', width:120, title: '发件人姓名'},
+                {field:'srcPhone', title:'发件人电话',width:120},
+                {field:'srcAddress', title:'发件人地址', fieldTitle: '邮箱', hide: 0,minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
+                {field:'dstName',  title: '收件人姓名',edit: 'textarea',width:120},
+                {field:'dstPhone', width:130, title: '收件人电话'},
+                {field:'dstAddress', title:'收件人地址', fieldTitle: '收件人地址', hide: 0, minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
+                {field:'createTime', width:180, title: '创建时间', sort: true},
+                {field:'updateTime', width:180, title: '更新时间', sort: true},
+                {fixed: 'right', title:'操作', width: 110, minWidth: 100, toolbar: '#barDemo'},
 
             ]],
 
@@ -257,7 +257,6 @@
             switch(obj.event){
                 case 'getCheckData':
                     var data = checkStatus.data;
-                    console.log(data)
                     if(data.length!=0)
                         layer.alert(layui.util.escape(JSON.stringify(data)));
                     else
@@ -294,25 +293,26 @@
                 });
             }else if(obj.event === 'delete'){
                 layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                    const url1 = "/api/man/delete?id=" + data.id;
+                    const url1 = "/api/delivery/delete?id=" + data.id;
                     // 使用 Fetch API 发起 DELETE 请求
                     fetch(url1, {
                         method: 'DELETE',
                     })
                         .then(response => {
                             if (!response.ok) {
+                                layer.msg('删除失败', {icon: 2});
                                 throw new Error('Network response was not ok');
                             }
                             return;
                         })
                         .then(data => {
+                            layer.msg('删除成功', {icon: 1});
                             obj.del(); // 删除对应行（tr）的DOM结构
                         })
                         .catch(error => {
                             // 请求失败时的处理
                             console.error('There has been a problem with your fetch operation:', error);
                         });
-
 
                     layer.close(index);
                     // 向服务端发送删除指令
@@ -348,7 +348,6 @@
             var value = obj.value; // 得到修改后的值
             var data = obj.data; // 得到所在行所有键值
 
-
             // 值的校验
             if(field === 'email'){
                 if(!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(obj.value)){
@@ -356,9 +355,8 @@
                     return obj.reedit(); // 重新编辑 -- v2.8.0 新增
                 }
             }
-
             // 使用 Fetch API 发起 POST 请求
-            fetch('/api/man/update', {
+            fetch('/api/delivery/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // 设置请求头，告知后端发送的是 JSON 数据

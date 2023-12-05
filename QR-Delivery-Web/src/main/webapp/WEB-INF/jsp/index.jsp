@@ -37,9 +37,9 @@
 >
             <li class="layui-nav-item" lay-unselect="">
                 <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
-                </dl>
+<%--                <dl class="layui-nav-child">--%>
+<%--                    <dd><a href="javascript:;">修改信息</a></dd>--%>
+<%--                </dl>--%>
             </li>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="/exit">退出</a>
