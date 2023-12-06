@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.R.attr.value
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -10,16 +9,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.utils.Login
+import com.example.myapplication.utils.LoginCallback
+
+
+
 
 
 class LoginActivity : AppCompatActivity() {
     var imageView: ImageView? = null
     var textView: TextView? = null
     var count = 0
-    var phont_et:EditText? = null
-    var password_et:EditText? =null
+    private lateinit var phont_et:EditText
+    private lateinit var password_et:EditText
 
 
     @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
@@ -89,11 +93,17 @@ class LoginActivity : AppCompatActivity() {
 
         var login_bte = findViewById<Button>(R.id.login_btn)
         login_bte.setOnClickListener{
-            if(Login().login()){
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+            val phone: String = phont_et.getText().toString()
+            val psd: String = password_et.getText().toString()
+            if(phone == ""){
+                Toast.makeText(this, "请输入电话", Toast.LENGTH_SHORT).show()
+            }else if (psd==""){
+                Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show()
             }
+            else
+                attemptLogin(phone, psd)
+
+
         }
 
 
@@ -103,5 +113,28 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
     }
+
+    private fun attemptLogin(username: String, password: String) {
+        // 假设LoginManager是包含login函数的类
+        val loginManager = Login()
+        loginManager.login(username, password, object : LoginCallback {
+            override fun onSuccess() {
+                runOnUiThread {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+            override fun onFailure(errorMessage: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                    password_et.setText("")
+                }
+            }
+        })
+    }
+
 }
