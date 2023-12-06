@@ -64,20 +64,12 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
-        <button class="layui-btn layui-btn-sm" id="dropdownButton">
-            下拉按钮
-            <i class="layui-icon layui-icon-down layui-font-12"></i>
-        </button>
-<%--        <button class="layui-btn layui-btn-sm layui-bg-blue" id="reloadTest">--%>
-<%--            重载测试--%>
-<%--            <i class="layui-icon layui-icon-down layui-font-12"></i>--%>
-<%--        </button>--%>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
     <div class="layui-clear-space">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<%--        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
         <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="qrcode">二维码</a>
     </div>
@@ -106,7 +98,7 @@
             page: true,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', fixed: 'left', width:100, title: '工号'},
+                {field:'id', fixed: 'left', width:100, title: '快递号'},
                 {field:'srcName', width:120, title: '发件人姓名'},
                 {field:'srcPhone', title:'发件人电话',width:120},
                 {field:'srcAddress', title:'发件人地址', fieldTitle: '邮箱', hide: 0,minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
@@ -116,7 +108,7 @@
                 {field:'createTime', width:160, title: '创建时间', sort: true},
                 {field:'updateTime', width:160, title: '更新时间', sort: true},
                 {field:'status', width:100, title: '状态', sort: true},
-                {fixed: 'right', title:'操作', width: 160, toolbar: '#barDemo'},
+                {fixed: 'right', title:'操作', width: 125, toolbar: '#barDemo'},
             ]],
 
             done: function(){

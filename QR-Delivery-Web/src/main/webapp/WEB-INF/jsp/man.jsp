@@ -63,16 +63,16 @@
 
 
 <script type="text/html" id="ID-table-demo-templet-switch1">
-    <input type="checkbox" name="status"  title="开启|关闭" lay-skin="switch"
+    <input type="checkbox" name="src"  title="开启|关闭" lay-skin="switch" value="{{= d.id }}"
            lay-filter="demo-templet-status" {{= d.visitSrc == 1 ? "checked": ""}}>
 </script>
 
 <script type="text/html" id="ID-table-demo-templet-switch2">
-    <input type="checkbox" name="status" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
+    <input type="checkbox" name="dst" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
            lay-filter="demo-templet-status"  {{= d.visitDst == 1 ? "checked": ""}}>
 </script>
 <script type="text/html" id="ID-table-demo-templet-switch3">
-    <input type="checkbox" name="status" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
+    <input type="checkbox" name="delivery" value="{{= d.id }}" title="开启|关闭" lay-skin="switch"
            lay-filter="demo-templet-status" {{= d.visitDelivery == 1 ? "checked": ""}}>
 </script>
 
@@ -80,16 +80,16 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
-        <button class="layui-btn layui-btn-sm" id="dropdownButton">
-            下拉按钮
-            <i class="layui-icon layui-icon-down layui-font-12"></i>
-        </button>
+<%--        <button class="layui-btn layui-btn-sm" id="dropdownButton">--%>
+<%--            下拉按钮--%>
+<%--            <i class="layui-icon layui-icon-down layui-font-12"></i>--%>
+<%--        </button>--%>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
     <div class="layui-clear-space">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<%--        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
         <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
     </div>
 </script>
@@ -118,16 +118,15 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field:'id', fixed: 'left', width:120, title: '工号'},
-                {field:'username', width:120, title: '用户'},
+                {field:'username', width:120, title: '姓名',edit: 'textarea'},
                 {field:'phone', title:'电话', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'phone'},
                 {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 200, expandedWidth: 260},
                 {field:'workAddress',  title: '工作地址',edit: 'textarea',minWidth: 150, expandedWidth: 300},
                 {field:'createTime', width:300, title: '加入时间', sort: true},
-                {title: '收件人权限', width:95, templet: '#ID-table-demo-templet-switch1'},
-                {title: '寄件人权限', width:95, templet: '#ID-table-demo-templet-switch2'},
-                {title: '物品权限', width:95, templet: '#ID-table-demo-templet-switch3'},
-                {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'},
-
+                {title: '收件人权限', width:105, templet: '#ID-table-demo-templet-switch1'},
+                {title: '寄件人权限', width:105, templet: '#ID-table-demo-templet-switch2'},
+                {title: '物品权限', width:105, templet: '#ID-table-demo-templet-switch3'},
+                {fixed: 'right', title:'操作', width: 80, minWidth: 80, toolbar: '#barDemo'}
             ]],
 
 
@@ -185,10 +184,43 @@
 
         // 状态 - 开关操作
         form.on('switch(demo-templet-status)', function(obj){
+            var value = this.checked ? 1:0
             var id = this.value;
             var name = this.name;
-            // layer.tips(id + ' ' + name + ': '+ obj.elem.checked, obj.othis);
+            var url1
+            console.log(name)
+            switch (name){
+                case 'src':
+                    url1 = '/api/man/update/src'
+                    break
+                case 'dst':
+                    url1 = '/api/man/update/dst'
+                    break
+                case 'delivery':
+                    url1 = '/api/man/update/delivery'
+                    break;
+            }
 
+            console.log(url1)
+            url1 += '?id='+id+'&value='+value
+
+            console.log(url1)
+
+            fetch(url1, {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response;
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
 
         // 工具栏事件

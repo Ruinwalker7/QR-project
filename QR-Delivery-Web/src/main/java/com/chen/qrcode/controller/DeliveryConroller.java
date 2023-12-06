@@ -39,6 +39,8 @@ public class DeliveryConroller {
         }
     }
 
+
+
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestParam Long id){
         System.out.println(id);

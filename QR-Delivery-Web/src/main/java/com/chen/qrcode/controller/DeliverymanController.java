@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dao.DeliverymanDao;
+import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.entity.UserEntity;
 import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
@@ -46,6 +47,40 @@ public class DeliverymanController {
         }
     }
 
+    @GetMapping("/update/src")
+    public ResponseEntity<String> updateSrc(@RequestParam String id, @RequestParam boolean value){
+        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        deliveryman.setVisitSrc(value);
+        int rowsAffected = deliverymanDao.updateById(deliveryman);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("更新成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
+        }
+    }
+
+    @GetMapping("/update/dst")
+    public ResponseEntity<String> updateDst(@RequestParam String id, @RequestParam boolean value){
+        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        deliveryman.setVisitDst(value);
+        int rowsAffected = deliverymanDao.updateById(deliveryman);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("更新成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
+        }
+    }
+    @GetMapping("/update/delivery")
+    public ResponseEntity<String> updateDelivery(@RequestParam String id, @RequestParam boolean value){
+        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        deliveryman.setVisitDelivery(value);
+        int rowsAffected = deliverymanDao.updateById(deliveryman);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("更新成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
+        }
+    }
     @GetMapping("/all")
     public String getAllUsers( @RequestParam(name="page", defaultValue = "1") Integer pagenums,
                                @RequestParam(defaultValue = "10") Integer limit,
