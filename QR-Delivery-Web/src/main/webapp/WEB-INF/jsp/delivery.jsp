@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="java.io.*,java.util.*" %>
 <%
     HttpSession session1 = (HttpSession) request.getSession(false); // 获取当前会话，如果不存在则不创建新会话
 
@@ -59,6 +58,13 @@
 </div>
 
 
+<!-- 推荐 -->
+<script type="text/html" id="TPL-dropdpwn-demo">
+    <button class="layui-btn layui-btn-primary dropdpwn-demo" style="width: 100px">
+        <span>{{= d.username || '未分配' }}</span>
+        <i class="layui-icon layui-icon-down layui-font-10"></i>
+    </button>
+</script>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
@@ -92,9 +98,12 @@
             toolbar: '#toolbarDemo',
             height: '550', // 最大高度减去其他容器已占有的高度差
             css: [ // 重设当前表格样式
-                '.layui-table-tool-temp{padding-right: 1000px;}'
+                '.layui-table-tool-temp{padding-right: 1000px;}',
+                '.layui-table-cell{height: 50px; line-height: 40px;}',
+                '.layui-table-cell .layui-colorpicker{width: 38px; height: 38px;}',
+                '.layui-table-cell select{height: 36px; padding: 0 5px;}'
             ].join(''),
-            cellMinWidth: 80,
+            cellMinWidth: 10,
             totalRow: false, // 开启合计行
             page: true,
             cols: [[
@@ -102,18 +111,22 @@
                 {field:'id', fixed: 'left', width:100, title: '快递号'},
                 {field:'srcName', width:120, title: '发件人姓名'},
                 {field:'srcPhone', title:'发件人电话',width:120},
-                {field:'srcAddress', title:'发件人地址', fieldTitle: '邮箱', hide: 0,minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
+                {field:'srcAddress', title:'发件人地址', fieldTitle: '邮箱', hide: 0,minWidth:110, expandWidth:140, edit: 'phone'},
                 {field:'dstName',  title: '收件人姓名',edit: 'textarea',width:120},
                 {field:'dstPhone', width:130, title: '收件人电话'},
-                {field:'dstAddress', title:'收件人地址', fieldTitle: '收件人地址', hide: 0, minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
+                {field:'dstAddress', title:'收件人地址', fieldTitle: '收件人地址', hide: 0, minWidth:110, expandWidth:140, edit: 'phone'},
                 {field:'createTime', width:160, title: '创建时间', sort: true},
-                {field:'username', width:100, title: '派件人', sort: true},
                 {field:'status', width:100, title: '状态', sort: true},
+                {field: 'deliveryman', title: '快递员', width:140, unresize: true, align: 'center', templet: '#TPL-dropdpwn-demo'},
                 {fixed: 'right', title:'操作', width: 125, toolbar: '#barDemo'},
             ]],
+            limits: [5, 10, 15],
+            limit: 5, // 每页默认显示的数量
 
             done: function(){
+                var options = this;
                 var id = this.id;
+                var $ = layui.$;
                 // 下拉按钮测试
                 dropdown.render({
                     elem: '#dropdownButton', // 可绑定在任意元素中，此处以上述按钮为例
@@ -159,83 +172,56 @@
                     }
                 });
 
-                // 重载测试
-                dropdown.render({
-                    elem: '#reloadTest', // 可绑定在任意元素中，此处以上述按钮为例
-                    data: [{
-                        id: 'reload',
-                        title: '重载'
-                    },{
-                        id: 'reload-deep',
-                        title: '重载 - 参数叠加'
-                    },{
-                        id: 'reloadData',
-                        title: '仅重载数据'
-                    },{
-                        id: 'reloadData-deep',
-                        title: '仅重载数据 - 参数叠加'
-                    }],
-                    // 菜单被点击的事件
-                    click: function(obj){
-                        switch(obj.id){
-                            case 'reload':
-                                // 重载 - 默认（参数重置）
-                                table.reload('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
+                // 获取当前行数据
+                table.getRowData = function(tableId, elem){
+                    var index = $(elem).closest('tr').data('index');
+                    return table.cache[tableId][index] || {};
+                };
+
+                var deliverymanName;
+                fetch('/api/delivery/name', {
+                    method: 'POST',
+                })
+                .then(response => response.json()) // 将响应转换为JSON
+                    .then(data => {
+                        dropdown.render({
+                            elem: '.dropdpwn-demo',
+                            data: data,
+                            click: function(obj){
+
+                                var data1 = table.getRowData(options.id, this.elem); // 获取当前行数据(如 id 等字段，以作为数据修改的索引)
+                                this.elem.find('span').html(obj.title);
+                                // // 更新数据中对应的字段
+                                // postDate = []
+                                // postDate.id = data1.id;
+                                // postDate.deliverymanid = obj.id;
+                                //
+                                // postDate = "id="+data1.id +",deliverymanid="+obj.id
+                                // console.log((postDate))
+                                fetch("/api/delivery/update/allot", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/x-www-form-urlencoded"
                                     },
-                                    /*
-                                    cols: [[ // 重置表头
-                                      {type: 'checkbox', fixed: 'left'},
-                                      {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计：'},
-                                      {field:'sex', title:'性别', width:80, edit: 'text', sort: true},
-                                      {field:'experience', title:'积分', width:80, sort: true, totalRow: true, templet: '<div>{{= d.experience }} 分</div>'},
-                                      {field:'logins', title:'登入次数', width:100, sort: true, totalRow: true},
-                                      {field:'joinTime', title:'加入时间', width:120}
-                                    ]]
-                                    */
-                                });
-                                break;
-                            case 'reload-deep':
-                                // 重载 - 深度（参数叠加）
-                                table.reload('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    },
-                                    //defaultToolbar: ['print'], // 重载头部工具栏右侧图标
-                                    //cols: ins1.config.cols
-                                }, true);
-                                break;
-                            case 'reloadData':
-                                // 数据重载 - 参数重置
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
-                                    },
-                                    scrollPos: 'fixed',  // 保持滚动条位置不变 - v2.7.3 新增
-                                    height: 2000, // 测试无效参数（即与数据无关的参数设置无效，此处以 height 设置无效为例）
-                                    //url: '404',
-                                    //page: {curr: 1, limit: 30} // 重新指向分页
-                                });
-                                break;
-                            case 'reloadData-deep':
-                                // 数据重载 - 参数叠加
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    }
-                                }, true);
-                                break;
-                        }
-                        layer.msg('可观察 Network 请求参数的变化');
-                    }
-                });
+                                    body: "id=" + encodeURIComponent(data1.id) + "&deliverymanid=" + encodeURIComponent(obj.id)
+                                })
+                                    .then(response => response) // 将响应转换为JSON
+                                    .then(data => {
+                                        layer.msg("分配成功");
+                                        console.log(data); // 处理你的JSON数据
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+
+                            }
+                        });
+
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
             },
             error: function(res, msg){
                 console.log(res, msg)
@@ -247,7 +233,6 @@
         table.on('toolbar(test)', function(obj){
             var id = obj.config.id;
             var checkStatus = table.checkStatus(id);
-            var othis = lay(this);
             switch(obj.event){
                 case 'getCheckData':
                     var data = checkStatus.data;
@@ -262,13 +247,10 @@
                     layer.alert(layui.util.escape(JSON.stringify(getData)));
                     break;
                 case 'getAlloted':
-                    console.log(111);
-                    table.reloadData("test",{url: 'api/delivery/alloted'}, true);
+                    table.reload("test",{url: 'api/delivery/alloted'}, true);
                     break;
                 case 'getUnAlloted':
-                    // unalloted
-                    table.reloadData("test",{url: 'api/delivery/unalloted'}, true);
-                    break;
+                    table.reload("test",{url: 'api/delivery/unalloted'}, true);
                     break;
             };
         });
@@ -364,6 +346,7 @@
                     return obj.reedit(); // 重新编辑 -- v2.8.0 新增
                 }
             }
+
             // 使用 Fetch API 发起 POST 请求
             fetch('/api/delivery/update', {
                 method: 'POST',
@@ -403,8 +386,7 @@
                 },
                 where: field // 搜索的字段
             });
-            // layer.msg('搜索成功<br>此处为静态模拟数据，实际使用时换成真实接口即可');
-            return false; // 阻止默认 form 跳转
+            return false;
         });
     });
 </script>

@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dao.DeliveryDao;
 import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.dto.DeliveryDto;
+import com.chen.qrcode.dto.DeliverymanNameDto;
 import com.chen.qrcode.entity.DeliveryEntity;
-import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.utils.QRCodeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,8 +27,25 @@ import java.util.List;
 public class DeliveryConroller {
     @Autowired
     private DeliveryDao deliveryDao;
+
+    @Autowired
+    private DeliverymanDao deliverymanDao;
+
     @Autowired
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
+
+    @PostMapping("/update/allot")
+    public ResponseEntity<String> updateAllot(@RequestParam("id") long id, @RequestParam("deliverymanid") long deliverymanid){
+        DeliveryEntity deliveryEntity = deliveryDao.selectById(id);
+        deliveryEntity.setDeliverymanId(deliverymanid);
+        int rowsAffected = deliveryDao.updateById(deliveryEntity);
+        if (rowsAffected > 0) {
+            return  ResponseEntity.status(HttpStatus.OK).body("更新成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
+        }
+    }
+
 
     @PostMapping("/update")
     public ResponseEntity<String> update(@RequestBody DeliveryEntity deliveryEntity){
@@ -40,16 +57,24 @@ public class DeliveryConroller {
         }
     }
 
-
-
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestParam Long id){
-        System.out.println(id);
         int rowsAffected = deliveryDao.deleteById(id);
         if (rowsAffected > 0) {
             return  ResponseEntity.status(HttpStatus.OK).body("删除成功");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("删除失败");
+        }
+    }
+
+    @PostMapping("/name")
+    public String getName()  {
+        List<DeliverymanNameDto> man = deliverymanDao.selectName();
+        try {
+            return objectMapper.writeValueAsString(man) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "Error converting to JSON";
         }
     }
 
@@ -185,7 +210,6 @@ public class DeliveryConroller {
         // Header设置文件类型（对于ResponseEntity响应的方式，必须设置文件类型）
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
-
         return new ResponseEntity<>(qrCode, headers, HttpStatus.CREATED);
     }
 

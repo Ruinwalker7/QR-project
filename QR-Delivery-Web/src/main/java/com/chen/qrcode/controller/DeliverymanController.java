@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
-import com.chen.qrcode.entity.UserEntity;
-import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +68,8 @@ public class DeliverymanController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("更新失败");
         }
     }
+
+
     @GetMapping("/update/delivery")
     public ResponseEntity<String> updateDelivery(@RequestParam String id, @RequestParam boolean value){
         DeliverymanEntity deliveryman = deliverymanDao.selectById(id);

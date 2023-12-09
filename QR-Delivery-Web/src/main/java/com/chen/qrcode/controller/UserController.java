@@ -29,13 +29,11 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
-        // 在这里进行验证逻辑，比如检查用户名密码是否匹配数据库中的记录
-        // 假设验证成功，返回一些数据给前端
     }
 
-    @RequestMapping("/getList")
-    public List<UserEntity> getList(){
-        List<UserEntity> userEntityList = userService.list();
-        return userEntityList;
-    }
+//    @RequestMapping("/getList")
+//    public List<UserEntity> getList(){
+//        List<UserEntity> userEntityList = userService.list();
+//        return userEntityList;
+//    }
 }

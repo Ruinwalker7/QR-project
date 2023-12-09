@@ -22,6 +22,7 @@ public class AppController {
     @Autowired
     private DeliverymanDao deliverymanDao;
 
+    //App 登录控制
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody DeliverymanEntity requestBody){
         boolean isAuthenticated = deliverymanService.authenticateUser(requestBody.getPhone(), requestBody.getPassword());
@@ -32,13 +33,13 @@ public class AppController {
         }
     }
 
+    //App 注册控制
     @PostMapping("/registe")
     public ResponseEntity<String> register(@RequestBody DeliverymanEntity requestBody){
         int res = 0;
         try{
            res = deliverymanDao.insert(requestBody);
         }finally {
-            System.out.println(res);
             if (res==1) {
                 return ResponseEntity.ok("Login successful");
             } else {
