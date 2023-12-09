@@ -34,4 +34,9 @@ public class DeliveryEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    private long deliverymanId;
+
+    @TableField (exist = false)
+    private DeliverymanEntity deliveryman;
 }

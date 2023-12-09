@@ -37,10 +37,7 @@
 
 >
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
-<%--                <dl class="layui-nav-child">--%>
-<%--                    <dd><a href="javascript:;">修改信息</a></dd>--%>
-<%--                </dl>--%>
+                <a ><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
             </li>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="/exit">退出</a>
@@ -54,10 +51,14 @@
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="main_left" href="javascript:;" data-src="/man">人员管理</a>
+                    <a class="main_left" data-src="/man">人员管理</a>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="main_left" href="javascript:;" data-src="/delivery">快递管理</a>
+                    <a class="main_left"  data-src="/delivery">快递管理</a>
+                </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="main_left"  data-src="/customer">用户管理</a>
                 </li>
             </ul>
         </div>
@@ -71,50 +72,6 @@
         </div>
     </div>
 
-
-<%--    <script>--%>
-<%--        $(function(){--%>
-<%--            //获取src值--%>
-<%--            $(".main_left").on("click",function(){--%>
-<%--                var address =$(this).attr("data-src");--%>
-<%--                $("iframe").attr("src",address);--%>
-<%--            });--%>
-<%--            //一下代码是根据窗口高度在设置iframe的高度--%>
-<%--            var frame = $("#aa");--%>
-<%--            var frameheight = $(window).height();--%>
-<%--            console.log(frameheight);--%>
-<%--            frame.css("height",frameheight);--%>
-<%--        });--%>
-<%--    </script>--%>
-
-
-
-<%--    <div class="article">--%>
-<%--        <!-- 上方第一个bar -->--%>
-<%--        <div class="topbar">--%>
-<%--            <div class="headitem">--%>
-<%--                <img src="/static/images/NIU_5845.png">--%>
-<%--            </div>--%>
-<%--            <div class="headitem">--%>
-<%--                Hello ${msg}--%>
-<%--            </div>--%>
-<%--            <!-- 盒子嵌套搜素框 -->--%>
-<%--            <div class="headitem" style="margin-left: auto;">--%>
-<%--                <div class="searchdiv">--%>
-<%--                    <input placeholder="搜索" class="search" style="position: relative;left: 15px;">--%>
-<%--                    <button>--%>
-<%--                        <img src="/static/images/搜索.png" style="position: relative;right: 5px; top:2px">--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="headitem">--%>
-<%--                <button id="exitbut" onclick="exit()" style="padding-right: 20px;">--%>
-<%--                    退出--%>
-<%--                </button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        --%>
-<%--    </div>--%>
 </div>
 </body>
 

@@ -8,6 +8,22 @@
     tools:context=".LoginActivity">
 
 
+    <EditText
+        android:id="@+id/editTextTextPhonetic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:drawableEnd="@drawable/telephone_24"
+        android:drawablePadding="16dp"
+        android:filterTouchesWhenObscured="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/calibri"
+        android:inputType="textPhonetic"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -18,12 +34,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/good_morning_img" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
-
     </FrameLayout>
 
 
@@ -61,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="300dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
@@ -85,6 +95,7 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
+                    android:id="@+id/name_register"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableEnd="@drawable/name"
@@ -119,10 +130,10 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
+                    android:id="@+id/phone_register"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableEnd="@drawable/telephone_24"
-
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
@@ -145,19 +156,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="验证码："
+                android:text="身份证："
                 android:textColor="#9fffffff"
                 android:textSize="23sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#96ffffff"
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
+                    android:id="@+id/idCard_register"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/pass"
+                    android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -165,24 +179,9 @@
                     android:inputType="textPhonetic"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" >
-                </EditText>>
-
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:fontFamily="@font/calibri"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textColor="#9fffffff"
-                android:textSize="10sp"
-                android:text="发送验证码"/>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -203,6 +202,7 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
+                    android:id="@+id/psd_register"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableEnd="@drawable/pass"
@@ -217,7 +217,6 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -241,10 +240,6 @@
                 android:textColor="#9fffffff"
                 android:textSize="16sp" />
         </LinearLayout>
-
-
-
-
 
     </LinearLayout>
 
@@ -279,147 +274,4 @@
             tools:ignore="SmallSp" />
     </LinearLayout>
 
-
-
 </RelativeLayout>
-
-
-
-
-<!--    <?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".ui.auth.LoginFragment">-->
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="165dp"-->
-<!--        android:layout_height="202dp"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:src="@drawable/bg_login_page1"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="350dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="72dp"-->
-<!--        android:src="@drawable/app_logo"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--    <TextView-->
-<!--        style="@style/TextLabelDefault"-->
-<!--        android:id="@+id/textView3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:text="name"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView2" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextPersonName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginRight="32dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="John Doe"-->
-<!--        android:inputType="textPersonName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView3" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        style="@style/TextLabelDefault"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="@string/email"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextEmailAddress"-->
-<!--        style="@style/TextInputDefault"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginRight="32dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/email_hint"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView2"-->
-<!--        style="@style/TextLabelDefault"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="@string/password"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextPassword"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginRight="32dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPassword"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/buttonRegister"-->
-<!--        style="@style/ButtonPrimary"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginRight="32dp"-->
-<!--        android:text="@string/register_now"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textViewLoginNow"-->
-<!--        style="@style/TextDefault"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="32dp"-->
-<!--        android:text="@string/already_have_an_account_login_now"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

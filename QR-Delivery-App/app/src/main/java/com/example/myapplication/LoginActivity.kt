@@ -12,11 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.utils.Login
-import com.example.myapplication.utils.LoginCallback
-
-
-
-
+import com.example.myapplication.utils.HTTPCallback
 
 class LoginActivity : AppCompatActivity() {
     var imageView: ImageView? = null
@@ -102,24 +98,18 @@ class LoginActivity : AppCompatActivity() {
             }
             else
                 attemptLogin(phone, psd)
-
-
         }
-
 
         findViewById<Button>(R.id.signup_btn).setOnClickListener{
-            if(Login().login()){
-                val intent = Intent(this, SignupActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
         }
-
     }
 
     private fun attemptLogin(username: String, password: String) {
         // 假设LoginManager是包含login函数的类
         val loginManager = Login()
-        loginManager.login(username, password, object : LoginCallback {
+        loginManager.login(username, password, object : HTTPCallback {
             override fun onSuccess() {
                 runOnUiThread {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -136,5 +126,4 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
-
 }

@@ -18,7 +18,6 @@ function changeframe(){
     elements.forEach(function(element) {
         element.addEventListener('click', function() {
             frame.setAttribute("src",this.getAttribute("data-src"))
-            // console.log(frame)
             })
     })
     var content = document.getElementById("content")

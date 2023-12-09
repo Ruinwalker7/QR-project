@@ -15,14 +15,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>快递管理</title>
+    <title>用户管理</title>
     <link href="//cdn.staticfile.org/layui/2.9.0/css/layui.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="layui-padding-3">
     <h2 style="padding-bottom: 20px">
-        快递管理
+        用户管理
     </h2>
 
     <form class="layui-form layui-row layui-col-space16">
@@ -31,7 +31,7 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="ID" value="" placeholder="快递号" class="layui-input" lay-affix="clear">
+                <input type="text" name="username" value="" placeholder="用户名" class="layui-input" lay-affix="clear">
             </div>
         </div>
         <div class="layui-col-md4">
@@ -39,15 +39,7 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="srcName" placeholder="发件人" lay-affix="clear" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-col-md4">
-            <div class="layui-input-wrap">
-                <div class="layui-input-prefix">
-                    <i class="layui-icon layui-icon-username"></i>
-                </div>
-                <input type="text" name="dstName" placeholder="收件人" class="layui-input demo-table-search-date">
+                <input type="text" name="phone" placeholder="手机号" lay-affix="clear" class="layui-input">
             </div>
         </div>
         <div class="layui-btn-container layui-col-xs12">
@@ -64,15 +56,14 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getAlloted">已分配</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getUnAlloted">未分配</button>
+<%--        <button class="layui-btn layui-btn-sm" lay-event="getAlloted">已分配</button>--%>
+<%--        <button class="layui-btn layui-btn-sm" lay-event="getUnAlloted">未分配</button>--%>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
     <div class="layui-clear-space">
         <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
-        <a class="layui-btn layui-btn-xs" lay-event="qrcode">二维码</a>
     </div>
 </script>
 
@@ -88,7 +79,7 @@
         // 创建渲染实例
         table.render({
             elem: '#test',
-            url: '/api/delivery/all', // 此处为静态模拟数据，实际使用时需换成真实接口
+            url: '/api/customer/all', // 此处为静态模拟数据，实际使用时需换成真实接口
             toolbar: '#toolbarDemo',
             height: '550', // 最大高度减去其他容器已占有的高度差
             css: [ // 重设当前表格样式
@@ -99,17 +90,13 @@
             page: true,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', fixed: 'left', width:100, title: '快递号'},
-                {field:'srcName', width:120, title: '发件人姓名'},
-                {field:'srcPhone', title:'发件人电话',width:120},
-                {field:'srcAddress', title:'发件人地址', fieldTitle: '邮箱', hide: 0,minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
-                {field:'dstName',  title: '收件人姓名',edit: 'textarea',width:120},
-                {field:'dstPhone', width:130, title: '收件人电话'},
-                {field:'dstAddress', title:'收件人地址', fieldTitle: '收件人地址', hide: 0, minWidth:100, expandWidth:270, expandedMode: 'tips', edit: 'phone'},
-                {field:'createTime', width:160, title: '创建时间', sort: true},
-                {field:'username', width:100, title: '派件人', sort: true},
-                {field:'status', width:100, title: '状态', sort: true},
-                {fixed: 'right', title:'操作', width: 125, toolbar: '#barDemo'},
+                {field:'id', fixed: 'left', width:120, title: 'ID'},
+                {field:'username', title:'用户名',width:120},
+                {field:'phone', width:120, title: '手机号'},
+                {field:'password', title:'密码',width:120},
+                {field:'createTime', title:'创建时间',width:200},
+
+                {fixed: 'right', title:'操作', width: 85, toolbar: '#barDemo'},
             ]],
 
             done: function(){
@@ -263,12 +250,9 @@
                     break;
                 case 'getAlloted':
                     console.log(111);
-                    table.reloadData("test",{url: 'api/delivery/alloted'}, true);
+                    table.render("test",{url: '/api/customer/all'}, true);
                     break;
                 case 'getUnAlloted':
-                    // unalloted
-                    table.reloadData("test",{url: 'api/delivery/unalloted'}, true);
-                    break;
                     break;
             };
         });
@@ -296,7 +280,7 @@
                 });
             }else if(obj.event === 'delete'){
                 layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                    const url1 = "/api/delivery/delete?id=" + data.id;
+                    const url1 = "/api/customer/delete?id=" + data.id;
                     // 使用 Fetch API 发起 DELETE 请求
                     fetch(url1, {
                         method: 'DELETE',
@@ -319,14 +303,7 @@
                     layer.close(index);
                     // 向服务端发送删除指令
                 })
-            }else if(obj.event === 'qrcode'){
-                    const url1 = "/api/delivery/code?id=" + data.id;
-                layer.open({
-                    type: 2,
-                    title: '二维码',
-                    content: [url1,'no'],
-                    area: ['350px', '400px']});
-                }
+            }
         });
 
         // 触发表格复选框选择
@@ -365,7 +342,7 @@
                 }
             }
             // 使用 Fetch API 发起 POST 请求
-            fetch('/api/delivery/update', {
+            fetch('/api/customer/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // 设置请求头，告知后端发送的是 JSON 数据

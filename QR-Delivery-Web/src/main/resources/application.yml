@@ -1,3 +1,6 @@
+server:
+  port: 8080         # 服务器的HTTP端口
+  address: 0.0.0.0   # 允许局域网访问
 #设置数据源
 spring:
   mvc:
@@ -13,7 +16,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qr_code_database
-    password: "20021023"
+    password: "123456"
     username: root
     hikari:
       #设置事务自动提交

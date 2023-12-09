@@ -36,6 +36,12 @@ public class webController {
     public String delivery(){
         return "delivery";
     }
+
+    @RequestMapping("/customer")
+    public String customer(){
+        return "customer";
+    }
+
     @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("msg","早上好！");
