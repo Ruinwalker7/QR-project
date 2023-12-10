@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.utils.Login
 import com.example.myapplication.utils.HTTPCallback
+import com.example.myapplication.utils.UserManager
 
 class LoginActivity : AppCompatActivity() {
     var imageView: ImageView? = null
@@ -87,6 +88,13 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        val savedPhone = UserManager.getInstance(this)?.phoneNumber
+        val savedPassword = UserManager.getInstance(this)?.password
+
+        if(!savedPhone.isNullOrBlank() && !savedPassword.isNullOrBlank()) {
+            attemptLogin(savedPhone,savedPassword)
+        }
+
         var login_bte = findViewById<Button>(R.id.login_btn)
         login_bte.setOnClickListener{
             val phone: String = phont_et.getText().toString()
@@ -106,6 +114,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun attemptLogin(username: String, password: String) {
         // 假设LoginManager是包含login函数的类
         val loginManager = Login()
@@ -113,6 +122,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onSuccess() {
                 runOnUiThread {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(username,username,password)
                     startActivity(intent)
                     finish()
                 }
