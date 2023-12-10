@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.home.HomeFragment
 import com.example.myapplication.ui.notifications.NotificationsFragment
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val navView: BottomNavigationView = binding.navView
         navView.selectedItemId = R.id.navigation_home
@@ -59,6 +59,23 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                navView.selectedItemId = getMenuItemId(position)
+            }
+        })
+
+    }
+
+    private fun getMenuItemId(position: Int): Int {
+        // 根据页面索引返回对应的 BottomNavigationView 的 MenuItem ID
+        return when (position) {
+            0 -> R.id.navigation_home
+            1 -> R.id.navigation_notifications
+            else -> 0
+        }
     }
 
     override fun onBackPressed() {
@@ -69,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show()
-
         Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000) // 2秒内再次按返回键生效
     }
 
