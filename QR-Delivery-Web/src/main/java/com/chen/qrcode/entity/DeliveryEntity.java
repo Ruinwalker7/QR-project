@@ -27,6 +27,9 @@ public class DeliveryEntity {
 
     private String status;
 
+    private String type;
+
+    private String name;
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

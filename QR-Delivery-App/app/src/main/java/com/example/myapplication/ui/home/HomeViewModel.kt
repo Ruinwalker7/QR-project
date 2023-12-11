@@ -1,26 +1,19 @@
 package com.example.myapplication.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.utils.getDelivery
+import com.example.myapplication.utils.GetDeliverys
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
-    private var myDelivery:List<getDelivery.delivery>? = null
+    private var myDelivery:List<GetDeliverys.Delivery>? = null
 
     // 提供公共方法以获取数据
-    fun getData(): List<getDelivery.delivery>?? {
+    fun getData(): List<GetDeliverys.Delivery>?? {
         return myDelivery
     }
 
     // 提供公共方法以设置数据
-    fun setData(newData: List<getDelivery.delivery>) {
+    fun setData(newData: List<GetDeliverys.Delivery>) {
         myDelivery = newData
     }
 }

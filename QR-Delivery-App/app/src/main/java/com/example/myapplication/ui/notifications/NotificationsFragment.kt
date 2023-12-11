@@ -70,10 +70,6 @@ class NotificationsFragment : Fragment() {
                 activity?.finish()
             }
 
-            // 设置取消按钮及其点击事件
-            alertDialogBuilder.setNegativeButton("取消") { dialog, which ->
-                // 在这里执行取消操作
-            }
 
             // 创建并显示对话框
             val alertDialog = alertDialogBuilder.create()

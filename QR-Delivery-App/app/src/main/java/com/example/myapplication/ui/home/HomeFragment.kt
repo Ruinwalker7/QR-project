@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.utils.UserManager
-import com.example.myapplication.utils.getDelivery
+import com.example.myapplication.utils.GetDeliverys
 
 class HomeFragment : Fragment() {
 
@@ -37,8 +37,9 @@ class HomeFragment : Fragment() {
 
         linearLayout = binding.deliveryLayout
 
-        if(homeViewModel?.getData().isNullOrEmpty()){
-            getDelivery().getDelivery(UserManager.getInstance(context)?.phoneNumber){
+        val list = homeViewModel?.getData()
+        if(list.isNullOrEmpty()){
+            GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber){
                     list,msg->
                 if(!list.isNullOrEmpty()){
                     homeViewModel?.setData(list)
@@ -50,11 +51,8 @@ class HomeFragment : Fragment() {
                     }
                 }
         }else{
-            val list = homeViewModel?.getData()
             addDelivery(list)
         }
-
-
         return root
     }
 
@@ -64,8 +62,8 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun addDelivery(list:List<getDelivery.delivery>?){
-
+    // 动态添加快递信息到主页
+    private fun addDelivery(list:List<GetDeliverys.Delivery>?){
         if (list != null) {
             for (item in list) {
                 println(item)

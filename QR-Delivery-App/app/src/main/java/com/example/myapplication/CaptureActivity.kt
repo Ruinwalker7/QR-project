@@ -1,9 +1,13 @@
 package com.example.myapplication
 
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.utils.GetDeliverys
 
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
@@ -14,6 +18,7 @@ class CaptureActivity: AppCompatActivity() {
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var capture: CaptureManager
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_capture)
@@ -23,6 +28,8 @@ class CaptureActivity: AppCompatActivity() {
         capture.initializeFromIntent(intent, savedInstanceState)
         capture.decode()
         supportActionBar!!.hide()
+
+
     }
 
     override fun onResume() {

@@ -4,6 +4,7 @@ import com.chen.qrcode.config.ResConfig;
 import com.chen.qrcode.dao.DeliveryDao;
 import com.chen.qrcode.dao.DeliverymanDao;;
 import com.chen.qrcode.dto.DeliveryIdDto;
+import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
 import com.chen.qrcode.utils.JsonResponse;
@@ -82,7 +83,52 @@ public class AppController {
         String json = "";
         try {
             json = objectMapper.writeValueAsString(jsonResponse);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        finally {
             return json;
+        }
+    }
+
+    @GetMapping("/deliverydetail")
+    public String getDelieryDetail(@RequestParam String phone, @RequestParam String id){
+        DeliveryEntity deliveryEntity = deliveryDao.selectById(id);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(phone);
+        JsonResponse jsonResponse = new JsonResponse();
+        if (deliveryEntity == null){
+            jsonResponse.setCode(ResConfig.Code.FAILURE);
+            jsonResponse.setData("");
+            jsonResponse.setMessage(ResConfig.Msg.INPUT_ERROR);
+        }
+        else if(deliveryEntity.getDeliverymanId() != deliveryman.getId()){
+            jsonResponse.setCode(ResConfig.Code.NO_AUTH);
+            jsonResponse.setData("");
+            jsonResponse.setMessage(ResConfig.Msg.AUTH_ERROR);
+        }else{
+            if(!deliveryman.getVisitDst()){
+                deliveryEntity.setDstAddress("");
+                deliveryEntity.setDstPhone("");
+                deliveryEntity.setDstName("");
+
+            }
+            if(!deliveryman.getVisitSrc()){
+                deliveryEntity.setSrcAddress("");
+                deliveryEntity.setSrcPhone("");
+                deliveryEntity.setSrcName("");
+
+            }
+            if(!deliveryman.getVisitDelivery()){
+                deliveryEntity.setName("");
+                deliveryEntity.setType("");
+            }
+            jsonResponse.setCode(ResConfig.Code.OK);
+            jsonResponse.setData(deliveryEntity);
+            jsonResponse.setMessage("");
+        }
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(jsonResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

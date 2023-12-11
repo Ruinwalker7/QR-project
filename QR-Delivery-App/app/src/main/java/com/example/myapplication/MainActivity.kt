@@ -1,26 +1,20 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.home.HomeFragment
-import com.example.myapplication.ui.home.HomeViewModel
 import com.example.myapplication.ui.notifications.NotificationsFragment
+import com.example.myapplication.utils.GetDeliverys
+//import com.example.myapplication.utils.GetDelivery
 import com.example.myapplication.utils.UserManager
-import com.example.myapplication.utils.getDelivery
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 
@@ -71,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-
                 navView.selectedItemId = getMenuItemId(position)
             }
         })
@@ -106,7 +99,20 @@ class MainActivity : AppCompatActivity() {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                GetDeliverys().getDeliveryDetial(UserManager.getInstance(this)?.phoneNumber, result.contents){
+
+                    detail:GetDeliverys.DeliveryDetail?,msg:String?->
+                        runOnUiThread {
+                            if (detail == null){
+                                Toast.makeText(this, "失败: " + msg, Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(this, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
+                                val intent = Intent(this@MainActivity, DeliveryActivity::class.java)
+                                intent.putExtra("detail",detail)
+                                startActivity(intent)
+                            }
+                        }
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

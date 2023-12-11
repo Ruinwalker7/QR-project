@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -19,7 +18,6 @@ import com.example.myapplication.utils.Login
 class SignupActivity : AppCompatActivity() {
     var imageView: ImageView? = null
     var textView: TextView? = null
-    var count = 0
     var phone_et:EditText? = null
     var password_et:EditText? =null
     var id_et:EditText ?= null
@@ -69,22 +67,21 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun attemptRegister(username: String, phone:String, password:String ,id:String) {
-        // 假设LoginManager是包含login函数的类
-        val loginManager = Login()
-        loginManager.registe(username, phone, password,id , object : HTTPCallback {
-            override fun onSuccess( deliveryman: Deliveryman? ) {
-                runOnUiThread {
-                    Toast.makeText(this@SignupActivity, "注册成功", Toast.LENGTH_SHORT).show()
-                    onBackPressed()
-                    finish()
-                }
-            }
 
-            override fun onFailure(errorMessage: String?) {
-                runOnUiThread {
-                    Toast.makeText(this@SignupActivity, errorMessage, Toast.LENGTH_SHORT).show()
-                }
+        Login.register(username, phone, password,id , object : HTTPCallback {
+        override fun onSuccess( deliveryman: Deliveryman? ) {
+            runOnUiThread {
+                Toast.makeText(this@SignupActivity, "注册成功", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+                finish()
             }
-        })
+        }
+
+        override fun onFailure(errorMessage: String?) {
+            runOnUiThread {
+                Toast.makeText(this@SignupActivity, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    })
     }
 }

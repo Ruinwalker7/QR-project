@@ -118,9 +118,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun attemptLogin(username: String, password: String) {
-        // 假设LoginManager是包含login函数的类
-        val loginManager = Login()
-        loginManager.login(username, password, object : HTTPCallback {
+        Login.login(username, password, object : HTTPCallback {
             override fun onSuccess(deliveryman: Deliveryman?) {
                 runOnUiThread {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
