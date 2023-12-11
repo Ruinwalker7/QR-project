@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -43,15 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         navView.selectedItemId = R.id.navigation_home
-
-        getDelivery().getDelivery(UserManager.getInstance(this)?.phoneNumber){
-                list,msg->
-            if(!list.isNullOrEmpty()){
-               HomeViewModel().setData(list)
-            }else{
-                println(msg)
-            }
-        }
 
         viewPager=findViewById(R.id.view_pager)
         viewPager.adapter = object : FragmentStateAdapter(this){
