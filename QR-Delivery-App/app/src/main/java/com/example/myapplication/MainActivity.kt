@@ -100,11 +100,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             } else {
                 GetDeliverys().getDeliveryDetial(UserManager.getInstance(this)?.phoneNumber, result.contents){
-
                     detail:GetDeliverys.DeliveryDetail?,msg:String?->
                         runOnUiThread {
                             if (detail == null){
-                                Toast.makeText(this, "失败: " + msg, Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "失败: $msg", Toast.LENGTH_LONG).show()
                             }else{
                                 Toast.makeText(this, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@MainActivity, DeliveryActivity::class.java)

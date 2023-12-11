@@ -26,6 +26,7 @@ class DeliveryActivity : AppCompatActivity() {
 
         val textView = findViewById<TextView>(R.id.deliveryDetail)
         val receivedData = getSerializable(this, "detail",  GetDeliverys.DeliveryDetail::class.java)
+//        TODO 这个页面的设计还有待提高
         textView.setText(receivedData.toString())
 
     }

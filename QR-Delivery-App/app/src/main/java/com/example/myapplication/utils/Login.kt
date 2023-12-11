@@ -24,14 +24,13 @@ class Login {
         fun login(phone:String, password: String, callback: HTTPCallback)  {
             val urlString = "http://192.168.3.26:8080/app/login"
             val loginRequest = LoginRequest(phone, password)
-
+            // TODO 这里需要大量优化代码逻辑和结构
             runBlocking {
                 Fuel.post(urlString).jsonBody(Gson().toJson(loginRequest))
                     .responseString { _, response, result ->
                         when(result){
                             is Result.Success -> {
                                 val data = result.get() // 获取返回的字符串数据
-                                if (response.statusCode == 200) {
                                     // HTTP 状态码为 200 表示成功
                                     println("Request successful. Response data: $data")
                                     val jsonObject = JSONObject(data)
@@ -39,7 +38,6 @@ class Login {
                                         ResConfig.Code.OK ->{
                                             try {
                                                 println(jsonObject.getString("data"))
-                                                // 使用 Gson 解析 JSON 数据到数据类
                                                 val gson = Gson().newBuilder()
                                                     .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter())
                                                     .create()
@@ -56,26 +54,24 @@ class Login {
                                             callback.onFailure("用户名密码错误")
                                         }
                                     }
-                                } else {
-                                    // 请求成功，但 HTTP 状态码表示失败
-                                    println("Request failed. HTTP Status Code: ${response.statusCode}, Response data: $data")
-                                    when(response.statusCode){
-                                        HttpURLConnection.HTTP_INTERNAL_ERROR -> callback.onFailure("服务器错误")
-                                        HttpURLConnection.HTTP_UNAUTHORIZED -> callback.onFailure("用户名密码错误")
-                                        else ->  callback.onFailure("服务器错误");
-                                    }
                                 }
-                            }
+
                             is Result.Failure -> {
                                 val error = result.error
                                 println("Request failed. Error: $error")
-                                callback.onFailure("无法连接到服务器")
+                                when(response.statusCode){
+                                    HttpURLConnection.HTTP_INTERNAL_ERROR -> callback.onFailure("服务器错误")
+                                    HttpURLConnection.HTTP_UNAUTHORIZED -> callback.onFailure("用户名密码错误")
+                                    else ->  callback.onFailure("无法连接到服务器");
+                                }
                             }
                         }
                     }
             }
         }
 
+
+//        TODO 这个地方换请求方式 无法正确识别汉字名字 换成GSON和Fuel方法
         //注册函数
         fun register(username:String, phone:String, password: String, id: String, callback: HTTPCallback){
             val urlString = "http://192.168.3.26:8080/app/registe"

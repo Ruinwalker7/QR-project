@@ -16,48 +16,7 @@ class GetDeliverys {
     data class Delivery(val id: String, val status:String)
 
     data class DeliveryDetail(val id: String, val src_name:String,val src_address:String, val src_phone:String, val dst_name:String, val dst_phone:String, val dst_address:String,
-        val status: String, val type: String, val name: String): Serializable {
-//        constructor(parcel: Parcel) : this(
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//            parcel.readString() ?: "",
-//        )
-//
-//        override fun writeToParcel(parcel: Parcel, flags: Int) {
-//            parcel.writeString(id)
-//            parcel.writeString(src_name)
-//            parcel.writeString(src_address)
-//            parcel.writeString(src_phone)
-//            parcel.writeString(dst_name)
-//            parcel.writeString(dst_phone)
-//            parcel.writeString(dst_address)
-//            parcel.writeString(status)
-//            parcel.writeString(type)
-//            parcel.writeString(name)
-//
-//        }
-//
-//        override fun describeContents(): Int {
-//            return 0
-//        }
-//
-//        companion object CREATOR : Parcelable.Creator<DeliveryDetail> {
-//            override fun createFromParcel(parcel: Parcel): DeliveryDetail {
-//                return DeliveryDetail(parcel)
-//            }
-//
-//            override fun newArray(size: Int): Array<DeliveryDetail?> {
-//                return arrayOfNulls(size)
-//            }
-//        }
-    }
+        val status: String, val type: String, val name: String): Serializable
     fun getDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
         val urlString = "http://192.168.3.26:8080/app/alldelivery"
 

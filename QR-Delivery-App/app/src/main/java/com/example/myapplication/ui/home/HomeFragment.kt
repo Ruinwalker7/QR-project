@@ -44,8 +44,7 @@ class HomeFragment : Fragment() {
                 if(!list.isNullOrEmpty()){
                     homeViewModel?.setData(list)
                     activity?.runOnUiThread( Runnable() {
-                         run() {
-                             addDelivery(list)
+                         run() { addDelivery(list)
                         }
                     })
                     }
@@ -63,6 +62,7 @@ class HomeFragment : Fragment() {
 
 
     // 动态添加快递信息到主页
+//    TODO 页面设计
     private fun addDelivery(list:List<GetDeliverys.Delivery>?){
         if (list != null) {
             for (item in list) {

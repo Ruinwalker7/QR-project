@@ -22,6 +22,9 @@ class SignupActivity : AppCompatActivity() {
     var password_et:EditText? =null
     var id_et:EditText ?= null
     var username_et:EditText?= null
+    // 定义手机号的正则表达式
+    val phone_regex = Regex("^1[3-9]\\d{9}$")
+    val psd_regex = Regex("^(?=.*[A-Za-z])(?=.*\\d).{6,}$")
 
     @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,7 @@ class SignupActivity : AppCompatActivity() {
             val psd: String = password_et?.getText().toString()
             val name = username_et?.text.toString()
             val id = id_et?.text.toString()
+            println(name)
             if(phone == ""){
                 Toast.makeText(this, "请输入电话", Toast.LENGTH_SHORT).show()
             }else if (psd==""){
@@ -60,6 +64,16 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this, "请输入身份证号码", Toast.LENGTH_SHORT).show()
             }else if (name==""){
                 Toast.makeText(this, "请输入名字", Toast.LENGTH_SHORT).show()
+            }
+
+                // 打印结果
+            if (!phone_regex.matches(phone)){
+                Toast.makeText(this, "手机号格式不正确", Toast.LENGTH_SHORT).show()
+                println("手机号格式不正确")
+            }
+            else if(!psd_regex.matches(psd)){
+                Toast.makeText(this, "密码需要长于6个字符且至少包含中英文", android.widget.Toast.LENGTH_SHORT).show()
+                println("密码格式不正确")
             }
             else
                 attemptRegister(name, phone, psd ,id)
