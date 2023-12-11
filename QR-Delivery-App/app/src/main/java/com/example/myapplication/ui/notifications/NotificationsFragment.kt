@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.contentValuesOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.LoginActivity
@@ -20,8 +21,7 @@ class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
     lateinit var exit_button: Button
@@ -35,13 +35,27 @@ class NotificationsFragment : Fragment() {
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
         val context: Context = requireContext()
+
+//        val textView: TextView = binding.textNotifications
+//        notificationsViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
+        val textView1: TextView = binding.ntfAddress
+        textView1.text = UserManager.getInstance(context)?.address
+
+
+        val textView2: TextView = binding.ntfName
+
+        textView2.text = UserManager.getInstance(context)?.username
+
+
+        val textView3: TextView = binding.ntfPhone
+        textView3.text = UserManager.getInstance(context)?.phoneNumber
+
+
+
+
         exit_button = binding.exitBtn;
         exit_button.setOnClickListener{
             val alertDialogBuilder = AlertDialog.Builder(requireContext())

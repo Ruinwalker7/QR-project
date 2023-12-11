@@ -118,7 +118,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun attemptLogin(username: String, password: String) {
         // 假设LoginManager是包含login函数的类
         val loginManager = Login()
@@ -126,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onSuccess(deliveryman: Deliveryman?) {
                 runOnUiThread {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.phone,deliveryman?.password)
+                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.phone,deliveryman?.password,deliveryman?.workAddress)
                     startActivity(intent)
                     finish()
                 }
