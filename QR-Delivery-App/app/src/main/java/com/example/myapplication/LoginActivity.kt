@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -10,7 +11,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.entity.Deliveryman
 import com.example.myapplication.utils.Login
 import com.example.myapplication.utils.HTTPCallback
 import com.example.myapplication.utils.UserManager
@@ -115,14 +118,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun attemptLogin(username: String, password: String) {
         // 假设LoginManager是包含login函数的类
         val loginManager = Login()
         loginManager.login(username, password, object : HTTPCallback {
-            override fun onSuccess() {
+            override fun onSuccess(deliveryman: Deliveryman?) {
                 runOnUiThread {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(username,username,password)
+                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.phone,deliveryman?.password)
                     startActivity(intent)
                     finish()
                 }

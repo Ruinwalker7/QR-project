@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.entity.Deliveryman
 import com.example.myapplication.utils.HTTPCallback
 import com.example.myapplication.utils.Login
 
@@ -71,7 +72,7 @@ class SignupActivity : AppCompatActivity() {
         // 假设LoginManager是包含login函数的类
         val loginManager = Login()
         loginManager.registe(username, phone, password,id , object : HTTPCallback {
-            override fun onSuccess() {
+            override fun onSuccess( deliveryman: Deliveryman? ) {
                 runOnUiThread {
                     Toast.makeText(this@SignupActivity, "注册成功", Toast.LENGTH_SHORT).show()
                     onBackPressed()

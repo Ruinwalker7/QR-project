@@ -40,10 +40,6 @@ class CaptureActivity: AppCompatActivity() {
         capture.onDestroy()
     }
 
-//    protected fun onSaveInstanceState(outState: Bundle?) {
-//        super.onSaveInstanceState(outState!!)
-//        capture.onSaveInstanceState(outState)
-//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

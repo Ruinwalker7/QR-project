@@ -107,7 +107,7 @@
                     android:inputType="textPhonetic"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -142,7 +142,7 @@
                     android:inputType="textPhonetic"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -179,7 +179,7 @@
                     android:inputType="textPhonetic"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -214,7 +214,7 @@
                     android:inputType="textPhonetic"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -238,7 +238,7 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#9fffffff"
-                android:textSize="16sp" />
+                android:textSize="20dp" />
         </LinearLayout>
 
     </LinearLayout>

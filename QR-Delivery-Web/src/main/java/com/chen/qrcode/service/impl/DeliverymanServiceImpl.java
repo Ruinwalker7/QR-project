@@ -22,13 +22,11 @@ public class DeliverymanServiceImpl extends ServiceImpl<DeliverymanDao, Delivery
         return deliverymanDao.selectOne(queryWrapper);
     }
 
-    public boolean authenticateUser(String username, String password) {
+    public DeliverymanEntity authenticateUser(String username, String password) {
         DeliverymanEntity user = findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            // 用户名和密码验证成功
-            return true;
+            return user;
         }
-        // 验证失败
-        return false;
+        return null;
     }
 }
