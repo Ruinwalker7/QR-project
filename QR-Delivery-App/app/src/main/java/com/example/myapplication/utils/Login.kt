@@ -21,7 +21,6 @@ class Login {
 
     data class LoginRequest(val phone: String, val password: String)
     //登录函数
-    @RequiresApi(Build.VERSION_CODES.O)
     fun login(phone:String, password: String, callback: HTTPCallback)  {
         val urlString = "http://192.168.3.26:8080/app/login"
         val loginRequest = LoginRequest(phone, password)

@@ -20,7 +20,7 @@ class SignupActivity : AppCompatActivity() {
     var imageView: ImageView? = null
     var textView: TextView? = null
     var count = 0
-    var phont_et:EditText? = null
+    var phone_et:EditText? = null
     var password_et:EditText? =null
     var id_et:EditText ?= null
     var username_et:EditText?= null
@@ -43,14 +43,14 @@ class SignupActivity : AppCompatActivity() {
             super.onBackPressed()
         }
 
-        phont_et = findViewById(R.id.phone_register)
+        phone_et = findViewById(R.id.phone_register)
         password_et = findViewById(R.id.psd_register)
         id_et = findViewById(R.id.idCard_register)
         username_et = findViewById(R.id.name_register)
 
         var login_bte = findViewById<Button>(R.id.sign_btn)
         login_bte.setOnClickListener{
-            val phone: String = phont_et?.getText().toString()
+            val phone: String = phone_et?.getText().toString()
             val psd: String = password_et?.getText().toString()
             val name = username_et?.text.toString()
             val id = id_et?.text.toString()

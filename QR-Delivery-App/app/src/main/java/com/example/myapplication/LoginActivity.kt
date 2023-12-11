@@ -22,9 +22,8 @@ class LoginActivity : AppCompatActivity() {
     var imageView: ImageView? = null
     var textView: TextView? = null
     var count = 0
-    private lateinit var phont_et:EditText
+    private lateinit var phone_et:EditText
     private lateinit var password_et:EditText
-
 
     @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,14 +68,14 @@ class LoginActivity : AppCompatActivity() {
             override fun onSwipeBottom() {}
         })
 
-        phont_et = findViewById(R.id.phone_et)
-        phont_et?.hint = "电话"
-        phont_et?.setOnFocusChangeListener{ view, hasFocus ->
+        phone_et = findViewById(R.id.phone_et)
+        phone_et?.hint = "电话"
+        phone_et?.setOnFocusChangeListener{ view, hasFocus ->
             if(hasFocus){
-                phont_et?.hint=""
+                phone_et?.hint=""
             }
             else{
-                phont_et?.hint="电话"
+                phone_et?.hint="电话"
             }
         }
 
@@ -100,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
 
         var login_bte = findViewById<Button>(R.id.login_btn)
         login_bte.setOnClickListener{
-            val phone: String = phont_et.getText().toString()
+            val phone: String = phone_et.getText().toString()
             val psd: String = password_et.getText().toString()
             if(phone == ""){
                 Toast.makeText(this, "请输入电话", Toast.LENGTH_SHORT).show()

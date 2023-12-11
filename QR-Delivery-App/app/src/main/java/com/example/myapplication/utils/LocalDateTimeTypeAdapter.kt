@@ -12,10 +12,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class LocalDateTimeTypeAdapter : TypeAdapter<LocalDateTime>() {
-    @RequiresApi(Build.VERSION_CODES.O)
     private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     @Throws(IOException::class)
     override fun write(out: JsonWriter, value: LocalDateTime?) {
         if (value == null) {
@@ -25,7 +24,6 @@ class LocalDateTimeTypeAdapter : TypeAdapter<LocalDateTime>() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @Throws(IOException::class)
     override fun read(`in`: JsonReader): LocalDateTime? {
         if (`in`.peek() == JsonToken.NULL) {

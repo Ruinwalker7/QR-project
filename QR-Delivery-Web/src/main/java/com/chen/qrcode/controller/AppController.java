@@ -1,7 +1,9 @@
 package com.chen.qrcode.controller;
 
 import com.chen.qrcode.config.ResConfig;
+import com.chen.qrcode.dao.DeliveryDao;
 import com.chen.qrcode.dao.DeliverymanDao;;
+import com.chen.qrcode.dto.DeliveryIdDto;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
 import com.chen.qrcode.utils.JsonResponse;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 
 @RestController
@@ -25,6 +28,8 @@ public class AppController {
     @Autowired
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
 
+    @Autowired
+    private DeliveryDao deliveryDao;
     //App 登录控制
     @PostMapping("/login")
     public String login(@RequestBody DeliverymanEntity requestBody) {
@@ -64,6 +69,25 @@ public class AppController {
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("身份证或手机号已经被注册");
             }
+        }
+    }
+
+    @GetMapping("/alldelivery")
+    public String getDelierybyphone(@RequestParam String phone){
+        JsonResponse jsonResponse = new JsonResponse();
+        List<DeliveryIdDto> deliveryEntities= deliveryDao.selectName(phone);
+        jsonResponse.setCode(ResConfig.Code.OK);
+        jsonResponse.setMessage("");
+        jsonResponse.setData(deliveryEntities);
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(jsonResponse);
+            return json;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        finally {
+            return json;
         }
     }
 }

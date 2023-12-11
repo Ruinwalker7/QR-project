@@ -21,10 +21,9 @@ class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
 
-
     private val binding get() = _binding!!
 
-    lateinit var exit_button: Button
+    private var exit_button: Button? =null;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,10 +36,7 @@ class NotificationsFragment : Fragment() {
         val root: View = binding.root
         val context: Context = requireContext()
 
-//        val textView: TextView = binding.textNotifications
-//        notificationsViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+        // 设置用户名电话地址
         val textView1: TextView = binding.ntfAddress
         textView1.text = UserManager.getInstance(context)?.address
 
@@ -55,9 +51,8 @@ class NotificationsFragment : Fragment() {
 
 
 
-
         exit_button = binding.exitBtn;
-        exit_button.setOnClickListener{
+        exit_button?.setOnClickListener{
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
 
             // 设置对话框标题
@@ -83,8 +78,6 @@ class NotificationsFragment : Fragment() {
             // 创建并显示对话框
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
-
-
         }
         return root
     }

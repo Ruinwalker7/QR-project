@@ -1,9 +1,14 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,7 +16,10 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.home.HomeFragment
+import com.example.myapplication.ui.home.HomeViewModel
 import com.example.myapplication.ui.notifications.NotificationsFragment
+import com.example.myapplication.utils.UserManager
+import com.example.myapplication.utils.getDelivery
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 
@@ -35,6 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         navView.selectedItemId = R.id.navigation_home
+
+        getDelivery().getDelivery(UserManager.getInstance(this)?.phoneNumber){
+                list,msg->
+            if(!list.isNullOrEmpty()){
+               HomeViewModel().setData(list)
+            }else{
+                println(msg)
+            }
+        }
 
         viewPager=findViewById(R.id.view_pager)
         viewPager.adapter = object : FragmentStateAdapter(this){
@@ -66,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                 navView.selectedItemId = getMenuItemId(position)
             }
         })
+
 
     }
 

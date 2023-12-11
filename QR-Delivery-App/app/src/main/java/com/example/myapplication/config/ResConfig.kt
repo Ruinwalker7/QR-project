@@ -3,7 +3,6 @@ package com.example.myapplication.config
 class ResConfig {
     /**
      * 响应码常量类
-     *
      */
     object Code {
         /**

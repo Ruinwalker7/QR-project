@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dto.DeliveryDto;
+import com.chen.qrcode.dto.DeliveryIdDto;
 import com.chen.qrcode.entity.DeliveryEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface DeliveryDao extends BaseMapper<DeliveryEntity> {
@@ -28,6 +31,8 @@ public interface DeliveryDao extends BaseMapper<DeliveryEntity> {
             "left join deliveryman on delivery.deliveryman_id = deliveryman.id ${ew.customSqlSegment}"
     )
     IPage<DeliveryDto> selectAllDto(Page<DeliveryDto> page, @Param(Constants.WRAPPER) Wrapper<DeliveryDto> userWrapper);
-//    @Select("SELECT * FROM delivery WHERE id = #{Id}")
-//    DeliveryEntity selectByAreaId(int Id);
+
+
+    @Select("select delivery.id, delivery.status from delivery,deliveryman where deliveryman.phone = ${phone} and deliveryman.id = delivery.deliveryman_id " )
+    List<DeliveryIdDto>  selectName(String phone);
 }
