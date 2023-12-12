@@ -118,22 +118,20 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun attemptLogin(username: String, password: String) {
-        Login.login(username, password, object : HTTPCallback {
-            override fun onSuccess(deliveryman: Deliveryman?) {
-                runOnUiThread {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.phone,deliveryman?.password,deliveryman?.workAddress)
-                    startActivity(intent)
-                    finish()
+        Login.login(username, password){
+            deliveryman, msg ->
+                runOnUiThread{
+                    if (deliveryman != null){
+                        println("登录成功：$deliveryman")
+                        UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.password,deliveryman?.phone,deliveryman?.workAddress)
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        Toast.makeText(this@LoginActivity, msg, Toast.LENGTH_SHORT).show()
+                        password_et.setText("")
+                    }
                 }
-            }
-
-            override fun onFailure(errorMessage: String?) {
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
-                    password_et.setText("")
-                }
-            }
-        })
+        }
     }
 }

@@ -81,21 +81,17 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun attemptRegister(username: String, phone:String, password:String ,id:String) {
-
-        Login.register(username, phone, password,id , object : HTTPCallback {
-        override fun onSuccess( deliveryman: Deliveryman? ) {
-            runOnUiThread {
-                Toast.makeText(this@SignupActivity, "注册成功", Toast.LENGTH_SHORT).show()
-                onBackPressed()
-                finish()
+        Login.register(username, phone, password,id ){
+            msg:String? -> runOnUiThread{
+                if (!msg.isNullOrEmpty())
+                {
+                    Toast.makeText(this@SignupActivity, msg, Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@SignupActivity, "注册成功", Toast.LENGTH_SHORT).show()
+                    onBackPressed()
+                    finish()
+                }
             }
         }
-
-        override fun onFailure(errorMessage: String?) {
-            runOnUiThread {
-                Toast.makeText(this@SignupActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
-    })
     }
 }

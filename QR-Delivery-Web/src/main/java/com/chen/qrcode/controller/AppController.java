@@ -10,10 +10,14 @@ import com.chen.qrcode.service.impl.DeliverymanServiceImpl;
 import com.chen.qrcode.utils.JsonResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.cj.jdbc.exceptions.SQLError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 
@@ -60,15 +64,29 @@ public class AppController {
 
     //App 注册控制
     @PostMapping("/registe")
-    public ResponseEntity<String> register(@RequestBody DeliverymanEntity requestBody){
-        int res = 0;
+    public String register(@RequestBody DeliverymanEntity requestBody){
+        JsonResponse jsonResponse = new JsonResponse();
+        int res=0;
         try{
-           res = deliverymanDao.insert(requestBody);
+            res = deliverymanDao.insert(requestBody);
         }finally {
-            if (res==1) {
-                return ResponseEntity.ok("Login successful");
+            if (res != 0) {
+                jsonResponse.setCode(ResConfig.Code.OK);
+                jsonResponse.setMessage("");
+                jsonResponse.setData("");
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("身份证或手机号已经被注册");
+                jsonResponse.setCode(ResConfig.Code.EXISTS);
+                jsonResponse.setMessage(ResConfig.Msg.EXIST_ERROR);
+                jsonResponse.setData("");
+            }
+            String json = "";
+            try {
+                json = objectMapper.writeValueAsString(jsonResponse);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            finally {
+                return json;
             }
         }
     }

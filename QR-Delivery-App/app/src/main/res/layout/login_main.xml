@@ -86,9 +86,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="370dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
@@ -103,18 +103,17 @@
             <EditText
                 android:id="@+id/phone_et"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:drawableEnd="@drawable/ic_email_white_24dp"
                 android:drawablePadding="16dp"
                 android:filterTouchesWhenObscured="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:fontFamily="@font/calibri"
                 android:inputType="textPhonetic"
                 android:maxLines="1"
                 android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-            />
+                android:textSize="22sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -126,9 +125,9 @@
             <EditText
                 android:id="@+id/pwd_et"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="20dp"
+                android:layout_height="60dp"
                 android:drawableEnd="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="20dp"
                 android:fontFamily="@font/calibri"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -153,9 +152,9 @@
                 android:fontFamily="@font/calibri"
                 android:text="注册"
                 android:textAllCaps="false"
-                android:textStyle="bold"
                 android:textColor="#B6ffffff"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/login_btn"
@@ -174,15 +173,15 @@
         </LinearLayout>
 
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:fontFamily="@font/calibri"-->
-<!--            android:text="忘记密码？"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#f0ffffff"-->
-<!--            android:textSize="18sp" />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:fontFamily="@font/calibri"-->
+        <!--            android:text="忘记密码？"-->
+        <!--            android:textAlignment="center"-->
+        <!--            android:textColor="#f0ffffff"-->
+        <!--            android:textSize="18sp" />-->
 
 
     </LinearLayout>

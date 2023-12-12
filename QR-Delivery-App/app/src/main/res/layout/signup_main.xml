@@ -65,13 +65,13 @@
     </LinearLayout>
 
 
-    
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="300dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
@@ -97,7 +97,7 @@
                 <EditText
                     android:id="@+id/name_register"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:drawableEnd="@drawable/name"
                     android:drawablePadding="12dp"
                     android:filterTouchesWhenObscured="false"
@@ -132,7 +132,7 @@
                 <EditText
                     android:id="@+id/phone_register"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:drawableEnd="@drawable/telephone_24"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
@@ -145,7 +145,6 @@
                     android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -169,7 +168,7 @@
                 <EditText
                     android:id="@+id/idCard_register"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:drawableEnd="@drawable/pass"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
@@ -204,7 +203,7 @@
                 <EditText
                     android:id="@+id/psd_register"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:drawableEnd="@drawable/pass"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
@@ -236,9 +235,9 @@
                 android:fontFamily="@font/calibri"
                 android:text="注册"
                 android:textAllCaps="false"
-                android:textStyle="bold"
                 android:textColor="#9fffffff"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -247,9 +246,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layout"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp">
+        android:layout_marginTop="100dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -261,15 +260,16 @@
             android:textColor="#9affffff"
             android:textSize="15sp"
             tools:ignore="SmallSp" />
+
         <TextView
             android:id="@+id/rtlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/calibri"
-            android:textColorLink="@color/black"
             android:gravity="center"
             android:text="现在登录"
             android:textColor="#18D0DE"
+            android:textColorLink="@color/black"
             android:textSize="15sp"
             tools:ignore="SmallSp" />
     </LinearLayout>
