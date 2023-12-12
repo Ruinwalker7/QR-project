@@ -8,6 +8,7 @@ import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.dto.DeliveryDto;
 import com.chen.qrcode.dto.DeliverymanNameDto;
 import com.chen.qrcode.entity.DeliveryEntity;
+import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.utils.QRCodeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,9 +35,11 @@ public class DeliveryConroller {
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
 
     @PostMapping("/update/allot")
-    public ResponseEntity<String> updateAllot(@RequestParam("id") long id, @RequestParam("deliverymanid") long deliverymanid){
+    public ResponseEntity<String> updateAllot(@RequestParam("id") long id, @RequestParam("deliverymanid") String deliverymanid){
+        System.out.println(deliverymanid);
         DeliveryEntity deliveryEntity = deliveryDao.selectById(id);
-        deliveryEntity.setDeliverymanId(deliverymanid);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(deliverymanid);
+        deliveryEntity.setDeliverymanId(deliveryman.getId());
         int rowsAffected = deliveryDao.updateById(deliveryEntity);
         if (rowsAffected > 0) {
             return  ResponseEntity.status(HttpStatus.OK).body("更新成功");

@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface DeliverymanDao extends BaseMapper<DeliverymanEntity> {
 
-    @Select("select  id,username as title from deliveryman " )
+    @Select("select phone as id,username as title from deliveryman " )
     List<DeliverymanNameDto>  selectName();
 
     @Select("select * from deliveryman where phone = ${phone} " )

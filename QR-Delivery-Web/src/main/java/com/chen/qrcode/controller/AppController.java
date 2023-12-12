@@ -128,7 +128,6 @@ public class AppController {
                 deliveryEntity.setDstAddress("");
                 deliveryEntity.setDstPhone("");
                 deliveryEntity.setDstName("");
-
             }
             if(!deliveryman.getVisitSrc()){
                 deliveryEntity.setSrcAddress("");

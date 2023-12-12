@@ -101,6 +101,39 @@ class HomeFragment : Fragment() {
                 linearLayout?.addView(textView, layoutParams)
                 linearLayout?.addView(view,layoutParams1)
             }
+        }else{
+            val textView = TextView(context)
+            val s : String = "没有需要配送的快递"
+            textView.text = s
+
+            // 设置文本颜色
+            textView.setTextColor(Color.WHITE)
+
+            // 创建一个自定义的背景
+            val gradientDrawable = GradientDrawable()
+            gradientDrawable.shape = GradientDrawable.RECTANGLE
+            gradientDrawable.cornerRadius = 20f // 圆角半径
+            gradientDrawable.setColor(Color.BLUE) // 背景颜色
+            gradientDrawable.setStroke(4, Color.WHITE) // 边框宽度和颜色
+
+            // 设置背景
+            textView.background = gradientDrawable
+            textView.gravity = Gravity.CENTER
+            textView.textSize = 20.0F
+            // 设置布局参数
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                200
+            )
+
+            val view:View = View(context)
+            val layoutParams1 = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                120
+            )
+            // 添加 TextView 到 LinearLayout
+            linearLayout?.addView(textView, layoutParams)
+            linearLayout?.addView(view,layoutParams1)
         }
     }
 }
