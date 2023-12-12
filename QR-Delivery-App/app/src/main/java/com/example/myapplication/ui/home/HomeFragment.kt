@@ -58,6 +58,21 @@ class HomeFragment : Fragment() {
         }else{
             addDelivery(list)
         }
+
+        val button = binding.button
+        button.setOnClickListener{
+            GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber){
+                    list,msg->
+                if(!list.isNullOrEmpty()){
+                    homeViewModel?.setData(list)
+                    activity?.runOnUiThread( Runnable() {
+                        Toast.makeText(context, "刷新成功！", Toast.LENGTH_LONG).show()
+                        run() { addDelivery(list)
+                        }
+                    })
+                }
+            }
+        }
         return root
     }
 
@@ -69,6 +84,7 @@ class HomeFragment : Fragment() {
 
     // 动态添加快递信息到主页
     private fun addDelivery(list:List<GetDeliverys.Delivery>?){
+        linearLayout?.removeAllViews()
         if (list != null) {
             for (item in list) {
 
