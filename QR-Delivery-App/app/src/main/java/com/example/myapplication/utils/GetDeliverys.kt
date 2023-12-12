@@ -13,8 +13,8 @@ import java.io.Serializable
 class GetDeliverys {
     data class Delivery(val id: String, val status:String)
 
-    data class DeliveryDetail(val id: String, val src_name:String,val src_address:String, val src_phone:String, val dst_name:String, val dst_phone:String, val dst_address:String,
-        val status: String, val type: String, val name: String): Serializable
+    data class DeliveryDetail(val id: String, val srcName:String,val srcAddress:String, val srcPhone:String, val dstName:String, val dstPhone:String, val dstAddress:String,
+        val status: String, val type: String, val name: String, val createTime:String): Serializable
     fun getDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
         val urlString = "http://192.168.3.26:8080/app/alldelivery"
 
@@ -74,6 +74,7 @@ class GetDeliverys {
                                         println("Error parsing JSON: ${e.message}")
                                     }
                                 }
+                                ResConfig.Code.NO_AUTH->   callback(null,"您没有该快递权限")
                                 else ->{
                                     callback(null,"获取快递信息失败")
                                 }

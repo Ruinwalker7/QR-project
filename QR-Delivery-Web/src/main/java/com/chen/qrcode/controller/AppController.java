@@ -67,6 +67,11 @@ public class AppController {
     public String register(@RequestBody DeliverymanEntity requestBody){
         JsonResponse jsonResponse = new JsonResponse();
         int res=0;
+        requestBody.setVisitDst(false);
+        requestBody.setVisitSrc(false);
+        requestBody.setVisitDelivery(false);
+        requestBody.setIdCard("待设置");
+        requestBody.setWorkAddress("待设置");
         try{
             res = deliverymanDao.insert(requestBody);
         }finally {

@@ -47,7 +47,7 @@ public class DeliverymanController {
 
     @GetMapping("/update/src")
     public ResponseEntity<String> updateSrc(@RequestParam String id, @RequestParam boolean value){
-        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(id);
         deliveryman.setVisitSrc(value);
         int rowsAffected = deliverymanDao.updateById(deliveryman);
         if (rowsAffected > 0) {
@@ -59,7 +59,7 @@ public class DeliverymanController {
 
     @GetMapping("/update/dst")
     public ResponseEntity<String> updateDst(@RequestParam String id, @RequestParam boolean value){
-        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(id);
         deliveryman.setVisitDst(value);
         int rowsAffected = deliverymanDao.updateById(deliveryman);
         if (rowsAffected > 0) {
@@ -72,7 +72,7 @@ public class DeliverymanController {
 
     @GetMapping("/update/delivery")
     public ResponseEntity<String> updateDelivery(@RequestParam String id, @RequestParam boolean value){
-        DeliverymanEntity deliveryman = deliverymanDao.selectById(id);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(id);
         deliveryman.setVisitDelivery(value);
         int rowsAffected = deliverymanDao.updateById(deliveryman);
         if (rowsAffected > 0) {

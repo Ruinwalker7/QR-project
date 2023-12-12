@@ -191,13 +191,7 @@
 
                                 var data1 = table.getRowData(options.id, this.elem); // 获取当前行数据(如 id 等字段，以作为数据修改的索引)
                                 this.elem.find('span').html(obj.title);
-                                // // 更新数据中对应的字段
-                                // postDate = []
-                                // postDate.id = data1.id;
-                                // postDate.deliverymanid = obj.id;
-                                //
-                                // postDate = "id="+data1.id +",deliverymanid="+obj.id
-                                // console.log((postDate))
+
                                 fetch("/api/delivery/update/allot", {
                                     method: "POST",
                                     headers: {

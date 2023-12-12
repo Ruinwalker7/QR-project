@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -26,8 +27,33 @@ class DeliveryActivity : AppCompatActivity() {
 
         val textView = findViewById<TextView>(R.id.deliveryDetail)
         val receivedData = getSerializable(this, "detail",  GetDeliverys.DeliveryDetail::class.java)
-//        TODO 这个页面的设计还有待提高
-        textView.setText(receivedData.toString())
+
+        println(receivedData)
+        textView.setLineSpacing(1F,1.6F)
+        textView.gravity = Gravity.CENTER_VERTICAL
+        var contentS:String? = "";
+
+        if(!receivedData.status.isNullOrBlank()){
+            contentS += "状态："+ receivedData.status +"\n"
+
+        }
+        if(!receivedData.id.isNullOrBlank()){
+            contentS += "订单号："+ receivedData.id +"\n"
+        }
+        if(!receivedData.srcName.isNullOrBlank()){
+            contentS += "发件人："+ receivedData.srcName +"\n"
+            contentS += "发件手机："+ receivedData.srcPhone +"\n"
+            contentS += "发件地址："+ receivedData.srcAddress +"\n"
+        }
+        if(!receivedData.dstName.isNullOrBlank()){
+            contentS += "收件人："+ receivedData.dstName +"\n"
+            contentS += "收件手机："+ receivedData.dstPhone +"\n"
+            contentS += "收件地址："+ receivedData.dstAddress +"\n"
+        }
+        if (!receivedData.createTime.isNullOrBlank()){
+            contentS += "发货时间："+ receivedData.createTime +"\n"
+        }
+        textView.setText(contentS)
 
     }
 

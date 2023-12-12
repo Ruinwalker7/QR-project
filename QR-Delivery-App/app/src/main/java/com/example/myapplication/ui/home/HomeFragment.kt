@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,7 @@ import com.example.myapplication.DeliveryActivity
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.utils.GetDeliverys
 import com.example.myapplication.utils.UserManager
+import java.lang.reflect.Modifier
 
 
 class HomeFragment : Fragment() {
@@ -66,16 +68,16 @@ class HomeFragment : Fragment() {
 
 
     // 动态添加快递信息到主页
-//    TODO 页面设计
     private fun addDelivery(list:List<GetDeliverys.Delivery>?){
         if (list != null) {
             for (item in list) {
+
                 println(item)
                 // 创建新的 TextView
                 val textView = TextView(context)
-                val s : String = "快递号：" + item.id+"\t\t\t状态："+item.status
+                val s : String = "\t\t\t快递号：" + item.id+"\n\t\t\t状态："+item.status
                 textView.text = s
-
+                textView.setLineSpacing(1F,1.4F)
                 // 设置文本颜色
                 textView.setTextColor(Color.WHITE)
 
@@ -83,17 +85,16 @@ class HomeFragment : Fragment() {
                 val gradientDrawable = GradientDrawable()
                 gradientDrawable.shape = GradientDrawable.RECTANGLE
                 gradientDrawable.cornerRadius = 20f // 圆角半径
-                gradientDrawable.setColor(Color.BLUE) // 背景颜色
-                gradientDrawable.setStroke(4, Color.WHITE) // 边框宽度和颜色
+                gradientDrawable.setColor(Color.rgb(230,230,250)) // 背景颜色
+                gradientDrawable.setStroke(4, Color.rgb(230,230,250)) // 边框宽度和颜色
 
                 // 设置背景
                 textView.background = gradientDrawable
-                textView.gravity = Gravity.CENTER
+                textView.gravity = Gravity.CENTER_VERTICAL
                 textView.textSize = 20.0F
                 textView.tag = item.id
+                textView.setTextColor(Color.BLACK)
                 textView.setOnClickListener { // 在这里编写点击事件的逻辑
-                    Toast.makeText(context, "TextView Clicked!", Toast.LENGTH_SHORT)
-                        .show()
 
                     GetDeliverys().getDeliveryDetial(context?.let { it1 ->
                         UserManager.getInstance(
@@ -104,7 +105,7 @@ class HomeFragment : Fragment() {
                             if (detail == null){
                                 Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()
                             }else{
-                                Toast.makeText(context, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
+//                                Toast.makeText(context, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
                                 val intent = Intent(context, DeliveryActivity::class.java)
                                 intent.putExtra("detail",detail)
                                 startActivity(intent)
@@ -115,13 +116,13 @@ class HomeFragment : Fragment() {
                 // 设置布局参数
                 val layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    200
+                    300
                 )
 
                 val view:View = View(context)
                 val layoutParams1 = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    120
+                    100
                 )
                 // 添加 TextView 到 LinearLayout
                 linearLayout?.addView(textView, layoutParams)

@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "取消扫码", Toast.LENGTH_LONG).show()
             } else {
                 GetDeliverys().getDeliveryDetial(UserManager.getInstance(this)?.phoneNumber, result.contents){
                     detail:GetDeliverys.DeliveryDetail?,msg:String?->
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                             if (detail == null){
                                 Toast.makeText(this, "失败: $msg", Toast.LENGTH_LONG).show()
                             }else{
-                                Toast.makeText(this, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
+//                                Toast.makeText(this, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@MainActivity, DeliveryActivity::class.java)
                                 intent.putExtra("detail",detail)
                                 startActivity(intent)
