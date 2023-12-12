@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -10,11 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.DeliveryActivity
 import com.example.myapplication.databinding.FragmentHomeBinding
-import com.example.myapplication.utils.UserManager
 import com.example.myapplication.utils.GetDeliverys
+import com.example.myapplication.utils.UserManager
+
 
 class HomeFragment : Fragment() {
 
@@ -86,6 +90,28 @@ class HomeFragment : Fragment() {
                 textView.background = gradientDrawable
                 textView.gravity = Gravity.CENTER
                 textView.textSize = 20.0F
+                textView.tag = item.id
+                textView.setOnClickListener { // 在这里编写点击事件的逻辑
+                    Toast.makeText(context, "TextView Clicked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    GetDeliverys().getDeliveryDetial(context?.let { it1 ->
+                        UserManager.getInstance(
+                            it1
+                        )?.phoneNumber
+                    }, it?.tag.toString()){  detail:GetDeliverys.DeliveryDetail?,msg:String?->
+                        activity?.runOnUiThread{
+                            if (detail == null){
+                                Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(context, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
+                                val intent = Intent(context, DeliveryActivity::class.java)
+                                intent.putExtra("detail",detail)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                }
                 // 设置布局参数
                 val layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -136,4 +162,6 @@ class HomeFragment : Fragment() {
             linearLayout?.addView(view,layoutParams1)
         }
     }
+
+
 }

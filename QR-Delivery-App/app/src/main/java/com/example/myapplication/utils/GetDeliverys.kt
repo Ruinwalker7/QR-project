@@ -1,7 +1,5 @@
 package com.example.myapplication.utils
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.example.myapplication.config.ResConfig
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
@@ -55,7 +53,7 @@ class GetDeliverys {
     }
 
 
-    fun getDeliveryDetial(phone: String?,id: String,  callback: (DeliveryDetail?, msg:String?) -> Unit){
+    fun getDeliveryDetial(phone: String?, id: String, callback: (DeliveryDetail?, String?) -> Unit){
         val urlString = "http://192.168.3.26:8080/app/deliverydetail"
 
         runBlocking {
