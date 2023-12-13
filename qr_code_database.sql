@@ -52,10 +52,7 @@ CREATE TABLE `delivery`  (
   `update_time` datetime NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `deliveryman_id` bigint UNSIGNED NULL DEFAULT NULL,
-  INDEX `id`(`id` ASC) USING BTREE,
-  INDEX `manID`(`deliveryman_id` ASC) USING BTREE,
-  CONSTRAINT `manID` FOREIGN KEY (`deliveryman_id`) REFERENCES `deliveryman` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  `deliveryman_id` bigint UNSIGNED NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------

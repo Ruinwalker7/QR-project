@@ -10,7 +10,8 @@
     </parent>
     <groupId>com.chen</groupId>
     <artifactId>qrCode</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
+    <packaging>war</packaging>
     <name>qrCode</name>
     <description>qrCode</description>
     <properties>
@@ -27,6 +28,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -60,12 +67,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
-
 
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -160,13 +161,16 @@
         </dependency>
     </dependencies>
 
-
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.2.0</version>
+                <configuration>
+                    <mainClass>com.chen.qrcode.QrCodeApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -19,7 +19,7 @@
 <html lang="en">
 <head>
     <title>人员管理</title>
-    <link href="//cdn.staticfile.org/layui/2.9.0/css/layui.css" rel="stylesheet">
+    <link href="/static/layui/css/layui.css" rel="stylesheet">
 </head>
 
 <body>

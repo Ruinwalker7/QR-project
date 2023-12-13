@@ -2,7 +2,7 @@ package com.chen.qrcode.controller;
 
 import com.chen.qrcode.config.ResConfig;
 import com.chen.qrcode.dao.DeliveryDao;
-import com.chen.qrcode.dao.DeliverymanDao;;
+import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.dto.DeliveryIdDto;
 import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
