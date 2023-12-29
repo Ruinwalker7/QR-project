@@ -2,17 +2,17 @@ package com.chen.qrcode.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @TableName(value="deliveryman")
 @Data
 public class DeliverymanEntity {
     @TableId(type = IdType.NONE)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     private String username;
@@ -38,6 +38,4 @@ public class DeliverymanEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-
 }

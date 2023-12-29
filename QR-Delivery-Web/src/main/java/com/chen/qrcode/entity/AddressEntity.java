@@ -1,6 +1,5 @@
 package com.chen.qrcode.entity;
 
-
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -9,18 +8,26 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@TableName(value="customer")
 @Data
-public class CustomerEntity {
+@TableName(value="address")
+public class AddressEntity {
     @TableId(type = IdType.NONE)
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    private String username;
+    private String name;
 
     private String phone;
 
-    private String password;
+    private String province;
+
+    private String city;
+
+    private String county;
+
+    private String addressDetail;
+
+    private long customerId;
 
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -29,6 +36,4 @@ public class CustomerEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
 }
-

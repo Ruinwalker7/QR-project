@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("com.chen.qrcode.dao")
-public class mybaitsPlusConfig {
+public class MybaitsPlusConfig {
 
     /**
      * 添加分页插件

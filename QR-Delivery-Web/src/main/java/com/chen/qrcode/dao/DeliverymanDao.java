@@ -1,9 +1,7 @@
 package com.chen.qrcode.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chen.qrcode.dto.DeliveryDto;
 import com.chen.qrcode.dto.DeliverymanNameDto;
-import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

@@ -5,14 +5,12 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Component
 public class DateConfig implements MetaObjectHandler {
 
     /**
      * 使用mp做添加操作时候，这个方法执行
-     * @param metaObject
      */
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -23,7 +21,6 @@ public class DateConfig implements MetaObjectHandler {
 
     /**
      * 使用mp做修改操作时候，这个方法执行
-     * @param metaObject
      */
     @Override
     public void updateFill(MetaObject metaObject) {

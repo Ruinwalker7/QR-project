@@ -21,22 +21,23 @@ function changeframe(){
             })
     })
     var content = document.getElementById("content")
-    frame.style.height = (content.clientHeight-80)+"px";
+    frame.style.height = (content.clientHeight-30)+"px";
 }
 function doChange() {
     // 把$('date')中的option长度变为0
-    $('dates').options.length = 0;
+    var datas = $('dates')
+    datas.options.length = 0;
     var length = 31;
     // 获取月份
     var mon = $('months').value;
     // 如果是2月
-    if (mon == 2) {
+    if (mon === 2) {
         // 平年就是28
         length = 28;
         // 获取年份
         var num = $('years').value;
         // 判断是不是闰年 闰年就是29
-        if ((num % 4 == 0 && num % 100 != 0) || num % 400 == 0) {
+        if ((num % 4 === 0 && num % 100 !== 0) || num % 400 === 0) {
             length++;
         }
     }
@@ -48,7 +49,7 @@ function doChange() {
     }
     // 然后循环 把值塞进去
     var tmp = new Option("日", "")
-    $('dates').add(tmp);
+    datas.add(tmp);
 
     for (var k = 1; k <= length; k++) {
         var option = new Option(k, k);
@@ -67,7 +68,7 @@ window.onload = function() {
     for (i = 0; i < buts.length; i++) {
         buts.item(i).onclick = function() {
             console.log(this);
-            position = String(this.offsetLeft - 30) + "px " + String(this.offsetTop - 150) + "px";
+            let position = String(this.offsetLeft - 30) + "px " + String(this.offsetTop - 150) + "px";
             document.getElementsByClassName("leftbar")[0].style.backgroundPosition = position;
             console.log(this.getElementsByTagName("img"))
             lastbut.getElementsByTagName("img")[0].style.filter = "invert(50%)";
@@ -77,6 +78,6 @@ window.onload = function() {
             lastbut = this;
         }
     }
-
+    window.addEventListener('resize', changeframe);
     changeframe();
 }

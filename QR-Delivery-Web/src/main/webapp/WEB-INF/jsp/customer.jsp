@@ -79,9 +79,9 @@
         // 创建渲染实例
         table.render({
             elem: '#test',
-            url: '/api/customer/all', // 此处为静态模拟数据，实际使用时需换成真实接口
+            url: '/customer/all', // 此处为静态模拟数据，实际使用时需换成真实接口
             toolbar: '#toolbarDemo',
-            height: '550', // 最大高度减去其他容器已占有的高度差
+            height: 'full-200',
             css: [ // 重设当前表格样式
                 '.layui-table-tool-temp{padding-right: 1000px;}'
             ].join(''),
@@ -90,12 +90,11 @@
             page: true,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', fixed: 'left', width:120, title: 'ID'},
-                {field:'username', title:'用户名',width:120},
-                {field:'phone', width:120, title: '手机号'},
-                {field:'password', title:'密码',width:120},
-                {field:'createTime', title:'创建时间',width:200},
-
+                {field:'id', fixed: 'left', minWidth:150, title: 'ID'},
+                {field:'username', title:'用户名',minWidth:120},
+                {field:'phone', minWidth:120, title: '手机号'},
+                {field:'password', title:'密码',minWidth:120},
+                {field:'createTime', title:'创建时间',minWidth:200},
                 {fixed: 'right', title:'操作', width: 85, toolbar: '#barDemo'},
             ]],
 
@@ -143,84 +142,6 @@
                                 layer.msg('delete event');
                                 break;
                         }
-                    }
-                });
-
-                // 重载测试
-                dropdown.render({
-                    elem: '#reloadTest', // 可绑定在任意元素中，此处以上述按钮为例
-                    data: [{
-                        id: 'reload',
-                        title: '重载'
-                    },{
-                        id: 'reload-deep',
-                        title: '重载 - 参数叠加'
-                    },{
-                        id: 'reloadData',
-                        title: '仅重载数据'
-                    },{
-                        id: 'reloadData-deep',
-                        title: '仅重载数据 - 参数叠加'
-                    }],
-                    // 菜单被点击的事件
-                    click: function(obj){
-                        switch(obj.id){
-                            case 'reload':
-                                // 重载 - 默认（参数重置）
-                                table.reload('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
-                                    },
-                                    /*
-                                    cols: [[ // 重置表头
-                                      {type: 'checkbox', fixed: 'left'},
-                                      {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计：'},
-                                      {field:'sex', title:'性别', width:80, edit: 'text', sort: true},
-                                      {field:'experience', title:'积分', width:80, sort: true, totalRow: true, templet: '<div>{{= d.experience }} 分</div>'},
-                                      {field:'logins', title:'登入次数', width:100, sort: true, totalRow: true},
-                                      {field:'joinTime', title:'加入时间', width:120}
-                                    ]]
-                                    */
-                                });
-                                break;
-                            case 'reload-deep':
-                                // 重载 - 深度（参数叠加）
-                                table.reload('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    },
-                                    //defaultToolbar: ['print'], // 重载头部工具栏右侧图标
-                                    //cols: ins1.config.cols
-                                }, true);
-                                break;
-                            case 'reloadData':
-                                // 数据重载 - 参数重置
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: '123456',
-                                        //test: '新的 test2',
-                                        //token: '新的 token2'
-                                    },
-                                    scrollPos: 'fixed',  // 保持滚动条位置不变 - v2.7.3 新增
-                                    height: 2000, // 测试无效参数（即与数据无关的参数设置无效，此处以 height 设置无效为例）
-                                    //url: '404',
-                                    //page: {curr: 1, limit: 30} // 重新指向分页
-                                });
-                                break;
-                            case 'reloadData-deep':
-                                // 数据重载 - 参数叠加
-                                table.reloadData('test', {
-                                    where: {
-                                        abc: 123,
-                                        test: '新的 test1'
-                                    }
-                                }, true);
-                                break;
-                        }
-                        layer.msg('可观察 Network 请求参数的变化');
                     }
                 });
             },
@@ -280,7 +201,7 @@
                 });
             }else if(obj.event === 'delete'){
                 layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                    const url1 = "/api/customer/delete?id=" + data.id;
+                    const url1 = "/customer/delete?id=" + data.id;
                     // 使用 Fetch API 发起 DELETE 请求
                     fetch(url1, {
                         method: 'DELETE',

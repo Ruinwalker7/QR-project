@@ -62,7 +62,7 @@ class Login {
 //        }
 
         fun login(phone:String, password: String, callback: (Deliveryman?, msg:String?) -> Unit)  {
-            val urlString = "http://192.168.3.26:8080/app/login"
+            val urlString = "http://notebook.szkxy.net/app/login"
             val loginRequest = LoginRequest(phone, password)
             runBlocking {
                 Fuel.post(urlString).jsonBody(Gson().toJson(loginRequest))

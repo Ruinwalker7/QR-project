@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.qrcode.dao.DeliverymanDao;
-import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,9 +34,10 @@ public class DeliverymanController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestParam Long id){
+    public ResponseEntity<String> delete(@RequestParam String id){
         System.out.println(id);
-        int rowsAffected = deliverymanDao.deleteById(id);
+        DeliverymanEntity deliveryman = deliverymanDao.selectByPhone(id);
+        int rowsAffected = deliverymanDao.deleteById(deliveryman);
         if (rowsAffected > 0) {
             return  ResponseEntity.status(HttpStatus.OK).body("删除成功");
         } else {

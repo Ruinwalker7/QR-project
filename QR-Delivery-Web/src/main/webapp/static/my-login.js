@@ -1,28 +1,6 @@
-/******************************************
- * My Login
- *
- * Bootstrap 4 Login Page
- *
- * @author          Muhamad Nauval Azhar
- * @uri 			https://nauval.in
- * @copyright       Copyright (c) 2018 Muhamad Nauval Azhar
- * @license         My Login is licensed under the MIT license.
- * @github          https://github.com/nauvalazhar/my-login
- * @version         1.2.0
- *
- * Help me to keep this project alive
- * https://www.buymeacoffee.com/mhdnauvalazhar
- * 
- ******************************************/
-
 'use strict';
 
 $(function() {
-
-	// author badge :)
-	var author = '<div style="position: fixed;bottom: 0;right: 20px;background-color: #fff;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 3px 3px 0 0;font-size: 12px;padding: 5px 10px;">By <a href="https://twitter.com/mhdnauvalazhar">@mhdnauvalazhar</a> &nbsp;&bull;&nbsp; <a href="https://www.buymeacoffee.com/mhdnauvalazhar">Buy me a Coffee</a></div>';
-	$("body").append(author);
-
 	$("input[type='password'][data-eye]").each(function(i) {
 		var $this = $(this),
 			id = 'eye-password-' + i,
@@ -89,10 +67,10 @@ $(function() {
 
 	document.getElementById("loginForm").addEventListener("submit", function(event) {
 		event.preventDefault(); // 阻止表单默认提交行为
-		if(document.getElementById("email").value ==""){
+		if(document.getElementById("email").value ===""){
 			document.getElementsByClassName("invalid-feedback")[0].textContent="请输入用户名"
 			return
-		}else if(document.getElementById("password").value==""){
+		}else if(document.getElementById("password").value===""){
 			document.getElementsByClassName("invalid-feedback")[0].textContent="请输入密码"
 			return;
 		}
@@ -114,14 +92,12 @@ $(function() {
 					throw new Error("Network response was not ok.");
 				}else{
 					window.location.href = "/index"
-
 				}
 				return response;
 			})
 			.catch(error => {
 				// 处理错误
 				console.error("There was a problem with the fetch operation:", error);
-				// 可能的操作：显示错误消息给用户
 			});
 	});
 });

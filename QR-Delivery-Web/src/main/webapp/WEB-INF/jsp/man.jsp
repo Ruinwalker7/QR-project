@@ -1,14 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="java.io.*,java.util.*" %>
+
 <%
     HttpSession session1 = (HttpSession) request.getSession(false); // 获取当前会话，如果不存在则不创建新会话
 
     // 检查会话是否存在以及其中的字段值
     if (session1 != null && session1.getAttribute("loggedIn") != null && (boolean)session1.getAttribute("loggedIn")) {
         // loggedIn 字段为 true，用户已登录，继续显示当前页面
-%>
-<%
     } else {
         // loggedIn 字段不为 true，用户未登录，进行重定向到登录页面或其他页面
         response.sendRedirect("/"); // 重定向到登录页面
@@ -19,7 +17,7 @@
 <html lang="en">
 <head>
     <title>人员管理</title>
-    <link href="/static/layui/css/layui.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +32,9 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="ID" value="" placeholder="工号" class="layui-input" lay-affix="clear">
+                <label>
+                    <input type="text" name="ID" value="" placeholder="工号" class="layui-input" lay-affix="clear">
+                </label>
             </div>
         </div>
         <div class="layui-col-md4">
@@ -42,7 +42,9 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="username" placeholder="姓名" lay-affix="clear" class="layui-input">
+                <label>
+                    <input type="text" name="username" placeholder="姓名" lay-affix="clear" class="layui-input">
+                </label>
             </div>
         </div>
         <div class="layui-col-md4">
@@ -50,7 +52,9 @@
                 <div class="layui-input-prefix">
                     <i class="layui-icon layui-icon-date"></i>
                 </div>
-                <input type="text" name="ID_card" placeholder="身份证号" class="layui-input demo-table-search-date">
+                <label>
+                    <input type="text" name="ID_card" placeholder="身份证号" class="layui-input demo-table-search-date">
+                </label>
             </div>
         </div>
         <div class="layui-btn-container layui-col-xs12">
@@ -80,10 +84,6 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
-<%--        <button class="layui-btn layui-btn-sm" id="dropdownButton">--%>
-<%--            下拉按钮--%>
-<%--            <i class="layui-icon layui-icon-down layui-font-12"></i>--%>
-<%--        </button>--%>
     </div>
 </script>
 
@@ -96,7 +96,7 @@
 
 
 
-<script src="//cdn.staticfile.org/layui/2.9.0/layui.js"></script>
+<script src="https://cdn.staticfile.org/layui/2.9.0/layui.js"></script>
 <script>
     layui.use(['table', 'dropdown'], function(){
         var table = layui.table;
@@ -108,7 +108,7 @@
             elem: '#test',
             url: '/api/man/all', // 此处为静态模拟数据，实际使用时需换成真实接口
             toolbar: '#toolbarDemo',
-            height: '550', // 最大高度减去其他容器已占有的高度差
+            height: 'full-200', // 最大高度减去其他容器已占有的高度差
             css: [ // 重设当前表格样式
                 '.layui-table-tool-temp{padding-right: 1000px;}'
             ].join(''),
@@ -118,11 +118,11 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field:'id', fixed: 'left', width:120, title: '工号'},
-                {field:'username', width:120, title: '姓名',edit: 'textarea'},
-                {field:'phone', title:'电话', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'phone'},
-                {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 200, expandedWidth: 260},
-                {field:'workAddress',  title: '工作地址',edit: 'textarea',minWidth: 150, expandedWidth: 300},
-                {field:'createTime', width:300, title: '加入时间', sort: true},
+                {field:'username', width:100, title: '姓名',edit: 'textarea'},
+                {field:'phone', title:'电话', fieldTitle: '邮箱', hide: 0, minWidth: 130, expandedMode: 'tips', edit: 'phone'},
+                {field:'idCard', title: '身份证号', edit: 'textarea', minWidth: 180, expandedWidth: 260},
+                {field:'workAddress',  title: '工作地址',edit: 'textarea',minWidth: 130, expandedWidth: 300},
+                {field:'createTime', minWidth: 170, title: '加入时间', sort: true},
                 {title: '收件人权限', width:105, templet: '#ID-table-demo-templet-switch1'},
                 {title: '寄件人权限', width:105, templet: '#ID-table-demo-templet-switch2'},
                 {title: '物品权限', width:105, templet: '#ID-table-demo-templet-switch3'},
@@ -183,7 +183,7 @@
         });
 
         // 状态 - 开关操作
-        form.on('switch(demo-templet-status)', function(obj){
+        form.on('switch(demo-templet-status)', function(){
             var value = this.checked ? 1:0
             var id = this.value;
             var name = this.name;
@@ -227,12 +227,12 @@
         table.on('toolbar(test)', function(obj){
             var id = obj.config.id;
             var checkStatus = table.checkStatus(id);
-            var othis = lay(this);
+            // var othis = lay(this);
             switch(obj.event){
                 case 'getCheckData':
                     var data = checkStatus.data;
                     console.log(data)
-                    if(data.length!=0)
+                    if(data.length!==0)
                         layer.alert(layui.util.escape(JSON.stringify(data)));
                     else
                         layer.msg('请选择行', {icon: 0});
@@ -242,7 +242,7 @@
                     console.log(getData);
                     layer.alert(layui.util.escape(JSON.stringify(getData)));
                     break;
-            };
+            }
         });
         // 表头自定义元素工具事件 --- 2.8.8+
         table.on('colTool(test)', function(obj){
@@ -258,7 +258,7 @@
         // 触发单元格工具事件
         table.on('tool(test)', function(obj){ // 双击 toolDouble
             var data = obj.data; // 获得当前行数据
-            // console.log(obj)
+            console.log(data)
             if(obj.event === 'edit'){
                 layer.open({
                     title: '编辑 - id:'+ data.id,
@@ -267,8 +267,8 @@
                     content: '<div style="padding: 16px;">自定义表单元素</div>'
                 });
             }else if(obj.event === 'delete'){
-                layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                    const url1 = "/api/man/delete?id=" + data.id;
+                layer.confirm('真的删除行 [姓名: '+ data.username +'] 么', function(index){
+                    const url1 = "/api/man/delete?id=" + data.phone;
                     // 使用 Fetch API 发起 DELETE 请求
                     fetch(url1, {
                         method: 'DELETE',
@@ -277,9 +277,8 @@
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
-                            return;
                         })
-                        .then(data => {
+                        .then(() => {
                             obj.del(); // 删除对应行（tr）的DOM结构
                         })
                         .catch(error => {
@@ -325,7 +324,7 @@
 
             // 值的校验
             if(field === 'email'){
-                if(!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(obj.value)){
+                if(!/^([a-zA-Z0-9_\\.\-])+\\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(obj.value)){
                     layer.tips('输入的邮箱格式不正确，请重新编辑', this, {tips: 1});
                     return obj.reedit(); // 重新编辑 -- v2.8.0 新增
                 }
@@ -344,7 +343,6 @@
                         layer.msg('编辑失败', {icon: 3});
                         throw new Error('Network response was not ok');
                     }
-                    return;
                 })
                 .then(data => {
                     // 请求成功后的操作，根据后端返回的数据进行处理

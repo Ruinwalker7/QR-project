@@ -1,9 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 
-<%@ page import="java.io.*,java.util.*" %>
 <%
     HttpSession session1 = (HttpSession) request.getSession(false); // 获取当前会话，如果不存在则不创建新会话
 
@@ -18,14 +17,14 @@
 
 <head>
     <title>后台管理</title>
-    <link href="//cdn.staticfile.org/layui/2.9.0/css/layui.css" rel="stylesheet">
-    <script ref="reference" src="/static/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link href="https://cdn.staticfile.org/layui/2.9.0/css/layui.css" rel="stylesheet">
+    <script href="reference" src="${pageContext.request.contextPath}/static/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/style.css">
     <link rel="icon" type="/static/" href="favicon.ico">
 </head>
 <body>
 
-<script src="//cdn.staticfile.org/layui/2.9.0/layui.js"></script>
+<script src="https://cdn.staticfile.org/layui/2.9.0/layui.js"></script>
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
@@ -40,7 +39,7 @@
                 <a ><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
             </li>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="/exit">退出</a>
+                <a href="${pageContext.request.contextPath}/exit">退出</a>
             </li>
         </ul>
     </div>
@@ -59,6 +58,9 @@
 
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="main_left"  data-src="/customer">用户管理</a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="main_left"  data-src="/address">地址管理</a>
                 </li>
             </ul>
         </div>

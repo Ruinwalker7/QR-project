@@ -31,7 +31,6 @@ public class ResConfig {
          * OK
          */
         public static final int OK = 0;
-
         public static final int USER_ERROR = 2000;
 
         public static final int PASS_ERROR = 2001;
@@ -54,8 +53,8 @@ public class ResConfig {
         public static final String SERVER_ERROR = "服务器端发生异常....";
 
         public static final String LOGIN_ERROR = "用户名或密码错误";
-        public static final String EXIST_ERROR = "已存在";
 
+        public static final String EXIST_ERROR = "已存在";
 
         public static final String AUTH_ERROR = "您无权访问此项内容";
 

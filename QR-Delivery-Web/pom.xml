@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.chen</groupId>
     <artifactId>qrCode</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>war</packaging>
     <name>qrCode</name>
     <description>qrCode</description>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <version>8.0.33</version>
         </dependency>
 
         <dependency>
@@ -72,6 +72,12 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>3.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
 
         <!--对jsp的支持-->
@@ -140,24 +146,24 @@
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
-            <version>3.3.3</version>
+            <version>3.5.1</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
-            <version>3.3.3</version>
+            <version>3.5.1</version>
         </dependency>
 
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
-            <version>1.7.1</version>
+            <version>2.10</version>
         </dependency>
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>java-property-utils</artifactId>
-            <version>1.9</version>
+            <version>1.17</version>
         </dependency>
     </dependencies>
 

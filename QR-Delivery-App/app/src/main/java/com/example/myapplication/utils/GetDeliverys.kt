@@ -16,7 +16,7 @@ class GetDeliverys {
     data class DeliveryDetail(val id: String, val srcName:String,val srcAddress:String, val srcPhone:String, val dstName:String, val dstPhone:String, val dstAddress:String,
         val status: String, val type: String, val name: String, val createTime:String): Serializable
     fun getDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
-        val urlString = "http://192.168.3.26:8080/app/alldelivery"
+        val urlString = "http://notebook.szkxy.net/app/alldelivery"
 
         runBlocking {
             Fuel.get(urlString, listOf( "phone" to phone))

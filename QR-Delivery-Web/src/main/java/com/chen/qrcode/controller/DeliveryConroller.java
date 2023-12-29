@@ -3,15 +3,20 @@ package com.chen.qrcode.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chen.qrcode.config.ResConfig;
 import com.chen.qrcode.dao.DeliveryDao;
 import com.chen.qrcode.dao.DeliverymanDao;
 import com.chen.qrcode.dto.DeliveryDto;
 import com.chen.qrcode.dto.DeliverymanNameDto;
 import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
+import com.chen.qrcode.service.impl.AddressServiceImpl;
+import com.chen.qrcode.service.impl.DeliveryServiceImpl;
+import com.chen.qrcode.utils.JsonResponse;
 import com.chen.qrcode.utils.QRCodeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +39,11 @@ public class DeliveryConroller {
     @Autowired
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
 
+    @Resource
+    private DeliveryServiceImpl deliveryService;
+
+    @Resource
+    private AddressServiceImpl addressService;
     @PostMapping("/update/allot")
     public ResponseEntity<String> updateAllot(@RequestParam("id") long id, @RequestParam("deliverymanid") String deliverymanid){
         System.out.println(deliverymanid);
@@ -63,7 +73,7 @@ public class DeliveryConroller {
     public ResponseEntity<String> delete(@RequestParam Long id){
         int rowsAffected = deliveryDao.deleteById(id);
         if (rowsAffected > 0) {
-            return  ResponseEntity.status(HttpStatus.OK).body("删除成功");
+            return ResponseEntity.status(HttpStatus.OK).body("删除成功");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("删除失败");
         }
@@ -81,39 +91,20 @@ public class DeliveryConroller {
     }
 
     @GetMapping("/all")
-    public String getAllDelivery( @RequestParam(name="page", defaultValue = "1") Integer pagenums,
+    public String getAllDelivery( @RequestParam(name="page", defaultValue = "1") Integer pageNums,
                                @RequestParam(defaultValue = "10") Integer limit,
-                               @RequestParam(name="ID",required = false) String id,
-                               @RequestParam(name="srcName",required = false) String src,
-                               @RequestParam(name="dstName",required = false) String dst ) {
-        QueryWrapper<DeliveryDto> queryWrapper = new QueryWrapper<>();
+                               @RequestParam(name="ID",required = false) String id) {
+        IPage<DeliveryDto> deliveryDtoIPage = deliveryService.findPage(pageNums,limit,id);
+        List<DeliveryDto> deliveryDtos = addressService.findById(deliveryDtoIPage.getRecords());
 
-        if(id != null){
-            queryWrapper.like("delivery.id", id); // 使用like方法进行模糊查询
-        }
-        if(src!=null){
-            queryWrapper.like("delivery.src_name", src); // 使用like方法进行模糊查询
-        }
-        if(dst!=null){
-            queryWrapper.like("delivery.dst_name", dst); // 使用like方法进行模糊查询
-        }
-
-        Page<DeliveryDto> page = new Page<>(pagenums, limit);
-        IPage<DeliveryDto> iPage =  deliveryDao.selectAllDto(page,queryWrapper);
-        List<DeliveryDto> deliveryEntities = iPage.getRecords();
-
-        System.out.println(deliveryEntities);
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setCode(ResConfig.Code.OK);
+        jsonResponse.setData(deliveryDtos);
+        jsonResponse.setCount(deliveryDtoIPage.getTotal());
+        System.out.println(deliveryDtos);
 
         try {
-            return "{\"code\": 0,\"msg\": \"\",\n" +
-                    "    \"count\": "+ iPage.getTotal()+",\n" +
-                    "    \"totalRow\": {\n" +
-                    "        \"era\": {\n" +
-                    "            \"tang\": \"2\",\n" +
-                    "            \"song\": \"2\",\n" +
-                    "            \"xian\": \"20\"\n" +
-                    "        }\n" +
-                    "    },    \"data\": " + objectMapper.writeValueAsString(deliveryEntities) +"}";
+            return objectMapper.writeValueAsString(jsonResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Error converting to JSON";
@@ -184,17 +175,13 @@ public class DeliveryConroller {
         List<DeliveryDto> deliveryEntities = iPage.getRecords();
 
         System.out.println(deliveryEntities);
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setCode(ResConfig.Code.OK);
+        jsonResponse.setCount(iPage.getTotal());
+        jsonResponse.setData(deliveryEntities);
 
         try {
-            return "{\"code\": 0,\"msg\": \"\",\n" +
-                    "    \"count\": "+ iPage.getTotal()+",\n" +
-                    "    \"totalRow\": {\n" +
-                    "        \"era\": {\n" +
-                    "            \"tang\": \"2\",\n" +
-                    "            \"song\": \"2\",\n" +
-                    "            \"xian\": \"20\"\n" +
-                    "        }\n" +
-                    "    },    \"data\": " + objectMapper.writeValueAsString(deliveryEntities) +"}";
+            return objectMapper.writeValueAsString(jsonResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Error converting to JSON";

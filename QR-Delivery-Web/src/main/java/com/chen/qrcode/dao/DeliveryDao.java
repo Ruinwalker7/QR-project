@@ -36,4 +36,6 @@ public interface DeliveryDao extends BaseMapper<DeliveryEntity> {
     @Select("select delivery.id, delivery.status from delivery,deliveryman where deliveryman.phone = ${phone} and deliveryman.id = delivery.deliveryman_id " )
     List<DeliveryIdDto>  selectName(String phone);
 
+    @Select("select * from delivery")
+    IPage<DeliveryDto> selectPage(Page<DeliveryDto> page, @Param(Constants.WRAPPER) Wrapper<DeliveryDto> userWrapper);
 }
