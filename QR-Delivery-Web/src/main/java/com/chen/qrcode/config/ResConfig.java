@@ -10,7 +10,7 @@ public class ResConfig {
         /**
          * 请求成功
          */
-        public static final int SUCCESS = 0;
+        public static final int OK = 0;
         /**
          * 请求失败
          */
@@ -27,10 +27,7 @@ public class ResConfig {
          * 服务器端异常
          */
         public static final int SERVER_ERROR = 5000;
-        /**
-         * OK
-         */
-        public static final int OK = 0;
+
         public static final int USER_ERROR = 2000;
 
         public static final int PASS_ERROR = 2001;

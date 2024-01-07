@@ -36,4 +36,8 @@ public class AddressEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    public String getAddress(){
+        return province+" "+city+" "+county+" "+addressDetail;
+    }
 }

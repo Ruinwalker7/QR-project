@@ -7,8 +7,17 @@ import lombok.Data;
 @Data
 public class DeliveryDto extends DeliveryEntity {
 
-    private AddressEntity srcInfo;
+    private String srcName;
 
-    private AddressEntity dstInfo;
+    private String srcPhone;
 
+    private String srcAddress;
+
+    private String dstName;
+
+    private String dstPhone;
+
+    private String dstAddress;
+
+    private String username;
 }

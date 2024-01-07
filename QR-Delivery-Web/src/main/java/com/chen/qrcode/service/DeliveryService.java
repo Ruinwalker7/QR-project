@@ -8,4 +8,5 @@ import com.chen.qrcode.entity.DeliveryEntity;
 public interface DeliveryService extends IService<DeliveryEntity> {
     IPage<DeliveryDto> findPage(int pageNums, int limit, String id);
 
+//    IPage<DeliveryDto> find();
 }

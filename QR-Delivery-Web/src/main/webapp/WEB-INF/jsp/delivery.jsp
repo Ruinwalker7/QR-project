@@ -15,7 +15,8 @@
 <html lang="en">
 <head>
     <title>快递管理</title>
-    <link href="/static/layui/css/layui.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,27 +29,17 @@
         <div class="layui-col-md4">
             <div class="layui-input-wrap">
                 <div class="layui-input-prefix">
-                    <i class="layui-icon layui-icon-username"></i>
+                    <i class="layui-icon layui-icon-cellphone"></i>
                 </div>
-                <label>
                     <input type="text" name="ID" value="" placeholder="快递号" class="layui-input" lay-affix="clear">
-                </label>
             </div>
         </div>
         <div class="layui-col-md4">
             <div class="layui-input-wrap">
                 <div class="layui-input-prefix">
-                    <i class="layui-icon layui-icon-username"></i>
+                    <i class="layui-icon layui-icon-cellphone"></i>
                 </div>
-                <input type="text" name="srcName" placeholder="发件人" lay-affix="clear" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-col-md4">
-            <div class="layui-input-wrap">
-                <div class="layui-input-prefix">
-                    <i class="layui-icon layui-icon-username"></i>
-                </div>
-                <input type="text" name="dstName" placeholder="收件人" class="layui-input demo-table-search-date">
+                    <input type="text" name="phone" placeholder="电话" lay-affix="clear" class="layui-input">
             </div>
         </div>
         <div class="layui-btn-container layui-col-xs12">
@@ -60,7 +51,6 @@
 </div>
 
 
-<!-- 推荐 -->
 <script type="text/html" id="TPL-dropdpwn-demo">
     <button class="layui-btn layui-btn-primary dropdpwn-demo" style="width: 100px">
         <span>{{= d.username || '未分配' }}</span>
@@ -86,7 +76,7 @@
 
 
 
-<script src="//cdn.staticfile.org/layui/2.9.0/layui.js"></script>
+<script src="https://cdn.staticfile.org/layui/2.9.0/layui.js"></script>
 <script>
     layui.use(['table', 'dropdown'], function(){
         let table = layui.table;
@@ -96,7 +86,7 @@
         // 创建渲染实例
         table.render({
             elem: '#test',
-            url: '/api/delivery/all', // 此处为静态模拟数据，实际使用时需换成真实接口
+            url: '/api/delivery/all',
             toolbar: '#toolbarDemo',
             height: 'full-200', // 最大高度减去其他容器已占有高度差
             css: [ // 重设当前表格样式
@@ -208,10 +198,8 @@
                                     .catch(error => {
                                         console.error('Error:', error);
                                     });
-
                             }
                         });
-
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -231,7 +219,7 @@
             switch(obj.event){
                 case 'getCheckData':
                     let data = checkStatus.data;
-                    if(data.length!=0)
+                    if(data.length!==0)
                         layer.alert(layui.util.escape(JSON.stringify(data)));
                     else
                         layer.msg('请选择行', {icon: 0});
@@ -247,7 +235,7 @@
                 case 'getUnAlloted':
                     table.reload("test",{url: 'api/delivery/unalloted'}, true);
                     break;
-            };
+            }
         });
         // 表头自定义元素工具事件 --- 2.8.8+
         table.on('colTool(test)', function(obj){

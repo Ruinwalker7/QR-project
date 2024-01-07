@@ -30,13 +30,13 @@ import java.util.List;
 @RequestMapping("/api/delivery")
 @Slf4j
 public class DeliveryConroller {
-    @Autowired
+    @Resource
     private DeliveryDao deliveryDao;
 
-    @Autowired
+    @Resource
     private DeliverymanDao deliverymanDao;
 
-    @Autowired
+    @Resource
     private ObjectMapper objectMapper; // 使用Jackson ObjectMapper将对象转换为JSON
 
     @Resource
@@ -93,8 +93,10 @@ public class DeliveryConroller {
     @GetMapping("/all")
     public String getAllDelivery( @RequestParam(name="page", defaultValue = "1") Integer pageNums,
                                @RequestParam(defaultValue = "10") Integer limit,
-                               @RequestParam(name="ID",required = false) String id) {
+                                  @RequestParam(name="ID",required = false) String id,
+                                  @RequestParam(name="phone",required = false) String phone) {
         IPage<DeliveryDto> deliveryDtoIPage = deliveryService.findPage(pageNums,limit,id);
+        System.out.println(deliveryDtoIPage.getRecords());
         List<DeliveryDto> deliveryDtos = addressService.findById(deliveryDtoIPage.getRecords());
 
         JsonResponse jsonResponse = new JsonResponse();
@@ -131,20 +133,15 @@ public class DeliveryConroller {
 
         Page<DeliveryDto> page = new Page<>(pagenums, limit);
         IPage<DeliveryDto> iPage =  deliveryDao.selectAllotedDto(page,queryWrapper);
-        List<DeliveryDto> deliveryEntities = iPage.getRecords();
+        List<DeliveryDto> deliveryDtos = addressService.findById(iPage.getRecords());
 
-        System.out.println(deliveryEntities);
-
+        System.out.println(deliveryDtos);
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setCode(ResConfig.Code.OK);
+        jsonResponse.setCount(iPage.getTotal());
+        jsonResponse.setData(deliveryDtos);
         try {
-            return "{\"code\": 0,\"msg\": \"\",\n" +
-                    "    \"count\": "+ iPage.getTotal()+",\n" +
-                    "    \"totalRow\": {\n" +
-                    "        \"era\": {\n" +
-                    "            \"tang\": \"2\",\n" +
-                    "            \"song\": \"2\",\n" +
-                    "            \"xian\": \"20\"\n" +
-                    "        }\n" +
-                    "    },    \"data\": " + objectMapper.writeValueAsString(deliveryEntities) +"}";
+            return  objectMapper.writeValueAsString(jsonResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Error converting to JSON";
@@ -172,13 +169,12 @@ public class DeliveryConroller {
 
         Page<DeliveryDto> page = new Page<>(pagenums, limit);
         IPage<DeliveryDto> iPage =  deliveryDao.selectUnAllotedDto(page,queryWrapper);
-        List<DeliveryDto> deliveryEntities = iPage.getRecords();
-
-        System.out.println(deliveryEntities);
+        List<DeliveryDto> deliveryDtos = addressService.findById(iPage.getRecords());
+        System.out.println(deliveryDtos);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setCode(ResConfig.Code.OK);
         jsonResponse.setCount(iPage.getTotal());
-        jsonResponse.setData(deliveryEntities);
+        jsonResponse.setData(deliveryDtos);
 
         try {
             return objectMapper.writeValueAsString(jsonResponse);

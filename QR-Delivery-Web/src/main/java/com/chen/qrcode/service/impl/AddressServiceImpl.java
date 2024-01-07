@@ -39,7 +39,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressDao,AddressEntity> im
             wrapper.like("id", id); // 使用like方法进行模糊查询
         }
         if(phone!=null){
-            wrapper.like("phone", phone); // 使用like方法进行模糊查询
+            wrapper.like("phone", name); // 使用like方法进行模糊查询
         }
         if(name!=null){
             wrapper.like("name", phone); // 使用like方法进行模糊查询
@@ -50,8 +50,14 @@ public class AddressServiceImpl extends ServiceImpl<AddressDao,AddressEntity> im
 
     public List<DeliveryDto> findById(List<DeliveryDto> deliveryDtos){
         for (DeliveryDto deliveryDto : deliveryDtos) {
-            deliveryDto.setSrcInfo(addressDao.selectById(deliveryDto.getSrcAddressId()));
-            deliveryDto.setDstInfo(addressDao.selectById(deliveryDto.getDstAddressId()));
+            AddressEntity src = addressDao.selectById(deliveryDto.getSrcAddressId());
+            deliveryDto.setSrcName(src.getName());
+            deliveryDto.setSrcPhone(src.getPhone());
+            deliveryDto.setSrcAddress(src.getAddress());
+            AddressEntity dst = addressDao.selectById(deliveryDto.getDstAddressId());
+            deliveryDto.setDstName(dst.getName());
+            deliveryDto.setDstPhone(dst.getPhone());
+            deliveryDto.setDstAddress(dst.getAddress());
         }
         return deliveryDtos;
     }

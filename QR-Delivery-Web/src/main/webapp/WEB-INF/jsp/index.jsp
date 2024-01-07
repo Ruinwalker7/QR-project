@@ -36,7 +36,7 @@
 
 >
             <li class="layui-nav-item" lay-unselect="">
-                <a ><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <a ><img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="头像">我</a>
             </li>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="${pageContext.request.contextPath}/exit">退出</a>

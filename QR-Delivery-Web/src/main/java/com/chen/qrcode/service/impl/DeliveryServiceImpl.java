@@ -19,9 +19,9 @@ public class DeliveryServiceImpl extends ServiceImpl<DeliveryDao,DeliveryEntity>
     public IPage<DeliveryDto> findPage(int pageNums, int limit, String id) {
         QueryWrapper<DeliveryDto> wrapper = new QueryWrapper<>();
         if(id != null){
-            wrapper.like("id", id); // 使用like方法进行模糊查询
+            wrapper.like("delivery.id", id); // 使用like方法进行模糊查询
         }
         Page<DeliveryDto> page = new Page<>(pageNums,limit);
-        return deliveryDao.selectPage(page,wrapper);
+        return deliveryDao.selectAllDto(page,wrapper);
     }
 }
