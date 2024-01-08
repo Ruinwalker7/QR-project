@@ -17,7 +17,6 @@ class GetDeliverys {
         val status: String, val type: String, val name: String, val createTime:String): Serializable
     fun getDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
         val urlString = "http://notebook.szkxy.net/app/alldelivery"
-
         runBlocking {
             Fuel.get(urlString, listOf( "phone" to phone))
                 .responseString { _, _, result ->
@@ -52,10 +51,81 @@ class GetDeliverys {
         }
     }
 
+    fun getSendDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
+        val urlString = "http://notebook.szkxy.net/app/customer/senddelivery"
+        runBlocking {
+            Fuel.get(urlString, listOf( "phone" to phone))
+                .responseString { _, _, result ->
+                    when(result){
+                        is Result.Success -> {
+                            val data = result.get() // 获取返回的字符串数据
+                            val jsonObject = JSONObject(data)
+                            when(jsonObject.getInt("code")){
+                                ResConfig.Code.OK ->{
+                                    try {
+                                        println(jsonObject.getString("data"))
+                                        val listType = object : TypeToken<List<Delivery>>() {}.type
+                                        val employees: List<Delivery>? = Gson().fromJson(jsonObject.getString("data"), listType)
+                                        callback(employees,null)
+                                    } catch (e: JsonSyntaxException) {
+                                        // JSON 解析异常
+                                        println("Error parsing JSON: ${e.message}")
+                                    }
+                                }
+                                else ->{
+                                    callback(null,"获取快递列表失败")
+                                }
+                            }
+                        }
+                        is Result.Failure -> {
+                            val error = result.error
+                            println("Request failed. Error: $error")
+                            callback(null,"获取快递列表失败")
+                        }
+                    }
+                }
+        }
+    }
 
+    fun getReceiverDelivery(phone: String?,  callback: (List<Delivery>?, msg:String?) -> Unit){
+        val urlString = "http://notebook.szkxy.net/app/customer/receivedelivery"
+        runBlocking {
+            Fuel.get(urlString, listOf( "phone" to phone))
+                .responseString { _, _, result ->
+                    when(result){
+                        is Result.Success -> {
+                            val data = result.get() // 获取返回的字符串数据
+                            val jsonObject = JSONObject(data)
+                            when(jsonObject.getInt("code")){
+                                ResConfig.Code.OK ->{
+                                    try {
+                                        println(jsonObject.getString("data"))
+                                        val listType = object : TypeToken<List<Delivery>>() {}.type
+                                        val employees: List<Delivery>? = Gson().fromJson(jsonObject.getString("data"), listType)
+                                        callback(employees,null)
+                                    } catch (e: JsonSyntaxException) {
+                                        // JSON 解析异常
+                                        println("Error parsing JSON: ${e.message}")
+                                    }
+                                }
+                                else ->{
+                                    callback(null,"获取快递列表失败")
+                                }
+                            }
+                        }
+                        is Result.Failure -> {
+                            val error = result.error
+                            println("Request failed. Error: $error")
+                            callback(null,"获取快递列表失败")
+                        }
+                    }
+                }
+        }
+    }
+
+    //获取某一个快递
     fun getDeliveryDetial(phone: String?, id: String, callback: (DeliveryDetail?, String?) -> Unit){
-        val urlString = "http://192.168.3.26:8080/app/deliverydetail"
-
+        val urlString = "http://notebook.szkxy.net/app/deliverydetail"
         runBlocking {
             Fuel.get(urlString, listOf( "phone" to phone,"id" to id))
                 .responseString { _, _, result ->

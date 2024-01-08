@@ -66,12 +66,12 @@
 </div>
 
 
-<script type="text/html" id="ID-table-demo-templet-switch1">
+<script type="text/html" id="ID-table-demo-templet-switch2">
     <input type="checkbox" name="src"  title="开启|关闭" lay-skin="switch" value="{{= d.phone }}"
            lay-filter="demo-templet-status" {{= d.visitSrc == 1 ? "checked": ""}}>
 </script>
 
-<script type="text/html" id="ID-table-demo-templet-switch2">
+<script type="text/html" id="ID-table-demo-templet-switch1">
     <input type="checkbox" name="dst" value="{{= d.phone }}" title="开启|关闭" lay-skin="switch"
            lay-filter="demo-templet-status"  {{= d.visitDst == 1 ? "checked": ""}}>
 </script>

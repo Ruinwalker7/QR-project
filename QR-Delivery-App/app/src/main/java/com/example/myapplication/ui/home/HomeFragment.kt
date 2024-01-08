@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,7 +18,6 @@ import com.example.myapplication.DeliveryActivity
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.utils.GetDeliverys
 import com.example.myapplication.utils.UserManager
-import java.lang.reflect.Modifier
 
 
 class HomeFragment : Fragment() {
@@ -28,21 +26,63 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var linearLayout:LinearLayout? = null;
     private var homeViewModel:HomeViewModel? = null;
+    var status:Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val context: Context = requireContext()
 
         linearLayout = binding.deliveryLayout
 
+        if(status ==1){
+            buildCustomer()
+        }else{
+            buildDeliveryman()
+        }
+        return root
+    }
+
+    private fun buildCustomer(){
+        val context: Context = requireContext()
+        val list = homeViewModel?.getData()
+        if(list.isNullOrEmpty()){
+            GetDeliverys().getSendDelivery(UserManager.getInstance(context)?.phoneNumber){
+                    list,msg->
+                if(!list.isNullOrEmpty()){
+                    homeViewModel?.setData(list)
+                    activity?.runOnUiThread( Runnable() {
+                        run() { addDelivery(list)
+                        }
+                    })
+                }
+            }
+        }else{
+            addDelivery(list)
+        }
+        val button = binding.button
+        button.setOnClickListener{
+            GetDeliverys().getSendDelivery(UserManager.getInstance(context)?.phoneNumber){
+                    list,msg->
+                if(!list.isNullOrEmpty()){
+                    homeViewModel?.setData(list)
+                    activity?.runOnUiThread( Runnable() {
+                        Toast.makeText(context, "刷新成功！", Toast.LENGTH_LONG).show()
+                        run() { addDelivery(list)
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+    private fun buildDeliveryman(){
+        val context: Context = requireContext()
         val list = homeViewModel?.getData()
         if(list.isNullOrEmpty()){
             GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber){
@@ -50,15 +90,14 @@ class HomeFragment : Fragment() {
                 if(!list.isNullOrEmpty()){
                     homeViewModel?.setData(list)
                     activity?.runOnUiThread( Runnable() {
-                         run() { addDelivery(list)
+                        run() { addDelivery(list)
                         }
                     })
-                    }
                 }
+            }
         }else{
             addDelivery(list)
         }
-
         val button = binding.button
         button.setOnClickListener{
             GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber){
@@ -73,9 +112,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        return root
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -111,17 +148,15 @@ class HomeFragment : Fragment() {
                 textView.tag = item.id
                 textView.setTextColor(Color.BLACK)
                 textView.setOnClickListener { // 在这里编写点击事件的逻辑
-
                     GetDeliverys().getDeliveryDetial(context?.let { it1 ->
                         UserManager.getInstance(
                             it1
                         )?.phoneNumber
-                    }, it?.tag.toString()){  detail:GetDeliverys.DeliveryDetail?,msg:String?->
+                    }, it?.tag.toString()){ detail:GetDeliverys.DeliveryDetail?,msg:String?->
                         activity?.runOnUiThread{
                             if (detail == null){
                                 Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()
                             }else{
-//                                Toast.makeText(context, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
                                 val intent = Intent(context, DeliveryActivity::class.java)
                                 intent.putExtra("detail",detail)
                                 startActivity(intent)
@@ -146,7 +181,7 @@ class HomeFragment : Fragment() {
             }
         }else{
             val textView = TextView(context)
-            val s : String = "没有需要配送的快递"
+            val s = "没有需要配送的快递"
             textView.text = s
 
             // 设置文本颜色

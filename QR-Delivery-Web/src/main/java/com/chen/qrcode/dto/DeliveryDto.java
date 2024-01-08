@@ -20,4 +20,5 @@ public class DeliveryDto extends DeliveryEntity {
     private String dstAddress;
 
     private String username;
+
 }

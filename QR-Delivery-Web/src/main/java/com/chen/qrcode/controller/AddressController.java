@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.chen.qrcode.config.ResConfig;
 import com.chen.qrcode.entity.AddressEntity;
 import com.chen.qrcode.service.impl.AddressServiceImpl;
-import com.chen.qrcode.utils.JsonResponse;
+import com.chen.qrcode.config.JsonResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;

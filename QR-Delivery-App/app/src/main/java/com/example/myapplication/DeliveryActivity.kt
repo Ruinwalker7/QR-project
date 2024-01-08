@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +12,6 @@ import com.example.myapplication.utils.GetDeliverys
 import java.io.Serializable
 
 class DeliveryActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -22,13 +20,9 @@ class DeliveryActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         supportActionBar!!.hide()
-
         setContentView(R.layout.activity_delivery)
-
         val textView = findViewById<TextView>(R.id.deliveryDetail)
         val receivedData = getSerializable(this, "detail",  GetDeliverys.DeliveryDetail::class.java)
-
-        println(receivedData)
         textView.setLineSpacing(1F,1.6F)
         textView.gravity = Gravity.CENTER_VERTICAL
         var contentS:String? = "";
@@ -42,21 +36,22 @@ class DeliveryActivity : AppCompatActivity() {
         }
         if(!receivedData.srcName.isNullOrBlank()){
             contentS += "发件人："+ receivedData.srcName +"\n"
-            contentS += "发件手机："+ receivedData.srcPhone +"\n"
-            contentS += "发件地址："+ receivedData.srcAddress +"\n"
+            contentS += "发件人手机："+ receivedData.srcPhone +"\n"
+            contentS += "发件人地址："+ receivedData.srcAddress +"\n"
         }
         if(!receivedData.dstName.isNullOrBlank()){
             contentS += "收件人："+ receivedData.dstName +"\n"
-            contentS += "收件手机："+ receivedData.dstPhone +"\n"
-            contentS += "收件地址："+ receivedData.dstAddress +"\n"
+            contentS += "收件人手机："+ receivedData.dstPhone +"\n"
+            contentS += "收件人地址："+ receivedData.dstAddress +"\n"
         }
         if (!receivedData.createTime.isNullOrBlank()){
             contentS += "发货时间："+ receivedData.createTime +"\n"
         }
+        if (!receivedData.type.isNullOrBlank()){
+            contentS += "快递类型："+ receivedData.type +"\n"
+        }
         textView.setText(contentS)
-
     }
-
 
     fun <T : Serializable?> getSerializable(activity: Activity, name: String, clazz: Class<T>): T
     {

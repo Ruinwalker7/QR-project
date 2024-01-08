@@ -12,13 +12,12 @@ import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.service.impl.AddressServiceImpl;
 import com.chen.qrcode.service.impl.DeliveryServiceImpl;
-import com.chen.qrcode.utils.JsonResponse;
+import com.chen.qrcode.config.JsonResponse;
 import com.chen.qrcode.utils.QRCodeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -96,7 +95,6 @@ public class DeliveryConroller {
                                   @RequestParam(name="ID",required = false) String id,
                                   @RequestParam(name="phone",required = false) String phone) {
         IPage<DeliveryDto> deliveryDtoIPage = deliveryService.findPage(pageNums,limit,id);
-        System.out.println(deliveryDtoIPage.getRecords());
         List<DeliveryDto> deliveryDtos = addressService.findById(deliveryDtoIPage.getRecords());
 
         JsonResponse jsonResponse = new JsonResponse();

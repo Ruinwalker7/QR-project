@@ -26,7 +26,6 @@ public interface DeliveryDao extends BaseMapper<DeliveryEntity> {
     )
     IPage<DeliveryDto> selectUnAllotedDto(Page<DeliveryDto> page,@Param(Constants.WRAPPER) Wrapper<DeliveryDto> userWrapper);
 
-
     @Select("select delivery.* ,deliveryman.username from delivery "+
             "left join deliveryman on delivery.deliveryman_id = deliveryman.id ${ew.customSqlSegment}"
     )

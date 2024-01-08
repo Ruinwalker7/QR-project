@@ -2,26 +2,19 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.entity.Deliveryman
 import com.example.myapplication.utils.Login
-import com.example.myapplication.utils.HTTPCallback
 import com.example.myapplication.utils.UserManager
 
 class LoginActivity : AppCompatActivity() {
-    var imageView: ImageView? = null
     var textView: TextView? = null
-    var count = 0
     private lateinit var phone_et:EditText
     private lateinit var password_et:EditText
 
@@ -36,57 +29,28 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         setContentView(R.layout.login_main)
-        imageView = findViewById(R.id.imageView)
         textView = findViewById(R.id.textView)
 
-        imageView?.setOnTouchListener(object : OnSwipeTouchListener(applicationContext) {
-            override fun onSwipeTop() {}
-            override fun onSwipeRight() {
-                count = if (count == 0) {
-                    imageView?.setImageResource(R.drawable.good_night_img)
-                    textView?.setText("Night")
-                    1
-                } else {
-                    imageView?.setImageResource(R.drawable.good_morning_img)
-                    textView?.setText("Morning")
-                    0
-                }
-            }
-
-            override fun onSwipeLeft() {
-                count = if (count == 0) {
-                    imageView?.setImageResource(R.drawable.good_night_img)
-                    textView?.setText("Night")
-                    1
-                } else {
-                    imageView?.setImageResource(R.drawable.good_morning_img)
-                    textView?.setText("Morning")
-                    0
-                }
-            }
-
-            override fun onSwipeBottom() {}
-        })
 
         phone_et = findViewById(R.id.phone_et)
-        phone_et?.hint = "电话"
-        phone_et?.setOnFocusChangeListener{ view, hasFocus ->
+        phone_et.hint = "电话"
+        phone_et.setOnFocusChangeListener{ view, hasFocus ->
             if(hasFocus){
-                phone_et?.hint=""
+                phone_et.hint=""
             }
             else{
-                phone_et?.hint="电话"
+                phone_et.hint="电话"
             }
         }
 
         password_et = findViewById(R.id.pwd_et)
-        password_et?.hint = "密码"
-        password_et?.setOnFocusChangeListener{ view, hasFocus ->
+        password_et.hint = "密码"
+        password_et.setOnFocusChangeListener{ view, hasFocus ->
             if(hasFocus){
-                password_et?.hint=""
+                password_et.hint=""
             }
             else{
-                password_et?.hint="密码"
+                password_et.hint="密码"
             }
         }
 
@@ -125,6 +89,7 @@ class LoginActivity : AppCompatActivity() {
                         println("登录成功：$deliveryman")
                         UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.password,deliveryman?.phone,deliveryman?.workAddress)
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.putExtra("status", 0);
                         startActivity(intent)
                         finish()
                     }else{
