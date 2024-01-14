@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
                 runOnUiThread{
                     if (deliveryman != null){
                         println("登录成功：$deliveryman")
-                        UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman?.username,deliveryman?.password,deliveryman?.phone,deliveryman?.workAddress)
+                        UserManager.getInstance(this@LoginActivity)?.saveUserCredentials(deliveryman.id,deliveryman.username,deliveryman.password,deliveryman.phone,deliveryman.workAddress)
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.putExtra("status", 0);
                         startActivity(intent)

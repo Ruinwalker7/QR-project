@@ -13,7 +13,6 @@ import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.home.HomeFragment
 import com.example.myapplication.ui.notifications.NotificationsFragment
 import com.example.myapplication.utils.GetDeliverys
-//import com.example.myapplication.utils.GetDelivery
 import com.example.myapplication.utils.UserManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private val authFragment = NotificationsFragment()
     private val FragmentList = arrayListOf(homeFragment, authFragment)
     private lateinit var viewPager:ViewPager2
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,9 @@ class MainActivity : AppCompatActivity() {
             override fun getItemCount() =  FragmentList.size
             override fun createFragment(position: Int)= FragmentList[position]
         }
-
+        val value = intent.getIntExtra("status",0)
+        homeFragment.status = value
+        authFragment.status = value
         // 唤起扫一扫页面
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -61,15 +61,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
         viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 navView.selectedItemId = getMenuItemId(position)
             }
         })
-
-
     }
 
     private fun getMenuItemId(position: Int): Int {
@@ -100,12 +97,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "取消扫码", Toast.LENGTH_LONG).show()
             } else {
                 GetDeliverys().getDeliveryDetial(UserManager.getInstance(this)?.phoneNumber, result.contents){
-                    detail:GetDeliverys.DeliveryDetail?,msg:String?->
-                        runOnUiThread {
+                    detail:GetDeliverys.DeliveryDetail?, msg:String? -> runOnUiThread {
                             if (detail == null){
                                 Toast.makeText(this, "失败: $msg", Toast.LENGTH_LONG).show()
                             }else{
-//                                Toast.makeText(this, "成功: " + detail?.toString(), Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@MainActivity, DeliveryActivity::class.java)
                                 intent.putExtra("detail",detail)
                                 startActivity(intent)

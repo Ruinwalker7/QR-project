@@ -8,4 +8,6 @@ public class DeliveryIdDto {
     private String id;
 
     private String status;
+
+    private String type;
 }

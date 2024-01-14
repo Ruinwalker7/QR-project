@@ -27,11 +27,11 @@ class DeliveryActivity : AppCompatActivity() {
         textView.gravity = Gravity.CENTER_VERTICAL
         var contentS:String? = "";
 
-        if(!receivedData.status.isNullOrBlank()){
+        if(receivedData.status.isNotBlank()){
             contentS += "状态："+ receivedData.status +"\n"
 
         }
-        if(!receivedData.id.isNullOrBlank()){
+        if(receivedData.id.isNotBlank()){
             contentS += "订单号："+ receivedData.id +"\n"
         }
         if(!receivedData.srcName.isNullOrBlank()){

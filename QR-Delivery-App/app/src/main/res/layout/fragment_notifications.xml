@@ -87,6 +87,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/addressLayout"
             android:layout_width="match_parent"
             android:layout_height="111dp"
             android:orientation="horizontal">

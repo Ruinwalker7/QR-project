@@ -4,15 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.utils.GetDeliverys
-
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-
-
 
 class CaptureActivity: AppCompatActivity() {
     private lateinit var barcodeScannerView: DecoratedBarcodeView
@@ -28,8 +23,6 @@ class CaptureActivity: AppCompatActivity() {
         capture.initializeFromIntent(intent, savedInstanceState)
         capture.decode()
         supportActionBar!!.hide()
-
-
     }
 
     override fun onResume() {
@@ -47,7 +40,6 @@ class CaptureActivity: AppCompatActivity() {
         capture.onDestroy()
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -60,5 +52,4 @@ class CaptureActivity: AppCompatActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return barcodeScannerView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
     }
-
 }

@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="注册"
+                android:text="快递员注册"
                 android:textColor="#Afffffff"
                 android:textSize="32sp" />
 

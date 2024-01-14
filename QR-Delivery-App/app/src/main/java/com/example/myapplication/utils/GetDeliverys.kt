@@ -1,7 +1,9 @@
 package com.example.myapplication.utils
 
 import com.example.myapplication.config.ResConfig
+import com.example.myapplication.entity.Address
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -9,9 +11,10 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.Serializable
+import java.net.HttpURLConnection
 
 class GetDeliverys {
-    data class Delivery(val id: String, val status:String)
+    data class Delivery(val id: String, val status:String,val type:String)
 
     data class DeliveryDetail(val id: String, val srcName:String,val srcAddress:String, val srcPhone:String, val dstName:String, val dstPhone:String, val dstAddress:String,
         val status: String, val type: String, val name: String, val createTime:String): Serializable
@@ -159,4 +162,44 @@ class GetDeliverys {
                 }
         }
     }
+
+    //获取某一个快递
+    fun getCustomerDeliveryDetial(phone: String?, id: String, callback: (DeliveryDetail?, String?) -> Unit){
+        val urlString = "http://notebook.szkxy.net/app/customer/deliverydetail"
+        runBlocking {
+            Fuel.get(urlString, listOf( "phone" to phone,"id" to id))
+                .responseString { _, _, result ->
+                    when(result){
+                        is Result.Success -> {
+                            val data = result.get() // 获取返回的字符串数据
+                            val jsonObject = JSONObject(data)
+                            when(jsonObject.getInt("code")){
+                                ResConfig.Code.OK ->{
+                                    try {
+                                        println(jsonObject.getString("data"))
+                                        val detail: DeliveryDetail? = Gson().fromJson(jsonObject.getString("data"), DeliveryDetail::class.java)
+                                        callback(detail,null)
+                                    } catch (e: JsonSyntaxException) {
+                                        callback(null,"获取快递信息失败")
+                                        println("Error parsing JSON: ${e.message}")
+                                    }
+                                }
+                                ResConfig.Code.NO_AUTH->   callback(null,"您没有该快递权限")
+                                else ->{
+                                    callback(null,"获取快递信息失败")
+                                }
+                            }
+                        }
+                        is Result.Failure -> {
+                            val error = result.error
+                            println("Request failed. Error: $error")
+                            callback(null,"获取快递信息失败")
+                        }
+                    }
+                }
+        }
+    }
+
+
+
 }

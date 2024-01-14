@@ -5,10 +5,14 @@ import com.example.myapplication.utils.GetDeliverys
 
 class HomeViewModel : ViewModel() {
 
-    private var myDelivery:List<GetDeliverys.Delivery>? = null
+    private var myDelivery: List<GetDeliverys.Delivery>? = null
+
+    var sendDelivery: List<GetDeliverys.Delivery>? = null
+
+    var receiveDelivery: List<GetDeliverys.Delivery>? = null
 
     // 提供公共方法以获取数据
-    fun getData(): List<GetDeliverys.Delivery>?? {
+    fun getData(): List<GetDeliverys.Delivery>? {
         return myDelivery
     }
 
