@@ -28,55 +28,55 @@
         android:usesCleartextTraffic="true"
         >
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.SignupActivity"
             android:exported="false"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".CaptureActivity"
+            android:name=".ui.CaptureActivity"
             android:exported="false"
             android:label="@string/app_name">
         </activity>
 
 
         <activity
-            android:name=".DeliveryActivity"
+            android:name=".ui.DeliveryActivity"
             android:exported="false"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="false"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".CustomerLoginActivity"
-            android:exported="false"
-            android:label="@string/app_name">
-
-        </activity>
-        <activity
-            android:name=".CustomerSignupActivity"
+            android:name=".ui.CustomerLoginActivity"
             android:exported="false"
             android:label="@string/app_name">
 
         </activity>
         <activity
-            android:name=".AllAddreessActivity"
+            android:name=".ui.CustomerSignupActivity"
             android:exported="false"
             android:label="@string/app_name">
 
         </activity>
         <activity
-            android:name=".AddressActivity"
+            android:name=".ui.AllAddreessActivity"
+            android:exported="false"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name=".ui.AddressActivity"
             android:exported="false"
             android:label="@string/app_name">
 

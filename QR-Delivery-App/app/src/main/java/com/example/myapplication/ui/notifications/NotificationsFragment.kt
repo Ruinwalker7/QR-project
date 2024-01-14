@@ -14,8 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.AllAddreessActivity
-import com.example.myapplication.LoginActivity
+import com.example.myapplication.ui.AllAddreessActivity
 import com.example.myapplication.SelectActivity
 import com.example.myapplication.databinding.FragmentNotificationsBinding
 import com.example.myapplication.utils.UserManager

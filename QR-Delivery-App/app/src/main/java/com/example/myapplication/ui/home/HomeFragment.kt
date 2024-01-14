@@ -15,9 +15,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.DeliveryActivity
+import com.example.myapplication.ui.DeliveryActivity
 import com.example.myapplication.databinding.FragmentHomeBinding
-import com.example.myapplication.utils.GetDeliverys
+import com.example.myapplication.service.DeliveryService
 import com.example.myapplication.utils.UserManager
 
 
@@ -66,10 +66,10 @@ class HomeFragment : Fragment() {
         var list1 = homeViewModel?.sendDelivery
         var list2 = homeViewModel?.receiveDelivery
 
-        GetDeliverys().getSendDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
+        DeliveryService.getSendDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
             homeViewModel?.sendDelivery = list
             list1 = list;
-            GetDeliverys().getReceiverDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
+            DeliveryService.getReceiverDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
                 homeViewModel?.receiveDelivery = list
                 list2 = list;
                 activity?.runOnUiThread(Runnable() {
@@ -81,9 +81,9 @@ class HomeFragment : Fragment() {
         }
         val button = binding.button
         button.setOnClickListener {
-            GetDeliverys().getSendDelivery(UserManager.getInstance(context)?.phoneNumber) { list1, msg ->
+            DeliveryService.getSendDelivery(UserManager.getInstance(context)?.phoneNumber) { list1, msg ->
                 homeViewModel?.sendDelivery = list1
-                GetDeliverys().getReceiverDelivery(UserManager.getInstance(context)?.phoneNumber) { list2, msg ->
+                DeliveryService.getReceiverDelivery(UserManager.getInstance(context)?.phoneNumber) { list2, msg ->
                     homeViewModel?.receiveDelivery = list2
                     activity?.runOnUiThread(Runnable() {
                         Toast.makeText(context, "刷新成功！", Toast.LENGTH_LONG).show()
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
         val context: Context = requireContext()
         val list = homeViewModel?.getData()
         if (list.isNullOrEmpty()) {
-            GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
+            DeliveryService.getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
                 if (!list.isNullOrEmpty()) {
                     homeViewModel?.setData(list)
                     activity?.runOnUiThread(Runnable() {
@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
         }
         val button = binding.button
         button.setOnClickListener {
-            GetDeliverys().getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
+            DeliveryService.getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
                 if (!list.isNullOrEmpty()) {
                     homeViewModel?.setData(list)
                     activity?.runOnUiThread(Runnable() {
@@ -136,7 +136,7 @@ class HomeFragment : Fragment() {
 
 
     // 动态添加快递信息到主页
-    private fun addDelivery(list: List<GetDeliverys.Delivery>?) {
+    private fun addDelivery(list: List<DeliveryService.Delivery>?) {
         linearLayout?.removeAllViews()
         if (list != null) {
             for (item in list) {
@@ -164,11 +164,11 @@ class HomeFragment : Fragment() {
                 textView.tag = item.id
                 textView.setTextColor(Color.BLACK)
                 textView.setOnClickListener { // 在这里编写点击事件的逻辑
-                    GetDeliverys().getDeliveryDetial(context?.let { it1 ->
+                    DeliveryService.getDeliveryDetial(context?.let { it1 ->
                         UserManager.getInstance(
                             it1
                         )?.phoneNumber
-                    }, it?.tag.toString()) { detail: GetDeliverys.DeliveryDetail?, msg: String? ->
+                    }, it?.tag.toString()) { detail: DeliveryService.DeliveryDetail?, msg: String? ->
                         activity?.runOnUiThread {
                             if (detail == null) {
                                 Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()
@@ -227,8 +227,8 @@ class HomeFragment : Fragment() {
 
     // 动态添加快递信息到主页
     private fun addDelivery(
-        list: List<GetDeliverys.Delivery>?,
-        list1: List<GetDeliverys.Delivery>?
+        list: List<DeliveryService.Delivery>?,
+        list1: List<DeliveryService.Delivery>?
     ) {
 
         linearLayout?.removeAllViews()
@@ -277,11 +277,11 @@ class HomeFragment : Fragment() {
                 textView.tag = item.id
                 textView.setTextColor(Color.BLACK)
                 textView.setOnClickListener { // 在这里编写点击事件的逻辑
-                    GetDeliverys().getCustomerDeliveryDetial(context?.let { it1 ->
+                    DeliveryService.getCustomerDeliveryDetial(context?.let { it1 ->
                         UserManager.getInstance(
                             it1
                         )?.phoneNumber
-                    }, it?.tag.toString()) { detail: GetDeliverys.DeliveryDetail?, msg: String? ->
+                    }, it?.tag.toString()) { detail: DeliveryService.DeliveryDetail?, msg: String? ->
                         activity?.runOnUiThread {
                             if (detail == null) {
                                 Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()
@@ -335,11 +335,11 @@ class HomeFragment : Fragment() {
                 textView.tag = item.id
                 textView.setTextColor(Color.BLACK)
                 textView.setOnClickListener { // 在这里编写点击事件的逻辑
-                    GetDeliverys().getCustomerDeliveryDetial(context?.let { it1 ->
+                    DeliveryService.getCustomerDeliveryDetial(context?.let { it1 ->
                         UserManager.getInstance(
                             it1
                         )?.phoneNumber
-                    }, it?.tag.toString()) { detail: GetDeliverys.DeliveryDetail?, msg: String? ->
+                    }, it?.tag.toString()) { detail: DeliveryService.DeliveryDetail?, msg: String? ->
                         activity?.runOnUiThread {
                             if (detail == null) {
                                 Toast.makeText(context, "失败: $msg", Toast.LENGTH_LONG).show()

@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="快递员注册"
+                android:text="用户注册"
                 android:textColor="#Afffffff"
                 android:textSize="32sp" />
 
@@ -146,41 +146,6 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:text="身份证："
-                android:textColor="#9fffffff"
-                android:textSize="23sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="#96ffffff"
-                android:theme="@style/EditScreenTextInputLayoutStyle">
-
-                <EditText
-                    android:id="@+id/idCard_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:drawableEnd="@drawable/pass"
-                    android:drawablePadding="16dp"
-                    android:filterTouchesWhenObscured="false"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:fontFamily="@font/calibri"
-                    android:inputType="textPhonetic"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

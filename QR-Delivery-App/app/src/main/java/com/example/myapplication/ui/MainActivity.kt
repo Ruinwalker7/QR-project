@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.home.HomeFragment
 import com.example.myapplication.ui.notifications.NotificationsFragment
-import com.example.myapplication.utils.GetDeliverys
+import com.example.myapplication.service.DeliveryService
 import com.example.myapplication.utils.UserManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val authFragment = NotificationsFragment()
     private val FragmentList = arrayListOf(homeFragment, authFragment)
-    private lateinit var viewPager:ViewPager2
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +38,12 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         navView.selectedItemId = R.id.navigation_home
 
-        viewPager=findViewById(R.id.view_pager)
-        viewPager.adapter = object : FragmentStateAdapter(this){
-            override fun getItemCount() =  FragmentList.size
-            override fun createFragment(position: Int)= FragmentList[position]
+        viewPager = findViewById(R.id.view_pager)
+        viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount() = FragmentList.size
+            override fun createFragment(position: Int) = FragmentList[position]
         }
-        val value = intent.getIntExtra("status",0)
+        val value = intent.getIntExtra("status", 0)
         homeFragment.status = value
         authFragment.status = value
         // 唤起扫一扫页面
@@ -78,34 +79,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce ) {
+        if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             return
         }
 
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show()
-        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000) // 2秒内再次按返回键生效
+        Handler(Looper.getMainLooper()).postDelayed(
+            { doubleBackToExitPressedOnce = false },
+            2000
+        ) // 2秒内再次按返回键生效
     }
 
     // 处理扫描二维码的回调函数
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
                 Toast.makeText(this, "取消扫码", Toast.LENGTH_LONG).show()
             } else {
-                GetDeliverys().getDeliveryDetial(UserManager.getInstance(this)?.phoneNumber, result.contents){
-                    detail:GetDeliverys.DeliveryDetail?, msg:String? -> runOnUiThread {
-                            if (detail == null){
-                                Toast.makeText(this, "失败: $msg", Toast.LENGTH_LONG).show()
-                            }else{
-                                val intent = Intent(this@MainActivity, DeliveryActivity::class.java)
-                                intent.putExtra("detail",detail)
-                                startActivity(intent)
-                            }
+                DeliveryService.getDeliveryDetial(
+                    UserManager.getInstance(this)?.phoneNumber,
+                    result.contents
+                ) { detail: DeliveryService.DeliveryDetail?, msg: String? ->
+                    runOnUiThread {
+                        if (detail == null) {
+                            Toast.makeText(this, "失败: $msg", Toast.LENGTH_LONG).show()
+                        } else {
+                            val intent = Intent(this@MainActivity, DeliveryActivity::class.java)
+                            intent.putExtra("detail", detail)
+                            startActivity(intent)
                         }
+                    }
                 }
             }
         } else {

@@ -1,81 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.AddressActivity"
+    android:background="#e0e0e0">
 
-
-    <EditText
-        android:id="@+id/editTextTextPhonetic"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:drawableEnd="@drawable/telephone_24"
-        android:drawablePadding="16dp"
-        android:filterTouchesWhenObscured="false"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/calibri"
-        android:inputType="textPhonetic"
-        android:maxLines="1"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/good_morning_img" />
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:orientation="horizontal"
-        >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:text="快递员注册"
-                android:textColor="#Afffffff"
-                android:textSize="32sp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
+        android:text="新建联系人地址"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
-        android:paddingRight="32dp">
-
+        android:paddingRight="32dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -84,8 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="姓  \t 名："
-                android:textColor="#9fffffff"
+                android:text="姓   名："
+                android:textColor="#9f000000"
                 android:textSize="23sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -95,18 +49,17 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
-                    android:id="@+id/name_register"
+                    android:id="@+id/address_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:drawableEnd="@drawable/name"
-                    android:drawablePadding="12dp"
+                    android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/calibri"
                     android:inputType="textPhonetic"
                     android:maxLines="1"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -120,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="手机号："
-                android:textColor="#9fffffff"
+                android:textColor="#9f000000"
                 android:textSize="23sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -130,10 +83,9 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
-                    android:id="@+id/phone_register"
+                    android:id="@+id/address_phone_et"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:drawableEnd="@drawable/telephone_24"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
@@ -141,7 +93,7 @@
                     android:fontFamily="@font/calibri"
                     android:inputType="textPhonetic"
                     android:maxLines="1"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -155,8 +107,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="身份证："
-                android:textColor="#9fffffff"
+                android:text="      省："
+                android:textColor="#9f000000"
                 android:textSize="23sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -166,10 +118,9 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
-                    android:id="@+id/idCard_register"
+                    android:id="@+id/address_province_et"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:drawableEnd="@drawable/pass"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
@@ -177,7 +128,7 @@
                     android:fontFamily="@font/calibri"
                     android:inputType="textPhonetic"
                     android:maxLines="1"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -190,8 +141,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
-                android:text="密 \t  码："
-                android:textColor="#9fffffff"
+                android:text="      市："
+                android:textColor="#9f000000"
                 android:textSize="23sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -201,10 +152,9 @@
                 android:theme="@style/EditScreenTextInputLayoutStyle">
 
                 <EditText
-                    android:id="@+id/psd_register"
+                    android:id="@+id/address_city_et"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:drawableEnd="@drawable/pass"
                     android:drawablePadding="16dp"
                     android:filterTouchesWhenObscured="false"
                     android:focusable="true"
@@ -212,11 +162,78 @@
                     android:fontFamily="@font/calibri"
                     android:inputType="textPhonetic"
                     android:maxLines="1"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="县（区）："
+                android:textColor="#9f000000"
+                android:textSize="23sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#96ffffff"
+                android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                <EditText
+                    android:id="@+id/address_distinct_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawablePadding="16dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/calibri"
+                    android:inputType="textPhonetic"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="详细地址："
+                android:textColor="#9f000000"
+                android:textSize="23sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#96ffffff"
+                android:theme="@style/EditScreenTextInputLayoutStyle">
+
+                <EditText
+                    android:id="@+id/address_detail_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawablePadding="16dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/calibri"
+                    android:inputType="textPhonetic"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -227,15 +244,15 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/sign_btn"
+                android:id="@+id/save_address"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/buttonshapewhitebg"
+                android:background="@drawable/buttonshapeblackbg"
                 android:fontFamily="@font/calibri"
-                android:text="注册"
+                android:text="保存"
                 android:textAllCaps="false"
-                android:textColor="#9fffffff"
+                android:textColor="#9f000000"
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -243,35 +260,4 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/calibri"
-            android:gravity="center"
-            android:text="已经注册？"
-            android:textColor="#9affffff"
-            android:textSize="15sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/rtlogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/calibri"
-            android:gravity="center"
-            android:text="现在登录"
-            android:textColor="#18D0DE"
-            android:textColorLink="@color/black"
-            android:textSize="15sp"
-            tools:ignore="SmallSp" />
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

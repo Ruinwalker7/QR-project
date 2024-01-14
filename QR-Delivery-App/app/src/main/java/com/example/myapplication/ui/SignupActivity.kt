@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.utils.Login
+import com.example.myapplication.R
+import com.example.myapplication.service.LoginService
 
 
 class SignupActivity : AppCompatActivity() {
@@ -78,7 +79,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun attemptRegister(username: String, phone: String, password: String, id: String) {
-        Login.register(username, phone, password, id) { msg: String? ->
+        LoginService.register(username, phone, password, id) { msg: String? ->
             runOnUiThread {
                 if (!msg.isNullOrEmpty()) {
                     Toast.makeText(this@SignupActivity, msg, Toast.LENGTH_SHORT).show()

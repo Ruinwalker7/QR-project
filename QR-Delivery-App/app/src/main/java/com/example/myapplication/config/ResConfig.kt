@@ -8,7 +8,7 @@ class ResConfig {
         /**
          * 请求成功
          */
-        const val SUCCESS = 0
+        const val OK = 0
 
         /**
          * 请求失败
@@ -33,24 +33,10 @@ class ResConfig {
         /**
          * OK
          */
-        const val OK = 0
         const val USER_ERROR = 2000
         const val PASS_ERROR = 2001
         const val CODE_ERROR = 2002
         const val NO_AUTH = 3000
-    }
-
-    /**
-     *
-     * 响应消息常量类
-     *
-     */
-    object Msg {
-        /**
-         * 服务器端异常提示消息
-         */
-        const val SERVER_ERROR = "服务器端发生异常...."
-        const val LOGIN_ERROR = "用户名或密码错误"
     }
 }
 

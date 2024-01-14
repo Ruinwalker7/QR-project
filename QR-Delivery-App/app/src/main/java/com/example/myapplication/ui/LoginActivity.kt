@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,7 +10,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.utils.Login
+import com.example.myapplication.R
+import com.example.myapplication.service.LoginService
 import com.example.myapplication.utils.UserManager
 
 class LoginActivity : AppCompatActivity() {
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         phone_et = findViewById(R.id.phone_et)
         phone_et.hint = "电话"
-        phone_et.setOnFocusChangeListener{ view, hasFocus ->
+        phone_et.setOnFocusChangeListener{ _, hasFocus ->
             if(hasFocus){
                 phone_et.hint=""
             }
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
 
         password_et = findViewById(R.id.pwd_et)
         password_et.hint = "密码"
-        password_et.setOnFocusChangeListener{ view, hasFocus ->
+        password_et.setOnFocusChangeListener{ _, hasFocus ->
             if(hasFocus){
                 password_et.hint=""
             }
@@ -61,10 +62,10 @@ class LoginActivity : AppCompatActivity() {
             attemptLogin(savedPhone,savedPassword)
         }
 
-        var login_bte = findViewById<Button>(R.id.login_btn)
-        login_bte.setOnClickListener{
-            val phone: String = phone_et.getText().toString()
-            val psd: String = password_et.getText().toString()
+        val loginButton = findViewById<Button>(R.id.login_btn)
+        loginButton.setOnClickListener{
+            val phone: String = phone_et.text.toString()
+            val psd: String = password_et.text.toString()
             if(phone == ""){
                 Toast.makeText(this, "请输入电话", Toast.LENGTH_SHORT).show()
             }else if (psd==""){
@@ -82,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun attemptLogin(username: String, password: String) {
-        Login.login(username, password){
+        LoginService.login(username, password){
             deliveryman, msg ->
                 runOnUiThread{
                     if (deliveryman != null){

@@ -1,8 +1,5 @@
 package com.example.myapplication.utils
 
-
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
