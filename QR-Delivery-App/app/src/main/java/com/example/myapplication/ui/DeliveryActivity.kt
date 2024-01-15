@@ -28,27 +28,27 @@ class DeliveryActivity : AppCompatActivity() {
         textView.gravity = Gravity.CENTER_VERTICAL
         var contentS:String? = "";
 
-        if(receivedData.status.isNotBlank()){
+        if(receivedData.status?.isNotBlank() == true){
             contentS += "状态："+ receivedData.status +"\n"
 
         }
-        if(receivedData.id.isNotBlank()){
+        if(receivedData.id?.isNotBlank() == true){
             contentS += "订单号："+ receivedData.id +"\n"
         }
-        if(receivedData.srcName.isNotBlank()){
+        if(receivedData.srcName?.isNotBlank()== true){
             contentS += "发件人："+ receivedData.srcName +"\n"
             contentS += "发件人手机："+ receivedData.srcPhone +"\n"
             contentS += "发件人地址："+ receivedData.srcAddress +"\n"
         }
-        if(receivedData.dstName.isNotBlank()){
+        if(receivedData.dstName?.isNotBlank()== true){
             contentS += "收件人："+ receivedData.dstName +"\n"
             contentS += "收件人手机："+ receivedData.dstPhone +"\n"
             contentS += "收件人地址："+ receivedData.dstAddress +"\n"
         }
-        if (receivedData.createTime.isNotBlank()){
+        if (receivedData.createTime?.isNotBlank()== true){
             contentS += "发货时间："+ receivedData.createTime +"\n"
         }
-        if (receivedData.type.isNotBlank()){
+        if (receivedData.type?.isNotBlank()== true){
             contentS += "快递类型："+ receivedData.type +"\n"
         }
         textView.setText(contentS)

@@ -2,6 +2,7 @@ package com.example.myapplication.service
 
 import com.example.myapplication.config.ResConfig
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -9,22 +10,23 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.Serializable
+import java.net.HttpURLConnection
 
 class DeliveryService {
     data class Delivery(val id: String, val status: String, val type: String)
 
     data class DeliveryDetail(
-        val id: String,
-        val srcName: String,
-        val srcAddress: String,
-        val srcPhone: String,
-        val dstName: String,
-        val dstPhone: String,
-        val dstAddress: String,
-        val status: String,
-        val type: String,
-        val name: String,
-        val createTime: String
+        val id: String?,
+        val srcName: String?,
+        val srcAddress: String?,
+        val srcPhone: String?,
+        val dstName: String?,
+        val dstPhone: String?,
+        val dstAddress: String?,
+        val status: String?,
+        val type: String?,
+        val name: String?,
+        val createTime: String?
     ) : Serializable
 
     companion object {
@@ -64,6 +66,43 @@ class DeliveryService {
                                 val error = result.error
                                 println("Request failed. Error: $error")
                                 callback(null, "获取快递列表失败")
+                            }
+                        }
+                    }
+            }
+        }
+
+        fun addDelivery(delivery: com.example.myapplication.entity.Delivery, callback: (msg: String?) -> Unit) {
+            val urlString = "http://notebook.szkxy.net/app/customer/adddelivery"
+            runBlocking {
+                Fuel.post(urlString).jsonBody(Gson().toJson(delivery))
+                    .responseString { _, response, result ->
+                        when (result) {
+                            is Result.Success -> {
+                                val data = result.get() // 获取返回的字符串数据
+                                // Code 为 200 表示成功
+                                println("Request successful. Response data: $data")
+                                val jsonObject = JSONObject(data)
+                                when (jsonObject.getInt("code")) {
+                                    ResConfig.Code.OK -> {
+                                        try {
+                                            callback(null)
+                                        } catch (e: JsonSyntaxException) {
+                                            println("Error parsing JSON: ${e.message}")
+                                        }
+                                    }
+                                    else -> {
+                                        callback("无法创建快递")
+                                    }
+                                }
+                            }
+                            is Result.Failure -> {
+                                val error = result.error
+                                println("Request failed. Error: $error")
+                                when (response.statusCode) {
+                                    HttpURLConnection.HTTP_INTERNAL_ERROR -> callback("服务器错误")
+                                    else -> callback("无法创建快递")
+                                }
                             }
                         }
                     }

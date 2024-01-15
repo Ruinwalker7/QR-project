@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.ui.DeliveryActivity
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.service.DeliveryService
+import com.example.myapplication.ui.SendDeliveryActivity
 import com.example.myapplication.utils.UserManager
 
 
@@ -100,7 +101,7 @@ class HomeFragment : Fragment() {
         val context: Context = requireContext()
         val list = homeViewModel?.getData()
         if (list.isNullOrEmpty()) {
-            DeliveryService.getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, msg ->
+            DeliveryService.getDelivery(UserManager.getInstance(context)?.phoneNumber) { list, _ ->
                 if (!list.isNullOrEmpty()) {
                     homeViewModel?.setData(list)
                     activity?.runOnUiThread(Runnable() {
@@ -243,6 +244,10 @@ class HomeFragment : Fragment() {
         gradientDrawable.setColor(Color.rgb(171, 229, 245)) // 背景颜色
         gradientDrawable.setStroke(4, Color.rgb(230, 230, 250)) // 边框宽度和颜色
         button.background = gradientDrawable
+        button.setOnClickListener {
+            val intent = Intent(context, SendDeliveryActivity::class.java)
+            startActivity(intent)
+        }
         linearLayout?.addView(button, layoutParams3)
         if (list != null) {
             val textView = TextView(context)

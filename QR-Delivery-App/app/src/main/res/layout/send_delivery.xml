@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:stv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LoginActivity"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="329dp"
+        android:layout_height="568dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.allen.library.SuperTextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            stv:sCenterBottomTextColor="@color/colorAccent"
+            stv:sCenterTextSize="30dp"
+            stv:sCenterTextString="寄个快递"
+            stv:sCenterViewGravity="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="46dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/super1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            stv:sCenterTopTextString=" "
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftIconRes="@drawable/send"
+            stv:sLeftTopTextSize="18dp"
+            stv:sLeftTopTextString="请选择发件人！"
+            stv:sLeftViewGravity="left_center"
+            stv:sRightIconRes="@drawable/right"
+            stv:sShapeCornersRadius="20dp"
+            stv:sShapeSolidColor="#f2f2f2"
+            stv:sUseShape="true" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="46dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/super2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            stv:sBackgroundDrawableRes="@color/zxing_viewfinder_laser"
+            stv:sCenterBottomTextColor="@color/colorAccent"
+            stv:sCenterTopTextString=" "
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftIconRes="@drawable/receive"
+            stv:sLeftTopTextSize="18dp"
+            stv:sLeftTopTextString="请选择收件人！"
+            stv:sLeftViewGravity="left_center"
+            stv:sRightIconRes="@drawable/right"
+            stv:sShapeCornersRadius="20dp"
+            stv:sShapeSolidColor="#f2f2f2"
+            stv:sUseShape="true" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/a123123123"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="快递类型："
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/deliverytype"
+                android:layout_width="252dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:text="" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/send_delivery_bottom"
+        android:layout_width="263dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="36dp"
+        android:background="#120ff0f0"
+        android:fontFamily="@font/calibri"
+        android:text="发送快递"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

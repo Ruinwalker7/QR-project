@@ -12,13 +12,14 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginBottom
 import com.example.myapplication.R
 import com.example.myapplication.entity.Address
 import com.example.myapplication.service.AddressService
 import com.example.myapplication.utils.UserManager
+import com.google.gson.Gson
 
-class AllAddreessActivity : AppCompatActivity() {
+
+class SelectAddressActivity : AppCompatActivity() {
 
     private var linearLayout: LinearLayout? = null
     private val layoutParams1 = LinearLayout.LayoutParams(
@@ -108,6 +109,12 @@ class AllAddreessActivity : AppCompatActivity() {
                 layout.addView(textView)
                 layout.addView(addressTextView)
 
+                layout.setOnClickListener {
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("item", Gson().toJson(item)) // yourData是你想返回的数据
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+                }
                 val view = View(this)
 
                 linearLayout?.addView(layout)
