@@ -23,7 +23,7 @@ public class DeliveryEntity {
 
     private String type;
 
-    private long deliverymanId;
+    private Long deliverymanId;
 
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

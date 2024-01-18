@@ -14,6 +14,7 @@ import com.chen.qrcode.dto.DeliveryDto;
 import com.chen.qrcode.dto.DeliveryIdDto;
 import com.chen.qrcode.entity.AddressEntity;
 import com.chen.qrcode.entity.CustomerEntity;
+import com.chen.qrcode.entity.DeliveryEntity;
 import com.chen.qrcode.entity.DeliverymanEntity;
 import com.chen.qrcode.service.impl.CustomerServiceImpl;
 import com.chen.qrcode.service.impl.DeliveryServiceImpl;
@@ -201,6 +202,28 @@ public class AppCustomerControlller {
     public String getDeliveryDetail(@RequestBody AddressEntity address){
 
         int res = addressDao.insert(address);;
+        if (res != 0) {
+            jsonResponse.setCode(ResConfig.Code.OK);
+            jsonResponse.setMessage("");
+            jsonResponse.setData("");
+        } else {
+            jsonResponse.setCode(ResConfig.Code.EXISTS);
+            jsonResponse.setMessage(ResConfig.Msg.EXIST_ERROR);
+            jsonResponse.setData("");
+        }
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(jsonResponse);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    @PostMapping("/adddelivery")
+    public String insertDelivery(@RequestBody DeliveryEntity deliveryEntity){
+        deliveryEntity.setDeliverymanId(null);
+        int res = deliveryDao.insert(deliveryEntity);;
         if (res != 0) {
             jsonResponse.setCode(ResConfig.Code.OK);
             jsonResponse.setMessage("");
