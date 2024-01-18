@@ -95,9 +95,9 @@
             page: true,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', fixed: 'left', minWidth:150, title: '编号'},
-                {field:'name', minWidth:50, title: '发件人姓名'},
-                {field:'phone',  title: '收件人姓名',minWidth:120},
+                {field:'id', fixed: 'left', minWidth:150, title: 'ID'},
+                {field:'name', minWidth:50, title: '姓名'},
+                {field:'phone',  title: '电话号码',minWidth:120},
                 {field:'province', minWidth:100, title: '省'},
                 {field:'city', minWidth:100, title: '市'},
                 {field:'county', title:'县',minWidth:100},

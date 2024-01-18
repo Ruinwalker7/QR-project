@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.allen.library.SuperTextView
@@ -38,6 +40,7 @@ class SendDeliveryActivity  : AppCompatActivity() {
 
         supertext1  = findViewById(R.id.super1)
         supertext2  = findViewById(R.id.super2)
+        var textView:EditText = findViewById(R.id.deliverytype)
         supertext1?.setOnSuperTextViewClickListener {
 
             val intent = Intent(this, SelectAddressActivity::class.java)
@@ -52,18 +55,18 @@ class SendDeliveryActivity  : AppCompatActivity() {
         val button = findViewById<Button>(R.id.send_delivery_bottom)
         button.setOnClickListener {
             if (sendAddress != null && receiveAddress != null){
-                var delivery = Delivery(null,sendAddress?.id,receiveAddress?.id,"待揽件","12312312",null,null,null )
+                var s = textView.text.toString()
+                var delivery = Delivery(null,sendAddress?.id,receiveAddress?.id,"待揽件",s,null,null,null )
                 DeliveryService.addDelivery(delivery){
                     msg ->
-                    if(msg==null){
-                        Toast.makeText(this, "发送成功！", Toast.LENGTH_SHORT).show()
-
-
-                        finish()
-                    }else{
-                        Toast.makeText(this, "服务器错误！", Toast.LENGTH_SHORT).show()
+                    runOnUiThread {
+                        if(msg==null){
+                            Toast.makeText(this, "发送成功！", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }else{
+                            Toast.makeText(this, "服务器错误！", Toast.LENGTH_SHORT).show()
+                        }
                     }
-
                 }
             }
 

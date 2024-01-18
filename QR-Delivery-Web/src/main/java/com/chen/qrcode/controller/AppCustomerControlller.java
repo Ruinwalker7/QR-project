@@ -239,6 +239,7 @@ public class AppCustomerControlller {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        System.out.println(json);
         return json;
     }
 }

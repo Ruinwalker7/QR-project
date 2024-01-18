@@ -55,7 +55,6 @@ class DeliveryService {
                                             println("Error parsing JSON: ${e.message}")
                                         }
                                     }
-
                                     else -> {
                                         callback(null, "获取快递列表失败")
                                     }
@@ -80,7 +79,6 @@ class DeliveryService {
                         when (result) {
                             is Result.Success -> {
                                 val data = result.get() // 获取返回的字符串数据
-                                // Code 为 200 表示成功
                                 println("Request successful. Response data: $data")
                                 val jsonObject = JSONObject(data)
                                 when (jsonObject.getInt("code")) {
